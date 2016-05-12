@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>index</title>
+	</head>
+	<body>
+
+		<div class="main-section" ng-controller="Ctrl as ctrl">
+
+			<h1>Dude</h1>
+
+			<h2>Currently {{ mates.length }} Mates are waiting for you</h2>
+
+			<div ng-if="mates.length > 0">
+				<ul>
+					<li ng-repeat="mate in mates">
+						<img height="30px;" src="{{mate.pic}}"/>
+						{{ mate.name }} <a href="" ng-click="ctrl.remove(mate._id)">Remove</a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<!--<compose-email></compose-email>-->
+
+		<br>
+		------
+		<br>
+		<br>
+		<br>
+		------
+		<br>
+		<br>
+		<br>
+		------
+		<br>
+
+		<section>
+			<ul>
+				<li>
+					<a class="open-bar" href="#">Create Mate</a>
+					<div class="create-bar" style="display: none;">
+						<input class="name" value="john smith"/>
+						<a href="#" class="create">Create</a>
+					</div>
+				</li>
+				<li><a class="refresh" href="#">Show List</a></li>
+			</ul>
+			<h2>List</h2>
+			<ul class="mates-list"></ul>
+		</section>
+
+		<script src="js/3p/require.js" data-main="js/rconfig.js"></script>
+
+	</body>
+</html>

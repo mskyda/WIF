@@ -1,0 +1,33 @@
+{
+	"name": "WIF",
+	"version": "1.0.0",
+	"description": "NodeJS application",
+	"keywords": [
+		"Node.js",
+		"application"
+	],
+	"author": {
+		"name": "Misha Skida",
+		"email": "mihail.skida@gmail.com"
+	},
+	"engines": {
+		"node": ">= 4x.x",
+		"npm": ">= 2.x.x"
+	},
+	"dependencies": {
+		"express": ">=4.13.x",
+		"mongoose": ">=4.0.x",
+		"nconf": ">=0.7.x",
+		"winston": ">=1.0.x",
+		"serve-favicon": ">=2.3.x",
+		"morgan": ">=1.6.x",
+		"method-override": ">=2.3.x",
+		"express-session": ">=1.11.x",
+		"body-parser": ">=1.13.x",
+		"multer": ">=0.1.x"
+	},
+	"devDependencies": {},
+	"bundleDependencies": [],
+	"private": true,
+	"start": "node server.js"
+}

@@ -1,0 +1,4 @@
+http://habrahabr.ru/post/193458/
+https://developers.google.com/maps/documentation/javascript/tutorial?hl=ru
+http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/
+http://habrahabr.ru/post/193158/
