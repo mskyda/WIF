@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>index</title>
+		<title>WIF</title>
+		<link rel="stylesheet" media="all" type="text/css" href="css/style.css">
 	</head>
 	<body>
 
@@ -10,20 +11,20 @@
 
 			<h1>Dude</h1>
 
-			<h2>Currently {{ mates.length }} Mates are waiting for you</h2>
+			<h2>Currently {{ spots.length }} Spots are waiting for you</h2>
 
-			<div ng-if="mates.length > 0">
+			<div ng-if="spots.length > 0">
 				<ul>
-					<li ng-repeat="mate in mates">
-						<img height="30px;" src="{{mate.pic}}"/>
-						{{ mate.name }} <a href="" ng-click="ctrl.remove(mate._id)">Remove</a>
+					<li ng-repeat="spot in spots">
+						<img height="30px;" src="{{spot.pic}}"/>
+						{{ spot.name }} <a href="" ng-click="ctrl.remove(spot._id)">Remove</a>
 					</li>
 				</ul>
 			</div>
 
-		</div>
+			<div id="map"></div>
 
-		<!--<compose-email></compose-email>-->
+		</div>
 
 		<br>
 		------
@@ -40,18 +41,19 @@
 		<section>
 			<ul>
 				<li>
-					<a class="open-bar" href="#">Create Mate</a>
+					<a class="open-bar" href="#">Create Spot</a>
 					<div class="create-bar" style="display: none;">
-						<input class="name" value="john smith"/>
+						<input class="name" value="best place"/>
 						<a href="#" class="create">Create</a>
 					</div>
 				</li>
 				<li><a class="refresh" href="#">Show List</a></li>
 			</ul>
 			<h2>List</h2>
-			<ul class="mates-list"></ul>
+			<ul class="spots-list"></ul>
 		</section>
 
+		<script src="http://maps.googleapis.com/maps/api/js"></script>
 		<script src="js/3p/require.js" data-main="js/rconfig.js"></script>
 
 	</body>
