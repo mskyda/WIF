@@ -56,10 +56,7 @@ function oldClient(){
 		mockup: {
 			name: 'john smith',
 			desc: 'regular guy blabla',
-			coords: {lat: 53.551202, lon: 10.002056},
-			pic: 'https://upload.wikimedia.org/wikipedia/en/5/5c/Spongebob-squarepants.png',
-			contact: {phone : '', email: 'sf@sf.com', skype: ''},
-			duration: 10 * 60 * 1000 // '10m'
+			coords: {lat: 53.551202, lon: 10.002056}
 		},
 
 		init: function(){
@@ -120,7 +117,6 @@ function oldClient(){
 
 		createSpot: function(json){
 			return '<li>'
-				+ '<img height="30px;" src="' + json.pic + '"/>'
 				+ json.name
 				+ ' <a class="delete" data-id="' + json._id + '" href="#">delete</a>'
 				+ ' <a class="details" data-id="'+ json._id + '" href="#">details</a>'
@@ -182,15 +178,47 @@ function map(){
 
 	function showMap(position) {
 
+		var lat = position.coords ? position.coords.latitude : position.lat,
+			lng = position.coords ? position.coords.longitude : position.lng;
+
 		var Map = new google.maps.Map(document.getElementById("map"), {
-			center:new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+			center:new google.maps.LatLng(lat, lng),
 			zoom: 13,
 			mapTypeId:google.maps.MapTypeId.ROADMAP
 		});
 
+		jQuery('.closest-spots').removeClass('hide');
+
 	}
 
-	navigator.geolocation.getCurrentPosition(showMap);
+	jQuery('.location-controls .geolocation').click(function(e){
+
+		e.preventDefault();
+
+		navigator.geolocation.getCurrentPosition(showMap);
+
+	});
+
+	jQuery('.location-controls .geocoding').click(function(e){
+
+		e.preventDefault();
+
+		var address = jQuery('.location-controls .address').val();
+
+		if(!address) return; // todo input validation
+
+		jQuery.ajax({
+			method: "POST",
+			url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0'
+		}).done(function(resp){
+
+			// todo: results selection
+
+			showMap(resp.results[0].geometry.location);
+
+		});
+
+	});
 
 }
 

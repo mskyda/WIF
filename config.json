@@ -1,6 +1,0 @@
-{
-    "port" : 1337,
-    "mongoose": {
-        "uri": "mongodb://mskyda:password123@ds011412.mlab.com:11412/wif"
-    }
-}

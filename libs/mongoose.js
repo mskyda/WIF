@@ -1,8 +1,9 @@
 var mongoose    = require('mongoose');
 var log         = require('./log')(module);
-var config      = require('./config');
+/*var uri = 'mongodb://8739ce8925a02561abee68067be1da8a:mishgun_fdafe@eu-1.evennode.com/8739ce8925a02561abee68067be1da8a?replicaSet=rs0';*/
+var uri = 'mongodb://mskyda:password123@ds011412.mlab.com:11412/wif';
 
-mongoose.connect(config.get('mongoose:uri'));
+mongoose.connect(uri);
 
 var db = mongoose.connection;
 

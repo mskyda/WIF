@@ -3,7 +3,6 @@ var express         = require('express'),
 	path            = require('path'),
 	bodyParser      = require('body-parser'),
 	log             = require('./libs/log')(module),
-	config          = require('./libs/config'),
 	Spot            = require('./libs/mongoose').SpotModel,
 	app             = express();
 
@@ -17,7 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get('/api/spots', function(req, res) {
 
-	Spot.find({}, 'name pic', function (err, spots) {
+	Spot.find({}, 'name coords', function (err, spots) {
         if (!err) {
 			log.info("spots list returned");
             return res.send(spots);
@@ -54,8 +53,7 @@ app.post('/api/spot', function(req, res) {
 	var spot = new Spot({
 		name    : req.body.name,
 		desc    : req.body.desc,
-		coords  : req.body.coords,
-		pic     : req.body.pic
+		coords  : req.body.coords
 	});
 
 	spot.save(function (err) {
@@ -90,7 +88,6 @@ app.put('/api/spot/:id', function (req, res){ // update
 		spot.name     = req.body.name;
 		spot.desc     = req.body.desc;
 		spot.coords   = req.body.coords;
-		spot.pic      = req.body.pic;
 
 		spot.save(function (err) {
 			if (!err) {
@@ -146,7 +143,7 @@ app.use(function(err, req, res){ // error
 	res.send({ error: err.message });
 });
 
-var port = process.env.PORT || config.get('port');
+var port = process.env.PORT || 1337;
 
 app.listen(port, function(){
     log.info('Express server listening on port ' + port);

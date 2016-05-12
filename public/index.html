@@ -7,53 +7,49 @@
 	</head>
 	<body>
 
-		<div class="main-section" ng-controller="Ctrl as ctrl">
+		<div id="app" ng-controller="Ctrl as ctrl">
 
-			<h1>Dude</h1>
-
-			<h2>Currently {{ spots.length }} Spots are waiting for you</h2>
-
-			<div ng-if="spots.length > 0">
-				<ul>
-					<li ng-repeat="spot in spots">
-						<img height="30px;" src="{{spot.pic}}"/>
-						{{ spot.name }} <a href="" ng-click="ctrl.remove(spot._id)">Remove</a>
-					</li>
+			<div id="header" class="wrapper">
+				<h1 class="logo">WIF logo</h1>
+				<h2 class="slogan">Dude, {{ spots.length }} cool Spots are waiting for you</h2>
+				<ul class="tabs">
+					<li><a href="#">Tab 1 - Search spot</a></li>
+					<li><a href="#" class="create">Tab 2 - Create spot</a></li>
+					<li><a href="#">Tab 3 - About</a></li>
 				</ul>
 			</div>
 
-			<div id="map"></div>
+			<div id="main">
+
+				<div class="closest-spots hide wrapper" ng-if="spots.length > 0">
+					<h2>Closest spots:</h2>
+					<ul>
+						<li ng-repeat="spot in spots">
+							{{ spot.name }} X km<!--<a href="#" ng-click="ctrl.remove(spot._id)">Remove</a> -->
+						</li>
+					</ul>
+				</div>
+
+				<div id="map">
+
+					<ul class="location-controls wrapper">
+						<li>
+							<h2>Let us know about your location</h2>
+							<a href="#" class="geolocation go-link">Go!</a>
+						</li>
+						<li>
+							<input type="text" class="address" placeholder="Or click here and type address" />
+							<a href="#" class="geocoding go-link">Go!</a>
+						</li>
+					</ul>
+
+				</div>
+
+			</div>
 
 		</div>
 
-		<br>
-		------
-		<br>
-		<br>
-		<br>
-		------
-		<br>
-		<br>
-		<br>
-		------
-		<br>
-
-		<section>
-			<ul>
-				<li>
-					<a class="open-bar" href="#">Create Spot</a>
-					<div class="create-bar" style="display: none;">
-						<input class="name" value="best place"/>
-						<a href="#" class="create">Create</a>
-					</div>
-				</li>
-				<li><a class="refresh" href="#">Show List</a></li>
-			</ul>
-			<h2>List</h2>
-			<ul class="spots-list"></ul>
-		</section>
-
-		<script src="http://maps.googleapis.com/maps/api/js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0" type="text/javascript"></script>
 		<script src="js/3p/require.js" data-main="js/rconfig.js"></script>
 
 	</body>

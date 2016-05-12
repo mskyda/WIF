@@ -1,12 +1,105 @@
+
+/* CSS-reset */
+
 html,
 body{
 	margin: 0;
 	height: 100%;
 	min-height: 600px;
 	min-width: 800px;
+	font: 12px/16px Arial, Helvetica, sans-serif;
+	color: #333;
+}
+a{text-decoration: none;}
+input{color: #333;}
+::-webkit-input-placeholder {color: #333;}
+:-moz-placeholder {
+	color:    #333;
+	opacity:  1;
+}
+::-moz-placeholder {
+	color:    #333;
+	opacity:  1;
+}
+:-ms-input-placeholder{color: #333;}
+ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.wrapper{
+	width: 100%;
+	overflow: hidden;
+}
+.hide{
+	display: none !important;
 }
 
-#map{
-	width: 100%;
-	height: 200px;
+/*end CSS-reset*/
+#app{height: 100%;}
+#main{height: calc(100% - 60px);}
+#header{
+	border-bottom: 1px solid #ccc;
+	height: 40px;
+	padding: 20px 0 0;
 }
+.header-holder{padding: 20px 0 10px;}
+#header .logo,
+#header .slogan{
+	float: left;
+	margin: 0 10px;
+}
+#header .tabs{
+	float: right;
+	font: 16px/16px Arial, Helvetica, sans-serif;
+}
+#header .tabs li{
+	float: left;
+	padding: 0 10px;
+}
+#map{
+	height: calc(100% - 40px);
+	width: 100%;
+}
+.closest-spots{
+	padding: 10px 0 0;
+	height: 30px;
+}
+.closest-spots h2,
+.closest-spots ul,
+.closest-spots li{
+	float: left;
+	margin: 0;
+	font: 16px/16px Arial, Helvetica, sans-serif;
+}
+.closest-spots h2{margin: 0 0 0 10px;}
+.closest-spots li{padding:0 10px;}
+.location-controls{padding: 100px 0 0;}
+.location-controls li{
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+.location-controls h2,
+.location-controls input{
+	border: 0;
+	padding: 0;
+	margin: 0 0 50px;
+	display: block;
+	text-align: center;
+	width: 100%;
+	font: 30px/40px Arial, Helvetica, sans-serif;
+}
+.location-controls .go-link{
+	color: #fff;
+	font: 40px/100px Arial, Helvetica, sans-serif;
+	height: 100px;
+	width: 100px;
+	display: block;
+	margin: 0 auto 10px;
+	border-radius: 50px;
+	box-shadow: 0 0 10px #000;
+	background: #f00;
+}
+.location-controls .geolocation{background: green;}
+.location-controls .geocoding{background: orange;}
