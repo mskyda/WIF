@@ -29,7 +29,7 @@ app.get('/api/spots', function(req, res) {
 
 });
 
-app.get('/api/spot/:id', function(req, res) {
+app.get('/api/spots/:id', function(req, res) {
 
 	Spot.findById(req.params.id, function (err, spot) {
 		if(!spot) {
@@ -48,7 +48,7 @@ app.get('/api/spot/:id', function(req, res) {
 
 });
 
-app.post('/api/spot', function(req, res) {
+app.post('/api/spots', function(req, res) {
 
 	var spot = new Spot({
 		name    : req.body.name,
@@ -76,7 +76,7 @@ app.post('/api/spot', function(req, res) {
 
 });
 
-app.put('/api/spot/:id', function (req, res){ // update
+app.put('/api/spots/:id', function (req, res){ // update
 
 	Spot.findById(req.params.id, function (err, spot) {
 
@@ -108,7 +108,7 @@ app.put('/api/spot/:id', function (req, res){ // update
 
 });
 
-app.delete('/api/spot/:id', function (req, res){
+app.delete('/api/spots/:id', function (req, res){
 
 	Spot.findById(req.params.id, function (err, spot) {
 
