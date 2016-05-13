@@ -21,11 +21,12 @@
 
 			<div id="main">
 
-				<div class="closest-spots hide wrapper" ng-if="spots.length > 0">
+				<div class="closest-spots wrapper" ng-if="spots.length > 0">
 					<h2>Closest spots:</h2>
 					<ul>
 						<li ng-repeat="spot in spots">
-							{{ spot.name }} X km<!--<a href="#" ng-click="ctrl.remove(spot._id)">Remove</a> -->
+							<a href="#" ng-click="ctrl.goToSpot(spot.coords)">{{ spot.name }} ({{ ctrl.getDistance(spot.coords) }} km)</a>
+							<!--<a href="#" ng-click="ctrl.removeSpot(spot._id)">Remove</a>-->
 						</li>
 					</ul>
 				</div>
