@@ -9,7 +9,7 @@ var express         = require('express'),
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(express.static(path.join(__dirname, "public")));
 
 /*app.get('/api', function (req, res) {res.send('API is running');});*/
