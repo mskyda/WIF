@@ -3,6 +3,7 @@ var express         = require('express'),
 	path            = require('path'),
 	bodyParser      = require('body-parser'),
 	log             = require('./libs/log')(module),
+	_				= require('underscore'),
 	Spot            = require('./libs/mongoose').SpotModel,
 	app             = express();
 
@@ -14,18 +15,51 @@ app.use(express.static(path.join(__dirname, "public")));
 
 /*app.get('/api', function (req, res) {res.send('API is running');});*/
 
+var API = {
+
+	getTotal: function(res, data){
+
+		Spot.count({}, function(err, total) {
+
+			if (!err) {
+				log.info("total ammount returned");
+				return res.send(_.extend({status: 'OK', total: total}, data || {}));
+			} else {
+				res.statusCode = 500;
+				log.error('Internal error(%d): %s',res.statusCode,err.message);
+				return res.send({ error: 'Server error' });
+			}
+
+		})
+	},
+
+	getSpots: function(req, res){
+
+		if(!req.query.lat || !req.query.lng){
+			res.statusCode = 400;
+			return res.send({ error: 'Validation error: "lat" and "lng" are required'});
+		}
+
+		// todo: filter results by coords
+
+		Spot.find({}, 'name coords', function (err, spots) {
+			if (!err) {
+				log.info("spots list returned");
+				return res.send(spots);
+			} else {
+				res.statusCode = 500;
+				log.error('Internal error(%d): %s',res.statusCode,err.message);
+				return res.send({ error: 'Server error' });
+			}
+		});
+
+	}
+
+};
+
 app.get('/api/spots', function(req, res) {
 
-	Spot.find({}, 'name coords', function (err, spots) {
-        if (!err) {
-			log.info("spots list returned");
-            return res.send(spots);
-        } else {
-            res.statusCode = 500;
-            log.error('Internal error(%d): %s',res.statusCode,err.message);
-            return res.send({ error: 'Server error' });
-        }
-    });
+	return _.keys(req.query).length === 0 ? API.getTotal(res) : API.getSpots(req, res);
 
 });
 
@@ -60,7 +94,7 @@ app.post('/api/spots', function(req, res) {
 
 		if (!err) {
 			log.info("spot created");
-			return res.send({ status: 'OK', spot: spot});
+			return API.getTotal(res, {spot: spot})
 		} else {
 			if(err.name == 'ValidationError') {
 				res.statusCode = 400;

@@ -1,1 +1,1 @@
-<h2><a href="#" ng-click="addSpot()">ADD SPOT</a></h2>
+<h2><a ng-click="addSpot()">ADD SPOT</a></h2>

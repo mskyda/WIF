@@ -1,81 +1,159 @@
-angular.module('wif.controllers',[]).controller('SpotsPageController',function($scope,$state,$window,Spot){
+angular.module('wif.controllers',[])
 
-    // todo - refactor
+    .controller('AppController', function($scope, Spot){
 
-    function showMap(position) {
+        $scope.$on('refresh:app', function(ev, data){
 
-        var lat = position.coords ? position.coords.latitude : position.lat,
-            lng = position.coords ? position.coords.longitude : position.lng;
+            $scope.ammount = data && data.total ? {total: data.total} : Spot.get();
 
-        var map = new google.maps.Map(document.getElementById("map"), {
-            center:new google.maps.LatLng(lat, lng),
-            zoom: 13,
-            mapTypeId:google.maps.MapTypeId.ROADMAP
         });
 
-        var userMarker = new google.maps.Marker({
-            position: {lat: lat, lng: lng},
-            map: map,
-            icon: './img/user.png'
+        $scope.ammount = Spot.get();
+
+    })
+
+    .controller('SpotsPageController', function($scope){
+
+        $scope.$on('refresh:closest', function(ev, spots){
+
+            $scope.spots = spots;
+
         });
 
-        $scope.spots = Spot.query();
+        _.extend($scope, {
+            orderProp: 'distance',
+            limit: 5
+        });
 
-    }
+    })
 
-    jQuery('.location-controls .geolocation').click(function(e){
+    .controller('AddPageController', function($scope, $state, Spot){
 
-        e.preventDefault();
+        var mock = {
+            name: 'cool place',
+            desc: 'blabla',
+            coords: {lat: +(180 * Math.random()).toFixed(6), lng: +(180 * Math.random()).toFixed(6)}
+        };
 
-        navigator.geolocation.getCurrentPosition(showMap);
+        $scope.spot = new Spot(mock);
+
+        $scope.addSpot = function(){
+
+            $scope.spot.$save(function(resp){
+
+                $scope.$emit('refresh:app', resp.total);
+
+                $state.go('spots');
+
+            });
+        }
+
+    })
+
+    .controller('AboutPageController', function($scope, Spot){
+
+
+
+    })
+
+    .controller('MapController', function($scope, $rootScope, $http, Spot){
+
+        _.extend($scope, {
+
+            getCurrentPosition: function(){
+
+                navigator.geolocation.getCurrentPosition($scope.renderMap);
+
+            },
+
+            inputAddress: function(){
+
+                var input = document.querySelector('.location-controls .address');
+
+                if (!input.value){
+
+                    input.className += ' required';
+
+                    return;
+
+                }
+
+                $http({
+                    method: "GET",
+                    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input.value + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0',
+                }).success(function (resp){
+
+                    $scope.geoResults = resp.results;
+
+                });
+
+            },
+
+            resetSearch: function(){
+
+                $scope.geoResults = null;
+
+            },
+
+            renderMap: function(position){
+
+                var center = {
+                    lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
+                    lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
+                };
+
+                var map = new google.maps.Map(document.getElementById("map"), {
+                    center: new google.maps.LatLng(center.lat, center.lng),
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                Spot.query(center).$promise.then(function(spots) {
+
+                    _.each(spots, function(spot){spot.distance = $scope.getDistance(center, spot.coords)});
+
+                    $scope.putMarkers(map, center, spots);
+
+                    $rootScope.$broadcast('refresh:closest', spots);
+
+                });
+
+            },
+
+            putMarkers: function(map, center, spots){
+
+                new google.maps.Marker({
+                    position: center,
+                    map: map,
+                    icon: './img/user.png'
+                });
+
+                _.each(spots, function(spot){
+
+                    new google.maps.Marker({
+                        position: spot.coords,
+                        map: map,
+                        icon: './img/favicon.ico'
+                    });
+
+                });
+
+            },
+
+            getDistance: function(p1, p2){
+
+                var R = 6371, // earth’s radius in kilometres
+                    φ1 = p1.lat * Math.PI / 180,
+                    φ2 = p2.lat * Math.PI / 180,
+                    Δφ = (p2.lat - p1.lat) * Math.PI / 180,
+                    Δλ = (p2.lng - p1.lng) * Math.PI / 180;
+
+                var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+
+                return +(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))).toFixed(1);
+
+            }
+
+        });
 
     });
-
-    jQuery('.location-controls .geocoding').click(function(e){
-
-        e.preventDefault();
-
-        var address = jQuery('.location-controls .address').val();
-
-        if(!address) return; // todo input validation
-
-        jQuery.ajax({
-            method: "POST",
-            url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0'
-        }).done(function(resp){
-
-            // todo: results selection
-
-            showMap(resp.results[0].geometry.location);
-
-        });
-
-    });
-
-    // todo - end refactor
-
-}).controller('AddPageController',function($scope,$state,$stateParams,Spot){
-
-    var mock = {
-        name: 'cool place',
-        desc: 'blabla',
-        coords: {lat: +(180 * Math.random()).toFixed(6), lng: +(180 * Math.random()).toFixed(6)}
-    };
-
-    $scope.spot=new Spot(mock);
-
-    $scope.addSpot=function(){
-        $scope.spot.$save(function(){
-            $state.go('spots');
-        });
-    }
-
-}).controller('AboutPageController',function($scope,$state,$stateParams,Spot){
-
-
-
-}).controller('Test',function($scope,$state,$stateParams,Spot){
-
-    console.log(123);
-
-});
