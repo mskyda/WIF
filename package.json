@@ -24,7 +24,7 @@
 	  	"underscore": ">=1.8.3"
 	},
 	"scripts": {
-	  "postinstall": "bower install"
+	  "postinstall": "bower install --force"
 	},
 	"devDependencies": {},
 	"bundleDependencies": [],
