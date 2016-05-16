@@ -11,7 +11,7 @@
 
     <div id="header" class="wrapper">
         <h1 class="logo">WIF logo</h1>
-        <h2 class="slogan">Dude, {{ spots.length }} cool Spots are waiting for you</h2>
+        <h2 class="slogan" ng-controller="Test as test">Dude, {{ spots.length }} cool Spots are waiting for you</h2>
         <ul class="tabs">
             <li><a ui-sref="spots" href="#">Tab 1 - Search spot</a></li>
             <li><a ui-sref="add" href="#">Tab 2 - Create spot</a></li>
@@ -24,7 +24,7 @@
 </div>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0" type="text/javascript"></script>
-<script src="js/3p/require.js" data-main="js/rconfig.js"></script>
+<script src="js/3p/requirejs/require.js" data-main="js/rconfig.js"></script>
 
 </body>
 </html>

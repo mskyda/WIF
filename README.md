@@ -1,1 +1,1 @@
-hello
+WIF 1.0

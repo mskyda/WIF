@@ -74,4 +74,8 @@ angular.module('wif.controllers',[]).controller('SpotsPageController',function($
 
 
 
+}).controller('Test',function($scope,$state,$stateParams,Spot){
+
+    console.log(123);
+
 });
