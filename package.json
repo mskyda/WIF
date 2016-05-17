@@ -19,7 +19,6 @@
 		"express": ">=4.13.x",
 		"mongoose": ">=4.0.x",
 		"winston": ">=1.0.x",
-		"serve-favicon": ">=2.3.x",
 		"body-parser": ">=1.13.x",
 	  	"underscore": ">=1.8.3"
 	},

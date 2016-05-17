@@ -1,5 +1,4 @@
 var express         = require('express'),
-	favicon         = require('serve-favicon'),
 	path            = require('path'),
 	bodyParser      = require('body-parser'),
 	log             = require('./libs/log')(module),
@@ -9,8 +8,6 @@ var express         = require('express'),
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(express.static(path.join(__dirname, "public")));
 
 /*app.get('/api', function (req, res) {res.send('API is running');});*/
