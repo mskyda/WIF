@@ -3,7 +3,7 @@ require.config({
 	paths: {
 		'jquery'              : '3p/jquery/dist/jquery.min',
 		'underscore'          : '3p/underscore/underscore-min',
-		'angular'             : '3p/angular/angular.min',
+		'angular'             : '3p/angular/angular',
 		'aResource'           : '3p/angular-resource/angular-resource.min',
 		'aRouter'             : '3p/angular-ui-router/release/angular-ui-router.min'
 	},
