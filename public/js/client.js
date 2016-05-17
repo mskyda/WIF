@@ -1,6 +1,4 @@
-angular.module('wif',['ui.router','ngResource','wif.controllers','wif.services']);
-
-angular.module('wif').config(function($stateProvider){
+angular.module('wif',['ui.router','ngResource','wif.controllers','wif.services']).config(function($stateProvider){
 
 	$stateProvider.state('spots',{
 		url:'/spots',
