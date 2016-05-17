@@ -15,3 +15,5 @@ angular.module('wif',['ui.router','ngResource','wif.controllers','wif.services']
 	});
 
 }).run(function($state){$state.go('spots')});
+
+angular.bootstrap(document.documentElement, ['wif']);
