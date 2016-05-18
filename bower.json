@@ -20,7 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.x",
     "requirejs": ">=2.1.x",
     "underscore": ">=1.8.x",
     "angular": "~1.5.5",
