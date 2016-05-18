@@ -14,7 +14,7 @@ a{
 	color: #333;
 	text-decoration: none;
 }
-a:hover{text-decoration: underline;}
+a:hover{color: #888;}
 input{color: #333;}
 ::-webkit-input-placeholder {color: #333;}
 :-moz-placeholder {
