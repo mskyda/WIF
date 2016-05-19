@@ -2,29 +2,30 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>WIF</title>
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <title>Where is fish</title>
+    <link rel="icon" href="img/favicon.ico?v=3" type="image/x-icon">
     <link rel="stylesheet" media="all" type="text/css" href="css/style.css">
 </head>
 <body>
 
 <div id="app" ng-controller="AppController" ng-show="ammount != null" ng-cloak>
 
-    <div id="header" class="wrapper">
-        <h1 class="logo">WIF logo</h1>
-        <h2 class="slogan">{{ammount.total}} cool Spots are waiting for you</h2>
-        <ul class="tabs">
-            <li><a ui-sref="spots">Search spot</a></li>
-            <li><a ui-sref="add">Create spot</a></li>
-            <li><a ui-sref="about">About</a></li>
-        </ul>
-    </div>
+    <header id="header" class="wrapper">
+        <h1 class="logo">Where is fish</h1>
+        <h2 class="slogan">Where is fish: from fisher to fisher. We have {{ammount.total}} fishing spots for you.</h2>
+        <nav class="tabs">
+            <a ui-sref="spots">Search spot</a>
+            <a ui-sref="add">Create spot</a>
+            <a ui-sref="about">About</a>
+        </nav>
+    </header>
 
-    <div id="main">
+    <section id="main">
 
-        <div ui-view></div>
+        <section ui-view></section>
 
-        <div id="map" ng-controller="MapController">
+        <section id="map" ng-controller="MapController">
+
             <ul class="location-controls wrapper">
                 <li>
                     <h2>Let us know about your location</h2>
@@ -49,8 +50,11 @@
                     </div>
                 </li>
             </ul>
-        </div>
-    </div>
+
+        </section>
+
+    </section>
+
 </div>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0" type="text/javascript"></script>
