@@ -21,7 +21,6 @@
   ],
   "dependencies": {
     "requirejs": ">=2.1.x",
-    "underscore": ">=1.8.x",
     "angular": "~1.5.5",
     "angular-resource": "~1.5.5",
     "angular-ui-router": ">=0.2.18"
