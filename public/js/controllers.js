@@ -26,7 +26,7 @@ angular.module('wif.controllers',[])
 
     })
 
-    .controller('AddPageController', function($scope, $state, Spot){
+    .controller('AddPageController', function($scope, $state, $rootScope, Spot){
 
         $scope.spot = new Spot({
             name: 'cool place',
@@ -38,6 +38,8 @@ angular.module('wif.controllers',[])
             $scope.spot.$save(function(resp){
 
                 $scope.$parent.ammount.total = resp.total;
+
+                $rootScope.spots = null; // Todo: add new spot with push
 
                 $state.go('spots');
 
