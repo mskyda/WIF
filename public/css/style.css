@@ -98,6 +98,7 @@ a[ng-click]{
 .sub-nav li a{font-size: 16px;}
 .sub-nav h2{margin: 0 0 0 30px;}
 .sub-nav a{padding:0 10px;}
+.sub-nav .wizard-next,
 .sub-nav .reset-location{float:right;}
 .map-holder{height: calc(100% - 44px);}
 #map{

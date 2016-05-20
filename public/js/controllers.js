@@ -2,12 +2,6 @@ angular.module('wif.controllers',[])
 
     .controller('AppController', function($scope, Spot){
 
-        $scope.$on('refresh:app', function(ev, data){
-
-            $scope.ammount = data && data.total ? {total: data.total} : Spot.get();
-
-        });
-
         $scope.ammount = Spot.get();
 
     })
@@ -34,21 +28,18 @@ angular.module('wif.controllers',[])
 
     .controller('AddPageController', function($scope, $state, Spot){
 
+        $scope.spot = new Spot({
+            name: 'cool place',
+            desc: 'blabla'
+        });
+
         $scope.addSpot = function(){
-
-            var mock = {
-                name: 'cool place',
-                desc: 'blabla',
-                coords: {lat: +(180 * Math.random()).toFixed(6), lng: +(180 * Math.random()).toFixed(6)}
-            };
-
-            $scope.spot = new Spot(mock);
 
             $scope.spot.$save(function(resp){
 
-                $scope.$emit('refresh:app', resp.total);
+                $scope.$parent.ammount.total = resp.total;
 
-                //$state.go('spots');
+                $state.go('spots');
 
             });
         }
@@ -114,12 +105,48 @@ angular.module('wif.controllers',[])
                     $scope.map = new google.maps.Map(document.getElementById("map"), {
                         center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
                         zoom: 13,
+                        disableDoubleClickZoom: true,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                     });
 
-                    $rootScope.spots ? $scope.putMarkers() : $scope.loadSpots();
+                    $scope.onMapRendered();
 
                 });
+
+            },
+
+            onMapRendered: function(){
+
+                if($scope.$parent.spot){
+
+                    google.maps.event.addListener($scope.map, 'dblclick', function(e) {
+
+                        var coords = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+
+                        if($scope.$parent.marker) $scope.$parent.marker.setMap(null);
+
+                        $scope.$parent.marker = new google.maps.Marker({
+                            position: coords,
+                            map: $scope.map
+                        });
+
+                        $scope.$apply(function(){
+
+                            $scope.$parent.spot.coords = coords;
+
+                        });
+
+                    });
+
+                } else if ($rootScope.spots) {
+
+                    $scope.putMarkers();
+
+                } else {
+
+                    $scope.loadSpots();
+
+                }
 
             },
 

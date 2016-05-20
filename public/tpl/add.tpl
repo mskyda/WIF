@@ -1,11 +1,16 @@
-<div class="sub-nav wrapper" ng-if="spots.length > 0">
-	<h2 ng-if="center != null"><a ng-click="addSpot()">ADD SPOT</a></h2>
-	<ul>
-		<li >
-			<a ng-repeat="spot in spots | orderBy:orderProp | limitTo:limit" ng-click="goToSpot(spot)">{{spot.name}} ({{spot.distance}} km)</a>
-		</li>
-	</ul>
-	<a class="reset-location" ng-click="resetLocation()">Select another location</a>
+<div class="sub-nav wrapper" ng-if="center != null">
+
+	<div ng-if="spot.coords == null" class="wrapper">
+		<h2>1. Choose place on map with double-click</h2>
+		<a class="reset-location" ng-click="resetLocation()">Select another location</a>
+	</div>
+
+	<div ng-if="spot.coords != null" class="wrapper">
+		<h2>Latitude: {{spot.coords.lat}}; Longitude: {{spot.coords.lng}}</h2>
+		<!--<a class="wizard-next">Next step >></a>-->
+		<a class="wizard-next" ng-click="addSpot()">Add</a>
+	</div>
+
 </div>
 
 <section class="map-holder" ng-controller="MapController">
