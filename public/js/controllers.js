@@ -14,13 +14,7 @@ angular.module('wif.controllers',[])
 
     .controller('SpotsPageController', function($scope, $rootScope){
 
-        $scope.$on('refresh:closest', function(ev, spots){
-
-            $scope.spots = spots;
-
-        });
-
-        _.extend($scope, {
+        angular.extend($scope, {
             orderProp: 'distance',
             limit: 5,
             goToSpot: function(spot){
@@ -63,7 +57,7 @@ angular.module('wif.controllers',[])
 
     .controller('MapController', function($scope, $rootScope, $http, Spot){
 
-        _.extend($scope, {
+        angular.extend($scope, {
 
             getCurrentPosition: function(){
 
@@ -102,38 +96,44 @@ angular.module('wif.controllers',[])
 
             renderMap: function(position){
 
-                var center = {
+                $rootScope.center = $rootScope.center || {
                     lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
                     lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
                 };
 
                 $scope.map = new google.maps.Map(document.getElementById("map"), {
-                    center: new google.maps.LatLng(center.lat, center.lng),
+                    center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
                     zoom: 13,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
 
-                Spot.query(center).$promise.then(function(spots) {
+                $rootScope.spots ? $scope.putMarkers() : $scope.loadSpots();
 
-                    _.each(spots, function(spot){spot.distance = $scope.getDistance(center, spot.coords)});
+            },
 
-                    $scope.putMarkers(center, spots);
+            loadSpots: function(){
 
-                    $rootScope.$broadcast('refresh:closest', spots);
+                Spot.query($rootScope.center).$promise.then(function(spots) {
+
+                    angular.forEach(spots, function(spot){spot.distance = $scope.getDistance(spot.coords, $rootScope.center)});
+
+                    $rootScope.spots = spots;
+
+                    $scope.putMarkers();
 
                 });
 
             },
 
-            putMarkers: function(center, spots){
+            putMarkers: function(){
 
                 new google.maps.Marker({
-                    position: center,
+                    position: $rootScope.center,
                     map: $scope.map,
                     icon: './img/user.png'
                 });
 
-                _.each(spots, function(spot){
+                angular.forEach($rootScope.spots, function(spot){
 
                     spot.marker = new google.maps.Marker({
                         position: spot.coords,
@@ -186,5 +186,11 @@ angular.module('wif.controllers',[])
             $scope.openInfoWindow(spot);
 
         });
+
+        if($rootScope.center){
+
+            $scope.renderMap($rootScope.center);
+
+        }
 
     });
