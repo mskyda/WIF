@@ -19,7 +19,13 @@ angular.module('wif.controllers',[])
             limit: 5,
             goToSpot: function(spot){
 
-                $rootScope.$broadcast('map:goto', spot);
+                $scope.$broadcast('map:goto', spot);
+
+            },
+            resetLocation: function(){
+
+                $rootScope.center = null;
+
 
             }
         });
@@ -28,21 +34,21 @@ angular.module('wif.controllers',[])
 
     .controller('AddPageController', function($scope, $state, Spot){
 
-        var mock = {
-            name: 'cool place',
-            desc: 'blabla',
-            coords: {lat: +(180 * Math.random()).toFixed(6), lng: +(180 * Math.random()).toFixed(6)}
-        };
-
-        $scope.spot = new Spot(mock);
-
         $scope.addSpot = function(){
+
+            var mock = {
+                name: 'cool place',
+                desc: 'blabla',
+                coords: {lat: +(180 * Math.random()).toFixed(6), lng: +(180 * Math.random()).toFixed(6)}
+            };
+
+            $scope.spot = new Spot(mock);
 
             $scope.spot.$save(function(resp){
 
                 $scope.$emit('refresh:app', resp.total);
 
-                $state.go('spots');
+                //$state.go('spots');
 
             });
         }
@@ -55,13 +61,15 @@ angular.module('wif.controllers',[])
 
     })
 
-    .controller('MapController', function($scope, $rootScope, $http, Spot){
+    .controller('MapController', function($scope, $rootScope, $http, $timeout, Spot){
 
         angular.extend($scope, {
 
             getCurrentPosition: function(){
 
-                navigator.geolocation.getCurrentPosition($scope.renderMap);
+                navigator.geolocation.getCurrentPosition(function(c){
+                    $scope.$apply($scope.renderMap(c));
+                });
 
             },
 
@@ -101,13 +109,17 @@ angular.module('wif.controllers',[])
                     lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
                 };
 
-                $scope.map = new google.maps.Map(document.getElementById("map"), {
-                    center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
-                    zoom: 13,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
+                $timeout(function(){
 
-                $rootScope.spots ? $scope.putMarkers() : $scope.loadSpots();
+                    $scope.map = new google.maps.Map(document.getElementById("map"), {
+                        center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
+                        zoom: 13,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    $rootScope.spots ? $scope.putMarkers() : $scope.loadSpots();
+
+                });
 
             },
 

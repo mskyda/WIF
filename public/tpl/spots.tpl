@@ -1,13 +1,14 @@
-<div class="closest-spots wrapper" ng-if="spots.length > 0">
+<div class="sub-nav wrapper" ng-if="spots.length > 0">
 	<h2>Closest {{limit}} spots:</h2>
 	<ul>
 		<li >
 			<a ng-repeat="spot in spots | orderBy:orderProp | limitTo:limit" ng-click="goToSpot(spot)">{{spot.name}} ({{spot.distance}} km)</a>
 		</li>
 	</ul>
+	<a class="reset-location" ng-click="resetLocation()">Select another location</a>
 </div>
 
-<section id="map" ng-controller="MapController">
+<section class="map-holder" ng-controller="MapController">
 
 	<ul class="location-controls wrapper" ng-if="center == null">
 		<li>
@@ -33,5 +34,7 @@
 			</div>
 		</li>
 	</ul>
+
+	<div ng-if="center != null" id="map"></div>
 
 </section>
