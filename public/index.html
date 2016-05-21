@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>Where is fish</title>
-    <link rel="icon" href="img/favicon.ico?v=3" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" media="all" type="text/css" href="css/style.css">
 </head>
 <body>
 
-<div id="app" ng-controller="AppController" ng-show="ammount != null" ng-cloak>
+<div id="app" ng-controller="AppController" ng-show="total != null" ng-cloak>
 
     <header id="header" class="wrapper">
         <h1 class="logo">Where is fish</h1>
-        <h2 class="slogan">Where is fish: from fisher to fisher. We have {{ammount.total}} fishing spots for you.</h2>
+        <h2 class="slogan">Where is fish: from fisher to fisher. We have {{total}} fishing spots for you.</h2>
         <nav class="tabs">
             <a ui-sref="spots" ui-sref-active="active">Search spot</a>
             <a ui-sref="add" ui-sref-active="active">Add spot</a>
@@ -22,8 +22,17 @@
 
     <div id="main" ui-view></div>
 
+    <div class="popup-overlay" ng-click="togglePopup()" ng-if="popupHTML != null">
+        <div class="popup-holder wrapper">
+            <div class="popup-frame">
+                <div class="popup" ng-bind-html="popupHTML"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
+<script async defer src="https://www.google.com/recaptcha/api.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0" type="text/javascript"></script>
 <script src="js/3p/requirejs/require.js" data-main="js/rconfig.js"></script>
 

@@ -1,1 +1,3 @@
-<h2>ABOUT PAGE</h2>
+<div class="sub-nav wrapper">
+	<h2><strong>About</strong></h2>
+</div>

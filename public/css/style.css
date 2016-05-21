@@ -88,18 +88,40 @@ a[ng-click]{
 	border-bottom: 2px solid #fff;
 }
 .sub-nav h2,
-.sub-nav ul,
+.sub-nav nav,
 .sub-nav li,
+.sub-nav input,
 .sub-nav a{
 	float: left;
 	margin: 0;
 	font: 20px/42px Arial, Helvetica, sans-serif;
 }
-.sub-nav li a{font-size: 16px;}
+.sub-nav nav a{
+	font-size: 16px;
+	padding: 0 10px;
+}
 .sub-nav h2{margin: 0 0 0 30px;}
-.sub-nav a{padding:0 10px;}
+.sub-nav a{padding:0 20px;}
 .sub-nav .wizard-next,
 .sub-nav .reset-location{float:right;}
+.sub-nav .cta{
+	float: right;
+	text-transform: uppercase;
+	color: #fff;
+	background: -webkit-linear-gradient(#aad6ff, #315373);
+	background: -o-linear-gradient(#aad6ff, #315373);
+	background: -moz-linear-gradient(#aad6ff, #315373);
+	background: linear-gradient(#aad6ff, #315373);
+	font-weight: bold;
+	border-radius: 20px;
+	margin: 0 10px;
+}
+.sub-nav input{
+	height: 36px;
+	line-height: 36px;
+	margin: 0 0 0 10px;
+	width: 300px;
+}
 .map-holder{height: calc(100% - 44px);}
 #map{
 	height: 100%;
@@ -133,12 +155,37 @@ a[ng-click]{
 	margin: 0 auto 10px;
 	border-radius: 50px;
 	box-shadow: 0 0 10px #000;
-	text-decoration: none;
+	text-shadow: 0 0 3px #000;
 }
-.location-controls .geolocation{background: green;}
-.location-controls .geocoding{background: orange;}
+.location-controls .geolocation{background: #ffe700;}
+.location-controls .geocoding{background: #4caf50;}
 .geocoding-results{
 	font: 20px/24px Arial, Helvetica, sans-serif;
 	margin: -10px 0 30px;
 }
 .geocoding-results li{padding: 10px 0;}
+.popup-overlay{
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 2;
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	display: table;
+}
+.popup-holder{
+	display: table-cell;
+	vertical-align: middle;
+	position: relative;
+}
+.popup,
+.popup-frame{
+	float: left;
+	position: relative;
+	left: 50%;
+}
+.popup{
+	left: -50%;
+	box-shadow: 0 0 100px #000;
+}
