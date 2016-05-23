@@ -91,10 +91,16 @@ a[ng-click]{
 .sub-nav nav,
 .sub-nav li,
 .sub-nav input,
+.sub-nav label,
 .sub-nav a{
 	float: left;
 	margin: 0;
 	font: 20px/42px Arial, Helvetica, sans-serif;
+}
+.sub-nav label{margin: 0 0 0 10px;}
+.sub-nav h2 a{
+	float: none;
+	padding: 0;
 }
 .sub-nav nav a{
 	font-size: 16px;
@@ -116,7 +122,11 @@ a[ng-click]{
 	border-radius: 20px;
 	margin: 0 10px;
 }
-.sub-nav input{
+.sub-nav input[type="checkbox"]{
+	margin: 15px 10px;
+}
+.sub-nav input[type="text"],
+.sub-nav input[type="password"]{
 	height: 36px;
 	line-height: 36px;
 	margin: 0 0 0 10px;
@@ -188,4 +198,11 @@ a[ng-click]{
 .popup{
 	left: -50%;
 	box-shadow: 0 0 100px #000;
+}
+.popup-inner{
+	text-align: center;
+	background: #eee;
+	padding: 10px;
+	max-width: 500px;
+	border-radius: 10px;
 }

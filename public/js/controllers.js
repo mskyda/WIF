@@ -42,7 +42,7 @@ angular.module('wif.controllers',[])
 
     .controller('AddPageController', function($scope, $state, $rootScope, $timeout, Spot){
 
-        $scope.spot = new Spot();
+        $scope.spot = new Spot({owner: 'test'});
 
         angular.extend($scope, {
 
@@ -53,6 +53,26 @@ angular.module('wif.controllers',[])
                 if(Math.abs(val) !== 1) return;
 
                 $scope.step += val;
+
+            },
+
+            onPopupEmail: function(){
+                $scope.$emit('toggle:popup', '' +
+                    '<div class="popup-inner">' +
+                    '<h2>Why do we need your email?</h2>' +
+                    '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your Spots-Admin password. Email wont be used for anything else.</p>' +
+                    '</div>');
+            },
+
+            sendEmail: function(){
+
+                console.log('send email');
+
+            },
+
+            validateCredentials: function(){
+
+                console.log('send email');
 
             },
 
@@ -182,7 +202,7 @@ angular.module('wif.controllers',[])
 
             onPutNewSpot: function(e){
 
-                if($scope.$parent.step !== 0) return;
+                if($scope.$parent.step !== 1) return;
 
                 var coords = {lat: e.latLng.lat(), lng: e.latLng.lng()};
 

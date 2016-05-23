@@ -86,7 +86,8 @@ app.post('/api/spots', function(req, res) {
 	var spot = new Spot({
 		name    : req.body.name,
 		desc    : req.body.desc,
-		coords  : req.body.coords
+		coords  : req.body.coords,
+		owner   : req.body.owner
 	});
 
 	spot.save(function (err) {
@@ -121,6 +122,7 @@ app.put('/api/spots/:id', function (req, res){ // update
 		spot.name     = req.body.name;
 		spot.desc     = req.body.desc;
 		spot.coords   = req.body.coords;
+		spot.owner   = req.body.owner;
 
 		spot.save(function (err) {
 			if (!err) {
