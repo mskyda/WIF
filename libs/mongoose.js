@@ -1,5 +1,4 @@
 var mongoose    = require('mongoose');
-var log         = require('./log')(module);
 /*var uri = 'mongodb://8739ce8925a02561abee68067be1da8a:mishgun_fdafe@eu-1.evennode.com/8739ce8925a02561abee68067be1da8a?replicaSet=rs0';*/
 var uri = 'mongodb://mskyda:password123@ds011412.mlab.com:11412/wif';
 
@@ -7,9 +6,9 @@ mongoose.connect(uri);
 
 var db = mongoose.connection;
 
-db.on('error', function (err) {log.error('connection error:', err.message)});
+db.on('error', function (err) {console.log('Error: ', err.message)});
 
-db.once('open', function callback () {log.info("Connected to DB!")});
+db.once('open', function callback () {console.log("Success: connected to DB!")});
 
 var Spot = new mongoose.Schema({
 	name:         { type: String, required: true  },

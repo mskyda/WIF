@@ -18,9 +18,9 @@
 		"bower": ">=1.7.x",
 		"express": ">=4.13.x",
 		"mongoose": ">=4.0.x",
-		"winston": ">=1.0.x",
 		"body-parser": ">=1.13.x",
-	  	"underscore": ">=1.8.3"
+	  	"underscore": ">=1.8.x",
+	  	"emailjs": ">=1.0.x"
 	},
 	"scripts": {
 	  "postinstall": "bower install --force"

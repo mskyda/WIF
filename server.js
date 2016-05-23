@@ -1,14 +1,16 @@
 var express         = require('express'),
 	path            = require('path'),
 	bodyParser      = require('body-parser'),
-	log             = require('./libs/log')(module),
 	_				= require('underscore'),
 	Spot            = require('./libs/mongoose').SpotModel,
+	sendEmail       = require('./libs/email').send,
 	app             = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
+
+//sendEmail('mihail.skida@gmail.com', 'OLOLO');
 
 /*app.get('/api', function (req, res) {res.send('API is running');});*/
 
@@ -19,11 +21,11 @@ var API = {
 		Spot.count({}, function(err, total) {
 
 			if (!err) {
-				log.info("total ammount returned");
+				console.log('Success: total ammount returned');
 				return res.send(_.extend({status: 'OK', total: total}, data || {}));
 			} else {
 				res.statusCode = 500;
-				log.error('Internal error(%d): %s',res.statusCode,err.message);
+				console.log('Error: Internal error(%d): %s',res.statusCode,err.message);
 				return res.send({ error: 'Server error' });
 			}
 
@@ -41,11 +43,11 @@ var API = {
 
 		Spot.find({}, 'name coords', function (err, spots) {
 			if (!err) {
-				log.info("spots list returned");
+				console.log('Success: spots list returned');
 				return res.send(spots);
 			} else {
 				res.statusCode = 500;
-				log.error('Internal error(%d): %s',res.statusCode,err.message);
+				console.log('Error: ', res.statusCode, err.message);
 				return res.send({ error: 'Server error' });
 			}
 		});
@@ -68,11 +70,11 @@ app.get('/api/spots/:id', function(req, res) {
 			return res.send({ error: 'Not found' });
 		}
 		if (!err) {
-			log.info("spot info returned");
+			console.log('Success: spot info returned');
 			return res.send({ status: 'OK', spot: spot});
 		} else {
 			res.statusCode = 500;
-			log.error('Internal error(%d): %s',res.statusCode,err.message);
+			console.log('Error: ', res.statusCode, err.message);
 			return res.send({ error: 'Server error' });
 		}
 	});
@@ -90,7 +92,7 @@ app.post('/api/spots', function(req, res) {
 	spot.save(function (err) {
 
 		if (!err) {
-			log.info("spot created");
+			console.log('Success: spot created');
 			return API.getTotal(res, {spot: spot})
 		} else {
 			if(err.name == 'ValidationError') {
@@ -100,7 +102,7 @@ app.post('/api/spots', function(req, res) {
 				res.statusCode = 500;
 				res.send({ error: 'Server error' });
 			}
-			log.error('Internal error(%d): %s',res.statusCode,err.message);
+			console.log('Error: ', res.statusCode, err.message);
 		}
 	});
 
@@ -122,7 +124,7 @@ app.put('/api/spots/:id', function (req, res){ // update
 
 		spot.save(function (err) {
 			if (!err) {
-				log.info("spot updated");
+				console.log('Success: spot updated');
 				return res.send({ status: 'OK', spot:spot});
 			} else {
 				if(err.name == 'ValidationError') {
@@ -132,7 +134,7 @@ app.put('/api/spots/:id', function (req, res){ // update
 					res.statusCode = 500;
 					res.send({ error: 'Server error' });
 				}
-				log.error('Internal error(%d): %s',res.statusCode,err.message);
+				console.log('Error: ', res.statusCode, err.message);
 			}
 		});
 	});
@@ -150,11 +152,11 @@ app.delete('/api/spots/:id', function (req, res){
 
 		return spot.remove(function (err) {
 			if (!err) {
-				log.info("spot deleted");
+				console.log('Success: spot deleted');
 				return res.send({ status: 'OK' });
 			} else {
 				res.statusCode = 500;
-				log.error('Internal error(%d): %s',res.statusCode,err.message);
+				console.log('Error: ', res.statusCode, err.message);
 				return res.send({ error: 'Server error' });
 			}
 		});
@@ -164,18 +166,18 @@ app.delete('/api/spots/:id', function (req, res){
 
 app.get('*', function(req, res){ // 404
 	res.status(404);
-	log.debug('Not found URL: %s',req.url);
+	console.log('Error: Not found URL ',req.url);
 	res.send({ error: 'Not found' });
 });
 
 app.use(function(err, req, res){ // error
 	res.status(err.status || 500);
-	log.error('Internal error(%d): %s',res.statusCode,err.message);
+	console.log('Error: ', res.statusCode ,err.message);
 	res.send({ error: err.message });
 });
 
 var port = process.env.PORT || 1337;
 
 app.listen(port, function(){
-    log.info('Express server listening on port ' + port);
+	console.log('Success: server listening on port ' + port);
 });
