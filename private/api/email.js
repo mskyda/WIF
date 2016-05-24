@@ -5,9 +5,9 @@ var email = require('emailjs').server.connect({
 	ssl:      true
 });
 
-module.exports.send = function(address, msg){
+exports.SendEmail = function(address, msg){
 
-	var emailMsgEn = 'Hello, <br><br> Your User ID is <strong>' + msg + '</strong>. Use it with combination of you email-address for creating and managing your Spots. <br><br> Cheers :)';
+	var emailMsgEn = 'Hello, <br><br> Your User ID is <br><br> <strong>' + msg + '</strong> <br><br> Use it with combination of you email-address for creating and managing your Spots. <br><br> Cheers :)';
 
 	email.send({
 		text:    emailMsgEn,

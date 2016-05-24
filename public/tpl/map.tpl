@@ -1,7 +1,7 @@
 <section class="map-holder" ng-controller="MapController">
 	<ul class="location-controls wrapper" ng-if="center == null">
 		<li>
-			<h2>Let us know about your location</h2>
+			<h2>Let us know your location</h2>
 			<a ng-click="getCurrentPosition()" class="geolocation go-link">Go!</a>
 		</li>
 		<li>

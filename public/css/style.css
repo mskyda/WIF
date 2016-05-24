@@ -6,7 +6,7 @@ body{
 	margin: 0;
 	height: 100%;
 	min-height: 600px;
-	min-width: 800px;
+	min-width: 1000px;
 	font: 12px/16px Arial, Helvetica, sans-serif;
 	color: #333;
 	background: #eee;
@@ -83,6 +83,17 @@ a[ng-click]{
 	padding: 0 20px;
 }
 #header .tabs a.active{color: #87a2bc;}
+
+@media (max-width: 1170px) {
+	#header .tabs {
+		float: left;
+	}
+	#header .slogan{
+		line-height: 28px;
+		margin-top: -10px;
+	}
+}
+
 .sub-nav{
 	height: 42px;
 	border-bottom: 2px solid #fff;
@@ -108,7 +119,7 @@ a[ng-click]{
 }
 .sub-nav h2{margin: 0 0 0 30px;}
 .sub-nav a{padding:0 20px;}
-.sub-nav .wizard-next,
+.sub-nav .wizard-control,
 .sub-nav .reset-location{float:right;}
 .sub-nav .cta{
 	float: right;
@@ -122,13 +133,27 @@ a[ng-click]{
 	border-radius: 20px;
 	margin: 0 10px;
 }
-.sub-nav input[type="checkbox"]{  margin: 15px 10px;  }
+.sub-nav input[type="checkbox"]{margin: 15px 10px;}
+.sub-nav input[type="email"],
+.sub-nav input[type="password"],
+.sub-nav input[type="text"],
+.sub-nav textarea{
+	height: 40px;
+	padding: 0 5px;
+	line-height: 40px;
+	margin: 0 0 0 10px;
+	width: 38%;
+	min-width: 380px;
+	border: 1px solid #333;
+}
 .sub-nav input[type="email"],
 .sub-nav input[type="password"]{
-	height: 36px;
-	line-height: 36px;
-	margin: 0 0 0 10px;
-	width: 300px;
+	min-width: 150px;
+	width: 15%;
+}
+.sub-nav textarea{
+	font: 14px/20px Arial, Helvetica, sans-serif;
+	resize: none;
 }
 .map-holder{height: calc(100% - 44px);}
 #map{
@@ -138,8 +163,8 @@ a[ng-click]{
 .location-controls{padding: 100px 0 0;}
 .location-controls > li{
 	float: left;
-	width: 40%;
-	padding: 0 5%;
+	width: 44%;
+	padding: 0 3%;
 	text-align: center;
 }
 .location-controls h2,
@@ -153,6 +178,7 @@ a[ng-click]{
 	width: 100%;
 	font: 30px/40px Arial, Helvetica, sans-serif;
 }
+.sub-nav input[type="password"].ng-dirty.ng-empty,
 .location-controls input.required{border-color: #fc8c84;}
 .location-controls .go-link{
 	color: #fff;
@@ -193,11 +219,9 @@ a[ng-click]{
 	position: relative;
 	left: 50%;
 }
-.popup{
+.popup {
 	left: -50%;
 	box-shadow: 0 0 100px #000;
-}
-.popup-inner{
 	text-align: center;
 	background: #eee;
 	padding: 10px;

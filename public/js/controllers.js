@@ -42,7 +42,7 @@ angular.module('wif.controllers',[])
 
     .controller('ManagePageController', function($scope, $state, $rootScope, $timeout, Spot){
 
-        $scope.spot = new Spot({owner: 'test'});
+        $scope.spot = new Spot();
 
         angular.extend($scope, {
 
@@ -56,34 +56,13 @@ angular.module('wif.controllers',[])
 
             },
 
-            onAddSpot: function() {
-
-                $scope.$emit('toggle:popup', '<div id="recaptcha"></div>');
-
-                $timeout(function () {
-
-                    grecaptcha.render('recaptcha', {
-                        sitekey: '6LdOiyATAAAAAN7jOqxZQp7yyKVbbV-hHnKZhdO6',
-                        callback: function(){
-
-                            $scope.$emit('toggle:popup');
-
-                            $scope.addSpot();
-
-                        }
-                    });
-
-                });
-
-            },
-
             addSpot: function(){
 
                 $scope.spot.$save(function(resp){
 
                     $scope.$parent.total = resp.total;
 
-                    $state.go('spots');
+                    $state.go('search');
 
                 });
 
@@ -93,16 +72,41 @@ angular.module('wif.controllers',[])
 
     })
 
-    .controller('LoginController', function($scope, $http){
+    .controller('LoginController', function($scope, $http, $timeout){
 
         angular.extend($scope, {
 
             onPopupEmail: function(){
                 $scope.$emit('toggle:popup', '' +
-                    '<div class="popup-inner">' +
                     '<h2>Why do we need your email?</h2>' +
-                    '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your User ID. Email wont be used for anything else.</p>' +
-                    '</div>');
+                    '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your User ID. Email wont be used for anything else.</p>');
+            },
+
+            // Todo: cache credentials
+
+            onSendCredentials: function() {
+
+                if(!$scope.userID){
+
+                    $scope.$emit('toggle:popup', '<div id="recaptcha"></div>');
+
+                    $timeout(function () {
+
+                        grecaptcha.render('recaptcha', {
+                            sitekey: '6LdOiyATAAAAAN7jOqxZQp7yyKVbbV-hHnKZhdO6',
+                            callback: function(){
+
+                                $scope.$emit('toggle:popup');
+
+                                $scope.sendCredentials();
+
+                            }
+                        });
+
+                    });
+
+                } else $scope.sendCredentials();
+
             },
 
             sendCredentials: function(){
@@ -122,10 +126,16 @@ angular.module('wif.controllers',[])
 
                     } else {
 
-                        console.log('HERE!');
+                        $scope.$parent.spot.owner = $scope.userID;
+
+                        $scope.$parent.wizardGo(1);
 
                     }
-                    
+
+                }, function(){
+
+                    $scope.userID = '';
+
                 });
 
             }

@@ -11,17 +11,26 @@
 			</div>
 			<div ng-if="spot.coords != null" class="wrapper">
 				<h2><strong>Add spot:</strong> Lat.: {{spot.coords.lat}}; Lng.: {{spot.coords.lng}}</h2>
-				<a class="wizard-next" ng-click="wizardGo(1)">Next step</a>
+				<a class="wizard-control" ng-click="wizardGo(1)">Next &gt;</a>
 			</div>
 		</div>
-
 		<div ng-if="step == 2 && spot.coords != null">
 			<div ng-if="spot.coords != null" class="wrapper">
 				<h2><strong>Add spot:</strong> enter the spot-name</h2>
 				<input ng-model="spot.name" placeholder="minimum 6 chars" type="text" />
-				<a class="wizard-next" ng-click="wizardGo(-1)">Previous step</a>
-				<a ng-if="spot.name != null && spot.name.length > 5" class="cta" ng-click="onAddSpot()">Add</a>
+				<a class="wizard-control" ng-if="spot.name.length > 5" ng-click="wizardGo(1)">Next &gt;</a>
+				<a class="wizard-control" ng-click="wizardGo(-1)">&lt; Back</a>
 			</div>
 		</div>
+
+		<div ng-if="step == 3 && spot.coords != null">
+			<div ng-if="spot.coords != null" class="wrapper">
+				<h2><strong>Add spot:</strong> enter the short description</h2>
+				<textarea ng-model="spot.desc" placeholder="minimum 20 chars"></textarea>
+				<a class="cta" ng-if="spot.desc.length > 20" ng-click="addSpot()">Place a Spot</a>
+				<a class="wizard-control" ng-click="wizardGo(-1)">&lt; Back</a>
+			</div>
+		</div>
+
 	</div>
 </section>

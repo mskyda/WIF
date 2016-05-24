@@ -26,4 +26,10 @@ Spot.path('name').validate(function (str) {
 
 }, 'invalid name');
 
-module.exports.SpotModel = mongoose.model('Spot', Spot);
+Spot.path('owner').validate(function (str) {
+
+	return str.length = 60;
+
+}, 'invalid owner id');
+
+exports.SpotModel = mongoose.model('Spot', Spot);
