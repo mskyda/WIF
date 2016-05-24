@@ -2,6 +2,7 @@ var express         = require('express'),
 	path            = require('path'),
 	bodyParser      = require('body-parser'),
 	_				= require('underscore'),
+	bcrypt          = require('bcrypt'),
 	Spot            = require('./libs/mongoose').SpotModel,
 	sendEmail       = require('./libs/email').send,
 	app             = express();
@@ -54,11 +55,19 @@ var API = {
 
 app.post('/api/account', function(req, res) {
 
-	if(!req.body.password){
+	if(!req.body.userID){
 
-		sendEmail(req.body.email, 'sdfdsfdsf');
+		bcrypt.hash(req.body.userEmail, 10, function(err, hash) {
 
-		return res.send({status: 'OK', msg: 'email sent.'});
+			sendEmail(req.body.userEmail, hash);
+
+			return res.send({status: 'OK', msg: 'email sent'});
+
+		});
+
+	} else {
+
+		console.log('HERE!');
 
 	}
 

@@ -101,28 +101,32 @@ angular.module('wif.controllers',[])
                 $scope.$emit('toggle:popup', '' +
                     '<div class="popup-inner">' +
                     '<h2>Why do we need your email?</h2>' +
-                    '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your Spots-Admin password. Email wont be used for anything else.</p>' +
+                    '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your User ID. Email wont be used for anything else.</p>' +
                     '</div>');
             },
 
-            sendEmail: function(){
+            sendCredentials: function(){
 
                 $http({
                     method: 'POST',
                     url: '/api/account',
                     data: {
-                        email: $scope.email,
-                        password: $scope.password
+                        userEmail: $scope.userEmail,
+                        userID: $scope.userID
                     }
                 }).then(function() {
-                    $scope.havePass = true;
+
+                    if(!$scope.userID){
+
+                        $scope.haveUserID = true;
+
+                    } else {
+
+                        console.log('HERE!');
+
+                    }
+                    
                 });
-
-            },
-
-            validateCredentials: function(){
-
-                console.log('validate credentials');
 
             }
 
