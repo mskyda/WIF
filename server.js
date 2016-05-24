@@ -10,10 +10,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//sendEmail('mihail.skida@gmail.com', 'OLOLO');
-
-/*app.get('/api', function (req, res) {res.send('API is running');});*/
-
 var API = {
 
 	getTotal: function(res, data){
@@ -55,6 +51,19 @@ var API = {
 	}
 
 };
+
+app.post('/api/account', function(req, res) {
+
+	if(!req.body.password){
+
+		sendEmail(req.body.email, 'sdfdsfdsf');
+
+		return res.send({status: 'OK', msg: 'email sent.'});
+
+	}
+
+});
+
 
 app.get('/api/spots', function(req, res) {
 

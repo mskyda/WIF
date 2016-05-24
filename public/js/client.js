@@ -1,19 +1,19 @@
 angular.module('wif',['ui.router','ngResource','wif.controllers','wif.services']).config(function($stateProvider){
 
-	$stateProvider.state('spots',{
-		url:'/spots',
-		templateUrl:'tpl/spots.tpl',
-		controller:'SpotsPageController'
-	}).state('add',{
-	   url:'/spots/add',
-	   templateUrl:'tpl/add.tpl',
-	   controller:'AddPageController'
+	$stateProvider.state('search',{
+		url:'search',
+		templateUrl:'tpl/search.tpl',
+		controller:'SearchPageController'
+	}).state('manage',{
+	   url:'manage',
+	   templateUrl:'tpl/manage.tpl',
+	   controller:'ManagePageController'
 	}).state('about',{
-		url:'/about',
+		url:'about',
 		templateUrl:'tpl/about.tpl',
 		controller:'AboutPageController'
 	});
 
-}).run(function($state){$state.go('spots')});
+}).run(function($state){$state.go('search')});
 
 angular.bootstrap(document.documentElement, ['wif']);

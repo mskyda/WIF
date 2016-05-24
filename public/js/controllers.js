@@ -28,7 +28,7 @@ angular.module('wif.controllers',[])
 
     })
 
-    .controller('SpotsPageController', function($scope){
+    .controller('SearchPageController', function($scope){
 
         angular.extend($scope, {
             orderProp: 'distance',
@@ -40,7 +40,7 @@ angular.module('wif.controllers',[])
 
     })
 
-    .controller('AddPageController', function($scope, $state, $rootScope, $timeout, Spot){
+    .controller('ManagePageController', function($scope, $state, $rootScope, $timeout, Spot){
 
         $scope.spot = new Spot({owner: 'test'});
 
@@ -53,26 +53,6 @@ angular.module('wif.controllers',[])
                 if(Math.abs(val) !== 1) return;
 
                 $scope.step += val;
-
-            },
-
-            onPopupEmail: function(){
-                $scope.$emit('toggle:popup', '' +
-                    '<div class="popup-inner">' +
-                    '<h2>Why do we need your email?</h2>' +
-                    '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your Spots-Admin password. Email wont be used for anything else.</p>' +
-                    '</div>');
-            },
-
-            sendEmail: function(){
-
-                console.log('send email');
-
-            },
-
-            validateCredentials: function(){
-
-                console.log('send email');
 
             },
 
@@ -113,6 +93,43 @@ angular.module('wif.controllers',[])
 
     })
 
+    .controller('LoginController', function($scope, $http){
+
+        angular.extend($scope, {
+
+            onPopupEmail: function(){
+                $scope.$emit('toggle:popup', '' +
+                    '<div class="popup-inner">' +
+                    '<h2>Why do we need your email?</h2>' +
+                    '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your Spots-Admin password. Email wont be used for anything else.</p>' +
+                    '</div>');
+            },
+
+            sendEmail: function(){
+
+                $http({
+                    method: 'POST',
+                    url: '/api/account',
+                    data: {
+                        email: $scope.email,
+                        password: $scope.password
+                    }
+                }).then(function() {
+                    $scope.havePass = true;
+                });
+
+            },
+
+            validateCredentials: function(){
+
+                console.log('validate credentials');
+
+            }
+
+        });
+
+    })
+
     .controller('AboutPageController', function($scope, Spot){
 
 
@@ -135,22 +152,18 @@ angular.module('wif.controllers',[])
 
                 var input = document.querySelector('.location-controls .address');
 
-                if (!input.value){
+                if (input.value){
 
-                    input.className += ' required';
+                    $http({
+                        method: 'GET',
+                        url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input.value + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0'
+                    }).success(function (resp){
 
-                    return;
+                        $scope.geoResults = resp.results;
 
-                }
+                    });
 
-                $http({
-                    method: "GET",
-                    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input.value + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0'
-                }).success(function (resp){
-
-                    $scope.geoResults = resp.results;
-
-                });
+                } else input.className += ' required';
 
             },
 
@@ -169,7 +182,7 @@ angular.module('wif.controllers',[])
 
                 $timeout(function(){
 
-                    $scope.map = new google.maps.Map(document.getElementById("map"), {
+                    $scope.map = new google.maps.Map(document.querySelector('#map'), {
                         center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
                         zoom: 13,
                         disableDoubleClickZoom: true,
