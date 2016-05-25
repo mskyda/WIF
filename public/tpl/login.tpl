@@ -3,7 +3,8 @@
 	<input ng-model="userEmail" placeholder="email" type="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" />
 	<label for="have-id">I have user ID:</label>
 	<input id="have-id" ng-model="haveUserID" type="checkbox" />
-	<input ng-model="$parent.userID" placeholder="User ID (60 chars)" type="password" ng-required="true" ng-if="haveUserID == true" />
+	<input ng-model="$parent.userID" placeholder="User ID (60 chars)" type="password" ng-if="haveUserID == true" />
+	<span ng-if="unauthorized != null" class="errorMsg">Check Email / ID</span>
 	<a class="wizard-control" ng-if="userEmail.length && haveUserID != true" ng-click="onSendCredentials()">Send email</a>
 	<a class="wizard-control" ng-if="userEmail.length > 5 && userID.length > 50" ng-click="onSendCredentials()">Next &gt;</a>
 </div>

@@ -1,4 +1,4 @@
-angular.module('wif',['ui.router','ngResource','wif.controllers','wif.services']).config(function($stateProvider){
+angular.module('wif',['ui.router','ngResource', 'ngCookies', 'controllers','services']).config(function($stateProvider){
 
 	$stateProvider.state('search',{
 		url:'search',

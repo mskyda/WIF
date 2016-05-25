@@ -1,4 +1,4 @@
-angular.module('wif.controllers',[])
+angular.module('controllers',[])
 
     .controller('AppController', function($scope, $sce, $rootScope, Spot){
 
@@ -72,21 +72,37 @@ angular.module('wif.controllers',[])
 
     })
 
-    .controller('LoginController', function($scope, $http, $timeout){
+    .controller('LoginController', function($scope, $http, $timeout, $cookies){
 
         angular.extend($scope, {
 
-            onPopupEmail: function(){
+            init: function(){
+
+                if($cookies.get('wif.userEmail') && $cookies.get('wif.userID')){
+
+                    $scope.userEmail = $cookies.get('wif.userEmail');
+
+                    $scope.userID = $cookies.get('wif.userID');
+
+                    $scope.haveUserID = true;
+
+                }
+
+                $scope.$watchCollection('[userEmail, userID]', function() {$scope.unauthorized = null});
+
+            },
+            
+            onPopupEmail: function(){ // todo: put html into template
+
                 $scope.$emit('toggle:popup', '' +
                     '<h2>Why do we need your email?</h2>' +
                     '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your User ID. Email wont be used for anything else.</p>');
-            },
 
-            // Todo: cache credentials
+            },
 
             onSendCredentials: function() {
 
-                if(!$scope.userID){
+                if(!$scope.captchaPassed){
 
                     $scope.$emit('toggle:popup', '<div id="recaptcha"></div>');
 
@@ -95,6 +111,8 @@ angular.module('wif.controllers',[])
                         grecaptcha.render('recaptcha', {
                             sitekey: '6LdOiyATAAAAAN7jOqxZQp7yyKVbbV-hHnKZhdO6',
                             callback: function(){
+
+                                $scope.captchaPassed = true;
 
                                 $scope.$emit('toggle:popup');
 
@@ -111,6 +129,8 @@ angular.module('wif.controllers',[])
 
             sendCredentials: function(){
 
+                if($scope.unauthorized) return;
+
                 $http({
                     method: 'POST',
                     url: '/api/account',
@@ -120,27 +140,31 @@ angular.module('wif.controllers',[])
                     }
                 }).then(function() {
 
-                    if(!$scope.userID){
-
-                        $scope.haveUserID = true;
-
-                    } else {
-
-                        $scope.$parent.spot.owner = $scope.userID;
-
-                        $scope.$parent.wizardGo(1);
-
-                    }
+                    $scope.userID ? $scope.onLoginSuccess() : $scope.haveUserID = true;
 
                 }, function(){
 
-                    $scope.userID = '';
+                    $scope.unauthorized = true;
 
                 });
+
+            },
+
+            onLoginSuccess: function(){
+
+                $cookies.put('wif.userEmail', $scope.userEmail);
+
+                $cookies.put('wif.userID', $scope.userID);
+
+                $scope.$parent.spot.owner = $scope.userID;
+
+                $scope.$parent.wizardGo(1);
 
             }
 
         });
+
+        $scope.init();
 
     })
 

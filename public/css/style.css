@@ -103,11 +103,14 @@ a[ng-click]{
 .sub-nav li,
 .sub-nav input,
 .sub-nav label,
+.sub-nav span,
 .sub-nav a{
 	float: left;
 	margin: 0;
 	font: 20px/42px Arial, Helvetica, sans-serif;
 }
+.sub-nav span{color: #cd0000;}
+.sub-nav span,
 .sub-nav label{margin: 0 0 0 10px;}
 .sub-nav h2 a{
 	float: none;
@@ -179,7 +182,7 @@ a[ng-click]{
 	font: 30px/40px Arial, Helvetica, sans-serif;
 }
 .sub-nav input[type="password"].ng-dirty.ng-empty,
-.location-controls input.required{border-color: #fc8c84;}
+.location-controls input.required{border-color: #cd0000;}
 .location-controls .go-link{
 	color: #fff;
 	font: 40px/100px Arial, Helvetica, sans-serif;
