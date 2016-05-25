@@ -22,13 +22,7 @@
 
     <div id="main" ui-view></div>
 
-    <div class="popup-overlay" ng-click="togglePopup()" ng-if="popupHTML != null">
-        <div class="popup-holder wrapper">
-            <div class="popup-frame">
-                <div class="popup" ng-bind-html="popupHTML"></div>
-            </div>
-        </div>
-    </div>
+    <ng-include src="'tpl/popup.tpl'"></ng-include>
 
 </div>
 

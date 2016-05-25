@@ -10,9 +10,11 @@ angular.module('controllers',[])
 
             },
 
-            togglePopup: function(e, html){
+            togglePopup: function(e, data){
 
-                $scope.popupHTML = html ? $sce.trustAsHtml(html) : null;
+                $scope.popupTPL = data && data.tpl ? data.tpl : null;
+
+                $scope.popupHTML = data && data.html ? $sce.trustAsHtml(data.html) : null;
 
             }
 
@@ -91,12 +93,10 @@ angular.module('controllers',[])
                 $scope.$watchCollection('[userEmail, userID]', function() {$scope.unauthorized = null});
 
             },
-            
+
             onPopupEmail: function(){ // todo: put html into template
 
-                $scope.$emit('toggle:popup', '' +
-                    '<h2>Why do we need your email?</h2>' +
-                    '<p>Only creator of Spot have an ability to manage(edit/delete) it. For it you will receive and email with your User ID. Email wont be used for anything else.</p>');
+                $scope.$emit('toggle:popup', {tpl: 'tpl/email-info.tpl'});
 
             },
 
@@ -104,7 +104,7 @@ angular.module('controllers',[])
 
                 if(!$scope.captchaPassed){
 
-                    $scope.$emit('toggle:popup', '<div id="recaptcha"></div>');
+                    $scope.$emit('toggle:popup', {html: '<div id="recaptcha"></div>'});
 
                     $timeout(function () {
 
