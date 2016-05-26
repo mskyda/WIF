@@ -1,5 +1,7 @@
 angular.module('controllers',[])
 
+    /////////////////////////////////////////////////////////////////////////////
+
     .controller('AppController', function($scope, $sce, $rootScope, Spot){
 
         angular.extend($scope, {
@@ -30,6 +32,8 @@ angular.module('controllers',[])
 
     })
 
+    /////////////////////////////////////////////////////////////////////////////
+
     .controller('SearchPageController', function($scope){
 
         angular.extend($scope, {
@@ -41,6 +45,8 @@ angular.module('controllers',[])
         });
 
     })
+
+    /////////////////////////////////////////////////////////////////////////////
 
     .controller('ManagePageController', function($scope, $state, $rootScope, $timeout, Spot){
 
@@ -73,6 +79,8 @@ angular.module('controllers',[])
         });
 
     })
+
+    /////////////////////////////////////////////////////////////////////////////
 
     .controller('LoginController', function($scope, $http, $timeout, $cookies){
 
@@ -168,13 +176,30 @@ angular.module('controllers',[])
 
     })
 
-    .controller('AboutPageController', function($scope, Spot){
+    /////////////////////////////////////////////////////////////////////////////
+
+    .controller('AboutPageController', function($scope){
 
 
 
     })
 
-    .controller('MapController', function($scope, $rootScope, $http, $timeout, Spot){
+    /////////////////////////////////////////////////////////////////////////////
+
+
+    .controller('SpotInfoController', function($scope, $rootScope, Spot){
+
+        Spot.get({id: $rootScope.spotID}).$promise.then(function(resp){
+
+            angular.extend($scope, resp.spot);
+
+        });
+
+    })
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    .controller('MapController', function($scope, $rootScope, $http, $timeout, $compile, Spot){
 
         angular.extend($scope, {
 
@@ -340,13 +365,21 @@ angular.module('controllers',[])
 
                 });
 
+                $rootScope.spotID = spot._id;
+
                 spot.infoWindow.open($scope.map, spot.marker);
 
             },
 
             renderInfoContent: function(spot){
 
-                return '<h2>' + spot.name + '</h2>';
+                return $compile('<a ng-click="openSpotPopup()">' + spot.name + '</a>')($scope)[0];
+
+            },
+
+            openSpotPopup: function(){
+
+                $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
 
             }
 

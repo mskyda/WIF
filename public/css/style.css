@@ -163,6 +163,7 @@ a[ng-click]{
 	height: 100%;
 	width: 100%;
 }
+#map a{font: 20px/24px Arial, Helvetica, sans-serif;}
 .location-controls{padding: 100px 0 0;}
 .location-controls > li{
 	float: left;
@@ -227,7 +228,18 @@ a[ng-click]{
 	box-shadow: 0 0 100px #000;
 	text-align: center;
 	background: #eee;
-	padding: 10px;
+	padding: 15px;
 	max-width: 500px;
 	border-radius: 10px;
+	font: 16px/20px Arial, Helvetica, sans-serif;
 }
+.popup .close-popup{
+	float: right;
+	font: 12px/12px Arial, Helvetica, sans-serif;
+}
+.popup h2{
+	font: 20px/24px Arial, Helvetica, sans-serif;
+	margin: 0 0 10px;
+}
+.popup p{margin: 0 0 10px;}
+.spot-info{width: 500px;}

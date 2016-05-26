@@ -14,7 +14,7 @@ var Spot = new mongoose.Schema({
 	name:         { type: String, required: true  },
 	desc:         { type: String, required: false },
 	coords:       { type: Object, required: true  },
-	owner:        { type: String, required: true  },
+	owner:        { type: String, required: true, select: false  },
 
 	pic:          { type: String, required: false }, // for future
 	rating:       { type: Number, required: false }  // for future
