@@ -28,6 +28,10 @@ angular.module('controllers',[])
 
             $scope.total = resp.total;
 
+            /*$rootScope.spotID = '57457267bf6dd61700d38e9e';
+
+            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
+
         });
 
     })
@@ -189,11 +193,54 @@ angular.module('controllers',[])
 
     .controller('SpotInfoController', function($scope, $rootScope, Spot){
 
+        angular.extend($scope, {
+
+            toggleMode: function(mode){
+
+                $scope.mode = $scope.mode !==  mode ? mode : null;
+
+            }
+
+        });
+
         Spot.get({id: $rootScope.spotID}).$promise.then(function(resp){
 
             angular.extend($scope, resp.spot);
 
         });
+
+        $scope.rating = 3;
+
+    })
+
+    /////////////////////////////////////////////////////////////////////////////
+
+
+    .controller('StarRateController', function($scope){
+
+        $scope.stars = [];
+
+        for(var i = 0; i < 5; i++){
+
+            $scope.stars.push({i: i + 1});
+
+        }
+
+    })
+
+    /////////////////////////////////////////////////////////////////////////////
+
+
+    .controller('RateModeController', function($scope, Spot){
+
+        $scope.rating = null;
+        $scope.editableRate = true;
+
+        $scope.rate = function(rating){
+
+            $scope.rating = rating;
+
+        }
 
     })
 

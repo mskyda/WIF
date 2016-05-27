@@ -1,4 +1,5 @@
-<div class="popup-overlay" ng-click="togglePopup()" ng-if="popupHTML != null || popupTPL != null">
+<div class="popup-container" ng-if="popupHTML != null || popupTPL != null">
+	<div class="popup-overlay" ng-click="togglePopup()"></div>
 	<div class="popup-holder wrapper">
 		<div class="popup-frame">
 			<div class="popup">

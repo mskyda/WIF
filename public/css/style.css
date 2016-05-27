@@ -93,7 +93,19 @@ a[ng-click]{
 		margin-top: -10px;
 	}
 }
-
+.cta{
+	float: right;
+	text-transform: uppercase;
+	color: #fff;
+	background: -webkit-linear-gradient(#aad6ff, #315373);
+	background: -o-linear-gradient(#aad6ff, #315373);
+	background: -moz-linear-gradient(#aad6ff, #315373);
+	background: linear-gradient(#aad6ff, #315373);
+	font-weight: bold;
+	border-radius: 20px;
+	margin: 0 10px;
+	text-shadow: 0 0 5px #333;
+}
 .sub-nav{
 	height: 42px;
 	border-bottom: 2px solid #fff;
@@ -124,18 +136,6 @@ a[ng-click]{
 .sub-nav a{padding:0 20px;}
 .sub-nav .wizard-control,
 .sub-nav .reset-location{float:right;}
-.sub-nav .cta{
-	float: right;
-	text-transform: uppercase;
-	color: #fff;
-	background: -webkit-linear-gradient(#aad6ff, #315373);
-	background: -o-linear-gradient(#aad6ff, #315373);
-	background: -moz-linear-gradient(#aad6ff, #315373);
-	background: linear-gradient(#aad6ff, #315373);
-	font-weight: bold;
-	border-radius: 20px;
-	margin: 0 10px;
-}
 .sub-nav input[type="checkbox"]{margin: 15px 10px;}
 .sub-nav input[type="email"],
 .sub-nav input[type="password"],
@@ -202,15 +202,18 @@ a[ng-click]{
 	margin: -10px 0 30px;
 }
 .geocoding-results li{padding: 10px 0;}
+.popup-container,
 .popup-overlay{
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 2;
 	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100%;
 	width: 100%;
 	display: table;
+}
+.popup-overlay{
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 2;
 }
 .popup-holder{
 	display: table-cell;
@@ -224,6 +227,7 @@ a[ng-click]{
 	left: 50%;
 }
 .popup {
+	z-index: 3;
 	left: -50%;
 	box-shadow: 0 0 100px #000;
 	text-align: center;
@@ -238,8 +242,80 @@ a[ng-click]{
 	font: 12px/12px Arial, Helvetica, sans-serif;
 }
 .popup h2{
+	font: 26px/30px Arial, Helvetica, sans-serif;
+	margin: 0 0 5px;
+}
+.popup h3{
 	font: 20px/24px Arial, Helvetica, sans-serif;
 	margin: 0 0 10px;
 }
 .popup p{margin: 0 0 10px;}
+.popup .section{
+	padding: 10px 0;
+	border-top: 2px solid #ccc;
+}
+.spot-info .mode-holder{padding: 10px 0 0;}
+.spot-info .mode-holder > .wrapper{padding: 10px 0;}
 .spot-info{width: 500px;}
+.star-rate{padding: 0 0 5px;}
+.star-rate ul,
+.star-rate li{display: inline-block;}
+.spot-info .actions{padding: 10px 0;}
+.spot-info .actions li{
+	float: left;
+	width: 50%;
+	font-size: 18px;
+}
+.spot-info .actions a{
+	padding: 5px 0;
+	width: 80%;
+	display: block;
+	margin: 0 auto;
+	background: -webkit-linear-gradient(#aad6ff, #315373);
+	background: -o-linear-gradient(#aad6ff, #315373);
+	background: -moz-linear-gradient(#aad6ff, #315373);
+	background: linear-gradient(#aad6ff, #315373);
+	border-radius: 20px;
+	color: #fff;
+	text-shadow: 0 0 5px #333;
+	box-shadow: 0 0 10px #333;
+}
+.spot-info .actions a.active{
+	background: -webkit-linear-gradient(#aad6ff, #fff);
+	background: -o-linear-gradient(#aad6ff, #fff);
+	background: -moz-linear-gradient(#aad6ff, #fff);
+	background: linear-gradient(#aad6ff, #fff);
+}
+.star-rate .star {
+	padding: 1px;
+	color: #ddd;
+	font-size: 20px;
+	text-shadow: .05em .05em #aaa;
+	display: inline-block;
+}
+.star-rate .star.filled {color: #fd0;}
+.rate-mode .star-rate{
+	float: left;
+}
+.rate-mode span{
+	float: left;
+	width: 150px;
+	line-height: 25px;
+	text-align: left;
+}
+.rate-mode textarea{
+	width: 335px;
+	font: 14px/20px Arial, Helvetica, sans-serif;
+	resize: none;
+	float: left;
+	height: 60px;
+}
+.spot-info .cta{
+	line-height: 32px;
+	width: 90%;
+	float: none;
+	display: block;
+	color: #fff;
+	margin: 0 auto;
+	box-shadow: 0 0 10px #333;
+}
