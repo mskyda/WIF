@@ -2,7 +2,7 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('AppController', function($scope, $sce, $rootScope, Spot){
+    .controller('AppController', function($scope, $sce, $rootScope, $timeout, Spot){
 
         angular.extend($scope, {
 
@@ -18,9 +18,24 @@ angular.module('controllers',[])
 
                 $scope.popupHTML = data && data.html ? $sce.trustAsHtml(data.html) : null;
 
+            },
+
+            openCaptcha: function(e, cb){
+
+                $timeout(function () {
+
+                    grecaptcha.render('recaptcha', {
+                        sitekey: '6LdOiyATAAAAAN7jOqxZQp7yyKVbbV-hHnKZhdO6',
+                        callback: cb
+                    });
+
+                });
+
             }
 
         });
+
+        $scope.$on('open:captcha', $scope.openCaptcha);
 
         $scope.$on('toggle:popup', $scope.togglePopup);
 
@@ -52,7 +67,7 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('ManagePageController', function($scope, $state, $rootScope, $timeout, Spot){
+    .controller('ManagePageController', function($scope, $state, Spot){
 
         $scope.spot = new Spot();
 
@@ -118,20 +133,13 @@ angular.module('controllers',[])
 
                     $scope.$emit('toggle:popup', {html: '<div id="recaptcha"></div>'});
 
-                    $timeout(function () {
+                    $scope.$emit('open:captcha', function(){
 
-                        grecaptcha.render('recaptcha', {
-                            sitekey: '6LdOiyATAAAAAN7jOqxZQp7yyKVbbV-hHnKZhdO6',
-                            callback: function(){
+                        $scope.togglePopup();
 
-                                $scope.captchaPassed = true;
+                        $scope.captchaPassed = true;
 
-                                $scope.$emit('toggle:popup');
-
-                                $scope.sendCredentials();
-
-                            }
-                        });
+                        $scope.sendCredentials();
 
                     });
 
@@ -246,6 +254,12 @@ angular.module('controllers',[])
             rate: function(rating){
 
                 $scope.rating = rating;
+
+            },
+
+            onSubmitRating: function(){
+
+                $scope.$emit('open:captcha', $scope.submitRating);
 
             },
 
@@ -446,11 +460,11 @@ angular.module('controllers',[])
 
             renderInfoContent: function(spot){
 
-                return $compile('<a ng-click="openSpotPopup()">' + spot.name + '</a>')($scope)[0];
+                return $compile('<div><a ng-click="openSpot()">' + spot.name + '</a>' + (spot.rating ? 'Rating: ' + spot.rating.toFixed(2) + '</div>' : ''))($scope)[0];
 
             },
 
-            openSpotPopup: function(){
+            openSpot: function(){
 
                 $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
 

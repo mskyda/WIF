@@ -92,8 +92,7 @@ a[ng-click]{
 		margin-top: -10px;
 	}
 }
-.cta{
-	float: right;
+a.cta{
 	text-transform: uppercase;
 	color: #fff;
 	background: -webkit-linear-gradient(#aad6ff, #315373);
@@ -120,6 +119,7 @@ a[ng-click]{
 	margin: 0;
 	font: 20px/42px Arial, Helvetica, sans-serif;
 }
+.sub-nav .cta{float: right;}
 .sub-nav span{color: #cd0000;}
 .sub-nav span,
 .sub-nav label{margin: 0 0 0 10px;}
@@ -158,11 +158,17 @@ a[ng-click]{
 	resize: none;
 }
 .map-holder{height: calc(100% - 44px);}
+.rate-mode #recaptcha{margin: 0 0 20px;}
+.rate-mode #recaptcha div{  margin: 0 auto;  }
 #map{
 	height: 100%;
 	width: 100%;
 }
-#map a{font: 20px/24px Arial, Helvetica, sans-serif;}
+#map a{
+	font: 20px/28px Arial, Helvetica, sans-serif;
+	display: block;
+}
+#map div{font: 15px/18px Arial, Helvetica, sans-serif;}
 .location-controls{padding: 100px 0 0;}
 .location-controls > li{
 	float: left;
@@ -271,9 +277,6 @@ a[ng-click]{
 	border-radius: 20px;
 	text-shadow: 0 0 5px #ccc;
 }
-.spot-info .actions a.active{
-
-}
 .star-rate .star {
 	padding: 1px;
 	color: #ddd;
@@ -301,9 +304,7 @@ a[ng-click]{
 .spot-info .cta{
 	line-height: 32px;
 	width: 90%;
-	float: none;
 	display: block;
-	color: #fff;
 	margin: 0 auto;
 	box-shadow: 0 0 10px #333;
 }

@@ -149,7 +149,7 @@ var spotsApi = {
 
 		// todo: filter results by coords
 
-		api.SpotModel.find({}, 'name coords', function (err, spots) {
+		api.SpotModel.find({}, 'name coords rating', function (err, spots) {
 			if (!err) {
 				console.log('Success: spots list returned');
 				return res.send(spots);
