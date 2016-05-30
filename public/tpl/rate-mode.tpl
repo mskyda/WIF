@@ -3,11 +3,11 @@
 		<span>Rate this Spot:</span>
 		<ng-include src="'tpl/star-rate.tpl'"></ng-include>
 	</div>
-	<div class="wrapper">
+	<div ng-if="rating != null" class="wrapper">
 		<span>Add a comment:</span>
-		<textarea ng-model="comment"></textarea>
+		<textarea ng-model="$parent.message" placeholder="minimum 20 chars"></textarea>
 	</div>
-	<div class="wrapper">
-		<a class="cta">Send</a>
+	<div class="wrapper" ng-if="message.length > 20">
+		<a class="cta" ng-click="submitRating()">Send</a>
 	</div>
 </div>

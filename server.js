@@ -12,7 +12,7 @@ app.use(express.static('./public'));
 app.get('/api/spots', api.Spots.get);
 app.get('/api/spots/:id', api.Spots.get);
 app.post('/api/spots', api.Spots.post);
-app.put('/api/spots', api.Spots.put);
+app.put('/api/spots/:id', api.Spots.put);
 app.delete('/api/spots/:id', api.Spots.delete);
 app.post('/api/account', api.Account.init);
 

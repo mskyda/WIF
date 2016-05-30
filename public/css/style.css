@@ -15,6 +15,7 @@ a{
 	color: #315373;
 	text-decoration: none;
 }
+a.active,
 a:hover{color: #87a2bc;}
 input{color: #333;}
 ::-webkit-input-placeholder {color: #333;}
@@ -82,8 +83,6 @@ a[ng-click]{
 	float: left;
 	padding: 0 20px;
 }
-#header .tabs a.active{color: #87a2bc;}
-
 @media (max-width: 1170px) {
 	#header .tabs {
 		float: left;
@@ -268,23 +267,12 @@ a[ng-click]{
 }
 .spot-info .actions a{
 	padding: 5px 0;
-	width: 80%;
-	display: block;
 	margin: 0 auto;
-	background: -webkit-linear-gradient(#aad6ff, #315373);
-	background: -o-linear-gradient(#aad6ff, #315373);
-	background: -moz-linear-gradient(#aad6ff, #315373);
-	background: linear-gradient(#aad6ff, #315373);
 	border-radius: 20px;
-	color: #fff;
-	text-shadow: 0 0 5px #333;
-	box-shadow: 0 0 10px #333;
+	text-shadow: 0 0 5px #ccc;
 }
 .spot-info .actions a.active{
-	background: -webkit-linear-gradient(#aad6ff, #fff);
-	background: -o-linear-gradient(#aad6ff, #fff);
-	background: -moz-linear-gradient(#aad6ff, #fff);
-	background: linear-gradient(#aad6ff, #fff);
+
 }
 .star-rate .star {
 	padding: 1px;

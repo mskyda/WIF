@@ -15,9 +15,10 @@ var Spot = new mongoose.Schema({
 	desc:         { type: String, required: false },
 	coords:       { type: Object, required: true  },
 	owner:        { type: String, required: true, select: false  },
+	comments:     { type: Array,  required: false },
+	rating:       { type: Number,  required: false }
 
-	pic:          { type: String, required: false }, // for future
-	rating:       { type: Number, required: false }  // for future
+	/*picture:          { type: String, required: false }*/
 });
 
 Spot.path('name').validate(function (str) {

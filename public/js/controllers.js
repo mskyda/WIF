@@ -28,9 +28,9 @@ angular.module('controllers',[])
 
             $scope.total = resp.total;
 
-            /*$rootScope.spotID = '57457267bf6dd61700d38e9e';
+            $rootScope.spotID = '57457267bf6dd61700d38e9e';
 
-            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
+            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
 
         });
 
@@ -205,11 +205,15 @@ angular.module('controllers',[])
 
         Spot.get({id: $rootScope.spotID}).$promise.then(function(resp){
 
-            angular.extend($scope, resp.spot);
+            angular.extend($scope, {spot: resp.spot});
+
+            $scope.$watch('spot.rating', function(rating){
+
+                $scope.rating = rating;
+
+            });
 
         });
-
-        $scope.rating = 3;
 
     })
 
@@ -231,16 +235,38 @@ angular.module('controllers',[])
     /////////////////////////////////////////////////////////////////////////////
 
 
-    .controller('RateModeController', function($scope, Spot){
+    .controller('RateModeController', function($scope, $rootScope, Spot){
 
         $scope.rating = null;
+
         $scope.editableRate = true;
 
-        $scope.rate = function(rating){
+        angular.extend($scope, {
 
-            $scope.rating = rating;
+            rate: function(rating){
 
-        }
+                $scope.rating = rating;
+
+            },
+
+            submitRating: function(){
+
+                Spot.update({id: $rootScope.spotID}, {comment: {
+                    rating: $scope.rating,
+                    message: $scope.message
+                }}).$promise.then(function(resp){
+
+                    $scope.spot.comments = resp.spot.comments;
+
+                    $scope.spot.rating = resp.spot.rating;
+
+                    $scope.toggleMode();
+
+                });
+
+            }
+
+        });
 
     })
 

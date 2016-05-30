@@ -35,10 +35,28 @@ var spotsApi = {
 				return res.send({ error: 'Not found' });
 			}
 
-			spot.name     = req.body.name;
-			spot.desc     = req.body.desc;
-			spot.coords   = req.body.coords;
-			spot.owner   = req.body.owner;
+			if(req.body.comment){
+
+				spot.comments = spot.comments || [];
+
+				spot.comments.push(req.body.comment);
+
+				spot.rating = 0;
+
+				spot.comments.map(function(obj){spot.rating += obj.rating});
+
+				spot.rating /= spot.comments.length;
+
+
+			} else {
+
+				// Todo: check userID
+
+				spot.name     = req.body.name;
+				spot.desc     = req.body.desc;
+				spot.coords   = req.body.coords;
+
+			}
 
 			spot.save(function (err) {
 				if (!err) {
@@ -55,6 +73,7 @@ var spotsApi = {
 					console.log('Error: ', res.statusCode, err.message);
 				}
 			});
+
 		});
 
 	},
@@ -164,6 +183,6 @@ var spotsApi = {
 
 };
 
-_.bindAll(spotsApi, 'get', 'post');
+_.bindAll(spotsApi, 'get', 'post', 'put', 'delete');
 
 exports.Spots = spotsApi;
