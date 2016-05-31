@@ -43,9 +43,9 @@ angular.module('controllers',[])
 
             $scope.total = resp.total;
 
-            $rootScope.spotID = '57457267bf6dd61700d38e9e';
+            /*$rootScope.activeSpot = '57457267bf6dd61700d38e9e';
 
-            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
+            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
 
         });
 
@@ -59,7 +59,9 @@ angular.module('controllers',[])
             orderProp: 'distance',
             limit: 5,
             goToSpot: function(spot){
+
                 $scope.$broadcast('map:goto', spot);
+
             }
         });
 
@@ -176,9 +178,9 @@ angular.module('controllers',[])
 
                 $cookies.put('wif.userID', $scope.userID);
 
-                $scope.$parent.spot.owner = $scope.userID;
+                $scope.spot.owner = $scope.userID;
 
-                $scope.$parent.wizardGo(1);
+                $scope.wizardGo(1);
 
             }
 
@@ -211,13 +213,21 @@ angular.module('controllers',[])
 
         });
 
-        Spot.get({id: $rootScope.spotID}).$promise.then(function(resp){
+        Spot.get({id: $rootScope.activeSpot}).$promise.then(function(resp){
 
             angular.extend($scope, {spot: resp.spot});
 
             $scope.$watch('spot.rating', function(rating){
 
                 $scope.rating = rating;
+
+            });
+
+            $rootScope.activeSpot = resp.spot;
+
+            $scope.$watch('transportType', function(type) {
+
+                if(type) $rootScope.$broadcast('map:direction', type);
 
             });
 
@@ -265,7 +275,7 @@ angular.module('controllers',[])
 
             submitRating: function(){
 
-                Spot.update({id: $rootScope.spotID}, {comment: {
+                Spot.update({id: $scope.spot._id}, {comment: {
                     rating: $scope.rating,
                     message: $scope.message
                 }}).$promise.then(function(resp){
@@ -339,15 +349,63 @@ angular.module('controllers',[])
                         mapTypeId: google.maps.MapTypeId.SATELLITE
                     });
 
-                    $scope.onMapRendered();
+                    $scope.onMapRendered($scope.map);
 
                 });
 
             },
 
+            renderDirection: function(type){
+
+                if(!$scope.map) return;
+
+                $scope.dService = $scope.dService || new google.maps.DirectionsService;
+
+                $scope.dRenderer = $scope.dRenderer || new google.maps.DirectionsRenderer({
+                        suppressMarkers: true,
+                        map: $scope.map
+                    });
+
+                $scope.dService.route({
+                    origin: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
+                    destination: new google.maps.LatLng($rootScope.activeSpot.coords.lat, $rootScope.activeSpot.coords.lng),
+                    travelMode: google.maps.TravelMode[type],
+                    provideRouteAlternatives: false
+                }, function(resp) {
+
+                    $scope.dRenderer.setDirections(resp);
+
+                    $scope.renderDirectionInfo(resp);
+
+                });
+
+            },
+
+            renderDirectionInfo: function(resp){
+
+                var way = resp.routes[0].legs[0],
+                    middleStep = way.steps[Math.round(way.steps.length / 2)];
+
+                angular.forEach($rootScope.spots, function(spot){
+
+                    if(spot.infoWindow) spot.infoWindow.close();
+
+                });
+
+                if($scope.dInfo) $scope.dInfo.close();
+
+                $scope.dInfo = new google.maps.InfoWindow({
+                    content: way.distance.text + ' / ' + way.duration.text,
+                    position: new google.maps.LatLng(middleStep.end_point.lat(), middleStep.end_point.lng())
+                });
+
+                $scope.dInfo.open($scope.map);
+
+            },
+
             onMapRendered: function(){
 
-                if($scope.$parent.spot){ // add spot page
+                if($scope.spot){ // add spot page
 
                     $scope.putUserMarker();
 
@@ -365,22 +423,18 @@ angular.module('controllers',[])
 
             onPutNewSpot: function(e){
 
-                if($scope.$parent.step !== 1) return;
+                if($scope.step !== 1) return;
 
                 var coords = {lat: e.latLng.lat(), lng: e.latLng.lng()};
 
-                if($scope.$parent.marker) $scope.$parent.marker.setMap(null);
+                if($scope.marker) $scope.marker.setMap(null);
 
-                $scope.$parent.marker = new google.maps.Marker({
+                $scope.marker = new google.maps.Marker({
                     position: coords,
                     map: $scope.map
                 });
 
-                $scope.$apply(function(){
-
-                    $scope.$parent.spot.coords = coords;
-
-                });
+                $scope.$apply(function(){$scope.spot.coords = coords});
 
             },
 
@@ -452,7 +506,7 @@ angular.module('controllers',[])
 
                 });
 
-                $rootScope.spotID = spot._id;
+                $rootScope.activeSpot = spot._id;
 
                 spot.infoWindow.open($scope.map, spot.marker);
 
@@ -480,10 +534,12 @@ angular.module('controllers',[])
 
         });
 
-        if($rootScope.center){
+        $scope.$on('map:direction', function(ev, opts){
 
-            $scope.renderMap($rootScope.center);
+            $scope.renderDirection(opts);
 
-        }
+        });
+
+        if($rootScope.center) $scope.renderMap($rootScope.center);
 
     });

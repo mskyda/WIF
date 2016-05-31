@@ -2,6 +2,13 @@
 	<h2>{{spot.name}}</h2>
 	<ng-include src="'tpl/star-rate.tpl'"></ng-include>
 	<p>"{{spot.desc}}"</p>
+	<select ng-model="transportType">
+		<option value="" disabled selected>Transport type</option>
+		<option value="DRIVING">Car</option>
+		<option value="WALKING">Walk</option>
+		<option value="BICYCLING">Bicycle</option>
+		<option value="TRANSIT">Public transport</option>
+	</select>
 	<div class="section">
 		<h3>Are you interested in?</h3>
 		<ul class="actions wrapper">
