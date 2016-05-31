@@ -1,3 +1,3 @@
 ### WIF 1.0.0 ###
 
-MEAN-stack experimental app
+MEAN-stack experimental app. Test.
