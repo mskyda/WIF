@@ -281,6 +281,12 @@ angular.module('controllers',[])
 
         }
 
+        if($scope.rating){
+
+            $scope.rating = Math.round($scope.rating);
+
+        }
+
         $scope.stars = [];
 
         for(var i = 0; i < 5; i++){
@@ -478,7 +484,11 @@ angular.module('controllers',[])
                         icon: './img/favicon.ico'
                     });
 
-                    spot.marker.addListener('click', function(){$scope.openInfoWindow(spot)});
+                    //$scope.rating = spot.rating;
+
+                    var content = $compile('<div><a ng-click="openSpot()">' + spot.name + '</a><ng-include src="\'tpl/star-rate.tpl\'"></ng-include></div>')($scope)[0];
+
+                    spot.marker.addListener('click', function(){$scope.openInfoWindow(spot, content)});
 
                 });
 
@@ -498,10 +508,10 @@ angular.module('controllers',[])
 
             },
 
-            openInfoWindow: function(spot){
+            openInfoWindow: function(spot, content){
 
                 spot.infoWindow = spot.infoWindow || new google.maps.InfoWindow({
-                    content: $scope.renderInfoContent(spot)
+                    content: content
                 });
 
                 angular.forEach($rootScope.spots, function(spot){
@@ -513,12 +523,6 @@ angular.module('controllers',[])
                 $rootScope.activeSpot = spot._id; // Todo: spot page (by id in URL)
 
                 spot.infoWindow.open($scope.map, spot.marker);
-
-            },
-
-            renderInfoContent: function(spot){
-
-                return $compile('<div><a ng-click="openSpot()">' + spot.name + '</a>' + (spot.rating ? 'Rating: ' + spot.rating.toFixed(2) + '</div>' : ''))($scope)[0];
 
             },
 

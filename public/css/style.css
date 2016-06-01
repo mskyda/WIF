@@ -164,11 +164,8 @@ a.cta{
 	height: 100%;
 	width: 100%;
 }
-#map a{
-	font: 20px/28px Arial, Helvetica, sans-serif;
-	display: block;
-}
-#map div{font: 15px/18px Arial, Helvetica, sans-serif;}
+#map div{font: 20px/22px Arial, Helvetica, sans-serif;}
+#map .star-rate{padding: 0;}
 .location-controls{padding: 100px 0 0;}
 .location-controls > li{
 	float: left;
