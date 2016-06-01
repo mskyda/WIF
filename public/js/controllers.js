@@ -209,29 +209,72 @@ angular.module('controllers',[])
 
                 $scope.mode = $scope.mode !==  mode ? mode : null;
 
+            },
+
+            onSpotLoaded: function(resp){
+
+                angular.extend($scope, {spot: resp.spot});
+
+                $scope.$watch('spot.rating', function(rating){
+
+                    $scope.rating = rating;
+
+                });
+
+                $scope.$watch('transportType', function(index) {
+
+                    if(index) $rootScope.$broadcast('map:direction', $scope.directions[index].data);
+
+                });
+
+                $rootScope.center ? $scope.getDirections() : $scope.directions = false;
+
+                $rootScope.activeSpot = resp.spot;
+
+            },
+
+            getDirections: function(){
+
+                var dServive = new google.maps.DirectionsService,
+                    dTypes = [
+                        {mode: 'DRIVING', name: 'Car'},
+                        {mode: 'WALKING', name: 'Walk'},
+                        {mode: 'BICYCLING', name: 'Bicycle'},
+                        {mode: 'TRANSIT', name: 'Public transport'}
+                    ], counter = 0;
+
+                angular.forEach(dTypes, function(obj, index){
+
+                    dServive.route({
+                        origin: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
+                        destination: new google.maps.LatLng($scope.spot.coords.lat, $scope.spot.coords.lng),
+                        travelMode: google.maps.TravelMode[obj.mode],
+                        provideRouteAlternatives: false
+                    }, function(resp) {
+
+                        if(resp.status === 'OK'){
+
+                            angular.extend(obj, {
+                                data: resp,
+                                index: index,
+                                way: '( ' + resp.routes[0].legs[0].distance.text + ' / ' + resp.routes[0].legs[0].duration.text + ' )'
+                            });
+
+                        }
+
+                        counter++;
+
+                        if(counter === dTypes.length) $scope.$apply(function(){$scope.directions = dTypes});
+
+                    });
+
+                });
+
             }
 
         });
 
-        Spot.get({id: $rootScope.activeSpot}).$promise.then(function(resp){
-
-            angular.extend($scope, {spot: resp.spot});
-
-            $scope.$watch('spot.rating', function(rating){
-
-                $scope.rating = rating;
-
-            });
-
-            $rootScope.activeSpot = resp.spot;
-
-            $scope.$watch('transportType', function(type) {
-
-                if(type) $rootScope.$broadcast('map:direction', type);
-
-            });
-
-        });
+        Spot.get({id: $rootScope.activeSpot._id || $rootScope.activeSpot}).$promise.then($scope.onSpotLoaded);
 
     })
 
@@ -355,51 +398,14 @@ angular.module('controllers',[])
 
             },
 
-            renderDirection: function(type){
-
-                if(!$scope.map) return;
-
-                $scope.dService = $scope.dService || new google.maps.DirectionsService;
+            renderDirection: function(data){
 
                 $scope.dRenderer = $scope.dRenderer || new google.maps.DirectionsRenderer({
-                        suppressMarkers: true,
-                        map: $scope.map
-                    });
-
-                $scope.dService.route({
-                    origin: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
-                    destination: new google.maps.LatLng($rootScope.activeSpot.coords.lat, $rootScope.activeSpot.coords.lng),
-                    travelMode: google.maps.TravelMode[type],
-                    provideRouteAlternatives: false
-                }, function(resp) {
-
-                    $scope.dRenderer.setDirections(resp);
-
-                    $scope.renderDirectionInfo(resp);
-
+                    suppressMarkers: true,
+                    map: $scope.map
                 });
 
-            },
-
-            renderDirectionInfo: function(resp){
-
-                var way = resp.routes[0].legs[0],
-                    middleStep = way.steps[Math.round(way.steps.length / 2)];
-
-                angular.forEach($rootScope.spots, function(spot){
-
-                    if(spot.infoWindow) spot.infoWindow.close();
-
-                });
-
-                if($scope.dInfo) $scope.dInfo.close();
-
-                $scope.dInfo = new google.maps.InfoWindow({
-                    content: way.distance.text + ' / ' + way.duration.text,
-                    position: new google.maps.LatLng(middleStep.end_point.lat(), middleStep.end_point.lng())
-                });
-
-                $scope.dInfo.open($scope.map);
+                $scope.dRenderer.setDirections(data);
 
             },
 
@@ -506,7 +512,7 @@ angular.module('controllers',[])
 
                 });
 
-                $rootScope.activeSpot = spot._id;
+                $rootScope.activeSpot = spot._id; // Todo: spot page (by id in URL)
 
                 spot.infoWindow.open($scope.map, spot.marker);
 
@@ -534,9 +540,9 @@ angular.module('controllers',[])
 
         });
 
-        $scope.$on('map:direction', function(ev, opts){
+        $scope.$on('map:direction', function(ev, data){
 
-            $scope.renderDirection(opts);
+            $scope.renderDirection(data);
 
         });
 

@@ -237,7 +237,7 @@ a.cta{
 	box-shadow: 0 0 100px #000;
 	text-align: center;
 	background: #eee;
-	padding: 15px;
+	padding: 10px;
 	max-width: 500px;
 	border-radius: 10px;
 	font: 16px/20px Arial, Helvetica, sans-serif;
@@ -256,7 +256,7 @@ a.cta{
 }
 .popup p{margin: 0 0 10px;}
 .popup .section{
-	padding: 10px 0;
+	padding: 10px 0 0;
 	border-top: 2px solid #ccc;
 }
 .spot-info .mode-holder{padding: 10px 0 0;}
@@ -284,7 +284,8 @@ a.cta{
 	text-shadow: .05em .05em #aaa;
 	display: inline-block;
 }
-.star-rate .star.filled {color: #fd0;}
+.star-rate .star.filled {color: #315373;}
+.star-rate span.star.filled {color: #fd0;}
 .rate-mode .star-rate{
 	float: left;
 }
@@ -307,4 +308,15 @@ a.cta{
 	display: block;
 	margin: 0 auto;
 	box-shadow: 0 0 10px #333;
+}
+.spot-info .direction-select{
+	background: none;
+	font: 18px/30px Arial, Helvetica, sans-serif;
+	height: 30px;
+	width: 100%;
+	border: 1px solid #333;
+	color: #315373;
+	outline: none;
+	text-shadow: 0 0 5px #ccc;
+	margin: 0 0 10px;
 }
