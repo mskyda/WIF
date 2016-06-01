@@ -11,8 +11,7 @@ angular.module('wif',['ui.router','ngResource', 'ngCookies', 'controllers','serv
 		   controller:'ManagePageController'
 		}).state('about',{
 			url:'/about',
-			templateUrl:'tpl/about.tpl',
-			controller:'AboutPageController'
+			templateUrl:'tpl/about.tpl'
 		});
 
 }).run(function($state){

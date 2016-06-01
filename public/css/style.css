@@ -260,6 +260,7 @@ a.cta{
 	border-top: 2px solid #ccc;
 }
 .spot-info .mode-holder{padding: 10px 0 0;}
+.spot-info .rate-mode{padding: 10px 15px;}
 .spot-info .mode-holder > .wrapper{padding: 10px 0;}
 .spot-info{width: 500px;}
 .star-rate{padding: 0 0 5px;}
@@ -286,9 +287,7 @@ a.cta{
 }
 .star-rate .star.filled {color: #315373;}
 .star-rate span.star.filled {color: #fd0;}
-.rate-mode .star-rate{
-	float: left;
-}
+.rate-mode .star-rate{float: left;}
 .rate-mode span{
 	float: left;
 	width: 150px;
@@ -296,7 +295,7 @@ a.cta{
 	text-align: left;
 }
 .rate-mode textarea{
-	width: 335px;
+	width: 300px;
 	font: 14px/20px Arial, Helvetica, sans-serif;
 	resize: none;
 	float: left;
@@ -319,4 +318,14 @@ a.cta{
 	outline: none;
 	text-shadow: 0 0 5px #ccc;
 	margin: 0 0 10px;
+}
+.reviews-list{
+	max-height: 300px;
+	overflow: scroll;
+	padding: 0 15px;
+}
+.reviews-list > li{
+	border-top: 1px solid #ccc;
+	padding: 10px 0 0;
+	text-align: left;
 }

@@ -192,14 +192,6 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('AboutPageController', function($scope){
-
-
-
-    })
-
-    /////////////////////////////////////////////////////////////////////////////
-
 
     .controller('SpotInfoController', function($scope, $rootScope, Spot){
 
@@ -282,6 +274,12 @@ angular.module('controllers',[])
 
 
     .controller('StarRateController', function($scope){
+
+        if($scope.comment && $scope.comment.rating){
+
+            $scope.rating = $scope.comment.rating;
+
+        }
 
         $scope.stars = [];
 
