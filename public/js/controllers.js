@@ -60,7 +60,7 @@ angular.module('controllers',[])
             limit: 5,
             goToSpot: function(spot){
 
-                $scope.$broadcast('map:goto', spot);
+                google.maps.event.trigger(spot.marker, 'click');
 
             }
         });
@@ -484,11 +484,7 @@ angular.module('controllers',[])
                         icon: './img/favicon.ico'
                     });
 
-                    //$scope.rating = spot.rating;
-
-                    var content = $compile('<div><a ng-click="openSpot()">' + spot.name + '</a><ng-include src="\'tpl/star-rate.tpl\'"></ng-include></div>')($scope)[0];
-
-                    spot.marker.addListener('click', function(){$scope.openInfoWindow(spot, content)});
+                    spot.marker.addListener('click', function(){$scope.openInfoWindow(spot)});
 
                 });
 
@@ -508,10 +504,12 @@ angular.module('controllers',[])
 
             },
 
-            openInfoWindow: function(spot, content){
+            openInfoWindow: function(spot){
+
+                var html = '<a class="open-spot" ng-click="openSpot()">' + spot.name + '<ng-include src="\'tpl/star-rate.tpl\'"></ng-include></a>';
 
                 spot.infoWindow = spot.infoWindow || new google.maps.InfoWindow({
-                    content: content
+                    content: $compile(html)($scope)[0]
                 });
 
                 angular.forEach($rootScope.spots, function(spot){
@@ -522,7 +520,15 @@ angular.module('controllers',[])
 
                 $rootScope.activeSpot = spot._id; // Todo: spot page (by id in URL)
 
-                spot.infoWindow.open($scope.map, spot.marker);
+                $timeout(function(){
+
+                    $scope.rating = spot.rating;
+
+                    $scope.map.panTo(new google.maps.LatLng(spot.coords.lat, spot.coords.lng));
+
+                    spot.infoWindow.open($scope.map, spot.marker);
+
+                });
 
             },
 
@@ -531,14 +537,6 @@ angular.module('controllers',[])
                 $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
 
             }
-
-        });
-
-        $scope.$on('map:goto', function(ev, spot){
-
-            $scope.map.panTo(new google.maps.LatLng(spot.coords.lat, spot.coords.lng));
-
-            $scope.openInfoWindow(spot);
 
         });
 
