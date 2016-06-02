@@ -331,3 +331,15 @@ a.cta{
 	padding: 10px 0 0;
 	text-align: left;
 }
+#about-section{
+	padding: 50px;
+	overflow: hidden;
+	font: 18px/30px Arial, Helvetica, sans-serif;
+	margin: 0 0 20px;
+}
+#about-section img.me{
+	float: left;
+	width: 20%;
+	margin: 0 50px 0 0;
+	border-radius: 50px;
+}
