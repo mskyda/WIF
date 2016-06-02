@@ -43,9 +43,9 @@ angular.module('controllers',[])
 
             $scope.total = resp.total;
 
-            $rootScope.activeSpot = '57457267bf6dd61700d38e9e';
+            /*$rootScope.activeSpot = '57457267bf6dd61700d38e9e';
 
-            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
+            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
 
         });
 
@@ -69,13 +69,17 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('ManagePageController', function($scope, $state, Spot){
+    .controller('ManagePageController', function($scope, $state, $rootScope, Spot){
 
-        $scope.spot = new Spot();
+        var isEditMode = $rootScope.activeSpot && $rootScope.activeSpot.owner;
 
         angular.extend($scope, {
 
-            step: 0,
+            step: isEditMode ? 1 : 0,
+
+            title: isEditMode ? 'Edit' : 'Add',
+
+            spot: isEditMode ? $rootScope.activeSpot : new Spot(),
 
             wizardGo: function(val){
 
@@ -85,15 +89,23 @@ angular.module('controllers',[])
 
             },
 
-            addSpot: function(){
+            manageSpot: function(){
 
-                $scope.spot.$save(function(resp){
+                if(isEditMode){
 
-                    $scope.$parent.total = resp.total;
+                    Spot.update({id: $scope.spot._id}, $scope.spot).$promise.then(function(){$state.go('search')});
 
-                    $state.go('search');
+                } else {
 
-                });
+                    $scope.spot.$save(function(resp){
+
+                        $scope.$parent.total = resp.total;
+
+                        $state.go('search');
+
+                    });
+
+                }
 
             }
 
@@ -165,7 +177,7 @@ angular.module('controllers',[])
 
                     if($scope.spot._id){
 
-                        $scope.manageExistingSpot();
+                        $scope.manageExistingSpot($scope.userID);
 
                     } else if($scope.userID){
 
@@ -206,7 +218,7 @@ angular.module('controllers',[])
     /////////////////////////////////////////////////////////////////////////////
 
 
-    .controller('SpotInfoController', function($scope, $rootScope, Spot){
+    .controller('SpotInfoController', function($scope, $rootScope, $state, Spot){
 
         angular.extend($scope, {
 
@@ -234,7 +246,7 @@ angular.module('controllers',[])
 
                 $rootScope.center ? $scope.getDirections() : $scope.directions = false;
 
-                $rootScope.activeSpot = resp.spot;
+                $rootScope.activeSpot = resp.spot._id;
 
             },
 
@@ -277,15 +289,26 @@ angular.module('controllers',[])
 
             },
 
-            manageExistingSpot: function(){
+            manageExistingSpot: function(owner){
 
-                console.log(123);
+                if($scope.mode === 'edit'){
+
+                    $scope.$emit('toggle:popup');
+
+                    angular.extend($rootScope, {
+                        activeSpot : angular.extend($scope.spot, {owner : owner}),
+                        center : $scope.spot.coords
+                    });
+
+                    $state.go('manage');
+
+                }
 
             }
 
         });
 
-        Spot.get({id: $rootScope.activeSpot._id || $rootScope.activeSpot}).$promise.then($scope.onSpotLoaded);
+        Spot.get({id: $rootScope.activeSpot}).$promise.then($scope.onSpotLoaded);
 
     })
 
@@ -434,9 +457,9 @@ angular.module('controllers',[])
 
             onMapRendered: function(){
 
-                if($scope.spot){ // add spot page
+                if($scope.spot){ // manage spot page
 
-                    $scope.putUserMarker();
+                    $scope.spot.owner ? $scope.onPutNewSpot(false, $scope.spot.coords) : $scope.putUserMarker();
 
                     google.maps.event.addListener($scope.map, 'dblclick', $scope.onPutNewSpot);
 
@@ -450,11 +473,11 @@ angular.module('controllers',[])
 
             },
 
-            onPutNewSpot: function(e){
+            onPutNewSpot: function(e, coords){
 
                 if($scope.step !== 1) return;
 
-                var coords = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+                coords = coords || {lat: e.latLng.lat(), lng: e.latLng.lng()};
 
                 if($scope.marker) $scope.marker.setMap(null);
 
