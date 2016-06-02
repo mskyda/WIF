@@ -17,8 +17,8 @@
 			<li><a ng-class="mode == 'rate' ? 'active' : ''" ng-click="toggleMode('rate')">Rate this plase</a></li>
 			<li><a ng-class="mode && mode == 'reviews' ? 'active' : ''" ng-click="toggleMode('reviews')">Read reviews ({{spot.comments.length}})</a></li>
 		</ul>
-		<ng-include ng-if="mode == 'rate'" src="'tpl/rate-mode.tpl'"></ng-include>
-		<ng-include ng-if="mode == 'reviews'" src="'tpl/reviews-mode.tpl'"></ng-include>
+		<ng-include ng-if="mode == 'rate'" src="'tpl/spot-modes/rate.tpl'"></ng-include>
+		<ng-include ng-if="mode == 'reviews'" src="'tpl/spot-modes/reviews.tpl'"></ng-include>
 	</div>
 	<div class="section">
 	<h3>Spot-creator?</h3>
@@ -26,7 +26,7 @@
 			<li><a ng-class="mode == 'edit' ? 'active' : ''" ng-click="toggleMode('edit')">Edit Spot</a></li>
 			<li><a ng-class="mode == 'delete' ? 'active' : ''" ng-click="toggleMode('delete')">Delete Spot</a></li>
 		</ul>
-		<ng-include ng-if="mode == 'edit'" src="'tpl/edit-mode.tpl'"></ng-include>
-		<ng-include ng-if="mode == 'delete'" src="'tpl/delete-mode.tpl'"></ng-include>
+		<ng-include ng-if="mode == 'edit'" src="'tpl/spot-modes/edit-delete.tpl'"></ng-include>
+		<ng-include ng-if="mode == 'delete'" src="'tpl/spot-modes/edit-delete.tpl'"></ng-include>
 	</div>
 </div>

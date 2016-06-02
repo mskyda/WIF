@@ -43,9 +43,9 @@ angular.module('controllers',[])
 
             $scope.total = resp.total;
 
-            /*$rootScope.activeSpot = '57457267bf6dd61700d38e9e';
+            $rootScope.activeSpot = '57457267bf6dd61700d38e9e';
 
-            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
+            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
 
         });
 
@@ -133,11 +133,11 @@ angular.module('controllers',[])
 
                 if(!$scope.captchaPassed){
 
-                    $scope.$emit('toggle:popup', {html: '<div id="recaptcha"></div>'});
+                    if(!$scope.mode) $scope.$emit('toggle:popup', {html: '<div id="recaptcha"></div>'});
 
                     $scope.$emit('open:captcha', function(){
 
-                        $scope.togglePopup();
+                        if(!$scope.mode) $scope.togglePopup();
 
                         $scope.captchaPassed = true;
 
@@ -155,14 +155,27 @@ angular.module('controllers',[])
 
                 $http({
                     method: 'POST',
-                    url: '/api/account',
+                    url: '/api/auth',
                     data: {
                         userEmail: $scope.userEmail,
-                        userID: $scope.userID
+                        userID: $scope.userID,
+                        spotID: $scope.spot._id
                     }
                 }).then(function() {
 
-                    $scope.userID ? $scope.onLoginSuccess() : $scope.haveUserID = true;
+                    if($scope.spot._id){
+
+                        $scope.manageExistingSpot();
+
+                    } else if($scope.userID){
+
+                        $scope.onLoginSuccess()
+
+                    } else {
+
+                        $scope.haveUserID = true;
+
+                    }
 
                 }, function(){
 
@@ -209,7 +222,7 @@ angular.module('controllers',[])
 
                 $scope.$watch('spot.rating', function(rating){
 
-                    $scope.rating = rating;
+                    $scope.rating = Math.round(rating);
 
                 });
 
@@ -261,6 +274,12 @@ angular.module('controllers',[])
                     });
 
                 });
+
+            },
+
+            manageExistingSpot: function(){
+
+                console.log(123);
 
             }
 

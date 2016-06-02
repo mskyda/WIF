@@ -164,7 +164,8 @@ var spotsApi = {
 
 	getSpot: function(req, res){
 
-		api.SpotModel.findById(req.params.id, function (err, spot) {
+		api.SpotModel.findById(req.params.id, '-owner', function (err, spot) {
+
 			if(!spot) {
 				res.statusCode = 404;
 				return res.send({ error: 'Not found' });
@@ -177,6 +178,7 @@ var spotsApi = {
 				console.log('Error: ', res.statusCode, err.message);
 				return res.send({ error: 'Server error' });
 			}
+
 		});
 
 	}

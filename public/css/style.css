@@ -46,7 +46,7 @@ a[ng-click]{
 .hide{
 	display: none !important;
 }
-
+span.errorMsg{color: #cd0000;}
 /*end CSS-reset*/
 #app{height: 100%;}
 #main{
@@ -120,7 +120,6 @@ a.cta{
 	font: 20px/42px Arial, Helvetica, sans-serif;
 }
 .sub-nav .cta{float: right;}
-.sub-nav span{color: #cd0000;}
 .sub-nav span,
 .sub-nav label{margin: 0 0 0 10px;}
 .sub-nav h2 a{
@@ -146,7 +145,7 @@ a.cta{
 	margin: 0 0 0 10px;
 	width: 38%;
 	min-width: 380px;
-	border: 1px solid #333;
+	border: 1px solid #ccc;
 }
 .sub-nav input[type="email"],
 .sub-nav input[type="password"]{
@@ -158,8 +157,6 @@ a.cta{
 	resize: none;
 }
 .map-holder{height: calc(100% - 44px);}
-.rate-mode #recaptcha{margin: 0 0 20px;}
-.rate-mode #recaptcha div{  margin: 0 auto;  }
 #map{
 	height: 100%;
 	width: 100%;
@@ -189,7 +186,6 @@ a.cta{
 	width: 100%;
 	font: 30px/40px Arial, Helvetica, sans-serif;
 }
-.sub-nav input[type="password"].ng-dirty.ng-empty,
 .location-controls input.required{border-color: #cd0000;}
 .location-controls .go-link{
 	color: #fff;
@@ -261,7 +257,7 @@ a.cta{
 	padding: 10px 0 0;
 	border-top: 2px solid #ccc;
 }
-.spot-info .mode-holder{padding: 10px 0 0;}
+.spot-info .mode-holder{padding: 10px 10px 0;}
 .spot-info .rate-mode{padding: 10px 15px;}
 .spot-info .mode-holder > .wrapper{padding: 10px 0;}
 .spot-info{width: 500px;}
@@ -290,24 +286,28 @@ a.cta{
 .star-rate .star.filled {color: #315373;}
 .star-rate span.star.filled {color: #fd0;}
 .rate-mode .star-rate{float: left;}
-.rate-mode span{
+.mode-holder span.label{
 	float: left;
 	width: 150px;
 	line-height: 25px;
 	text-align: left;
 }
-.rate-mode textarea{
-	width: 300px;
-	font: 14px/20px Arial, Helvetica, sans-serif;
+.spot-info input,
+.spot-info textarea{
+	width: 305px;
+	padding: 0 5px;
+	font: 16px/23px Arial, Helvetica, sans-serif;
 	resize: none;
 	float: left;
 	height: 60px;
+	border: 1px solid #ccc;
 }
+.spot-info input{height: auto;}
 .spot-info .cta{
 	line-height: 32px;
 	width: 90%;
 	display: block;
-	margin: 0 auto;
+	margin: 10px auto;
 	box-shadow: 0 0 10px #333;
 }
 .spot-info .direction-select{
@@ -321,6 +321,7 @@ a.cta{
 	text-shadow: 0 0 5px #ccc;
 	margin: 0 0 10px;
 }
+.spot-info #recaptcha div{margin: 0 auto;}
 .reviews-list{
 	max-height: 300px;
 	overflow: scroll;

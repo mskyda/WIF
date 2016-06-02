@@ -14,7 +14,7 @@ app.get('/api/spots/:id', api.Spots.get);
 app.post('/api/spots', api.Spots.post);
 app.put('/api/spots/:id', api.Spots.put);
 app.delete('/api/spots/:id', api.Spots.delete);
-app.post('/api/account', api.Account.init);
+app.post('/api/auth', api.Auth.init);
 
 app.get('*', function(req, res){ // 404
 	res.status(404);

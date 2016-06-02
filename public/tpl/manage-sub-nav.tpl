@@ -17,7 +17,7 @@
 		<div ng-if="step == 2 && spot.coords != null">
 			<div ng-if="spot.coords != null" class="wrapper">
 				<h2><strong>Add spot:</strong> enter the spot-name</h2>
-				<input ng-model="spot.name" placeholder="minimum 6 chars" type="text" />
+				<input ng-model="spot.name" placeholder="minimum 6 chars" type="text" autocomplete="off" />
 				<a class="wizard-control" ng-if="spot.name.length > 5" ng-click="wizardGo(1)">Next &gt;</a>
 				<a class="wizard-control" ng-click="wizardGo(-1)">&lt; Back</a>
 			</div>
