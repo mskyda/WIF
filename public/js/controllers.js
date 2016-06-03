@@ -41,11 +41,11 @@ angular.module('controllers',[])
 
         Spot.get().$promise.then(function(resp){
 
-            $scope.total = resp.total;
+            $rootScope.total = resp.total;
 
-            /*$rootScope.activeSpot = '57457267bf6dd61700d38e9e';
+            $rootScope.activeSpot = '5751a9f64063f71490822c6b';
 
-            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
+            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
 
         });
 
@@ -97,9 +97,9 @@ angular.module('controllers',[])
 
                 } else {
 
-                    $scope.spot.$save(function(resp){
+                    $scope.spot.$save(function(){
 
-                        $scope.$parent.total++;
+                        $rootScope.total++;
 
                         $state.go('search');
 
@@ -240,9 +240,11 @@ angular.module('controllers',[])
 
                 });
 
-                $rootScope.center ? $scope.getDirections() : $scope.directions = false;
+                $scope.marker = $rootScope.activeSpot.marker;
 
-                $rootScope.activeSpot = resp.spot._id;
+                $rootScope.activeSpot = resp.spot;
+
+                $rootScope.center ? $scope.getDirections() : $scope.directions = false;
 
             },
 
@@ -298,13 +300,42 @@ angular.module('controllers',[])
 
                     $state.go('manage');
 
+                } else $scope.removeDialog = true;
+
+            },
+
+            onDeleteSpot: function(confirm){
+
+                if(!confirm){
+
+                    $scope.removeDialog = false;
+
+                    $scope.toggleMode();
+                    $scope.toggleMode();
+
+                } else {
+
+                    Spot.delete({id: $scope.spot._id}).$promise.then(function(){
+
+                        if($scope.marker) $scope.marker.setMap(null);
+
+                        $scope.$emit('toggle:popup');
+
+                        $rootScope.$broadcast('map:direction', false);
+
+                        $rootScope.total--;
+
+                    });
+
                 }
 
             }
 
         });
 
-        Spot.get({id: $rootScope.activeSpot}).$promise.then($scope.onSpotLoaded);
+        // Todo: spot page (by id in URL)
+
+        Spot.get({id: $rootScope.activeSpot._id ||  $rootScope.activeSpot}).$promise.then($scope.onSpotLoaded, function(){$scope.notFound = true;});
 
     })
 
@@ -447,7 +478,7 @@ angular.module('controllers',[])
                     map: $scope.map
                 });
 
-                $scope.dRenderer.setDirections(data);
+                data ? $scope.dRenderer.setDirections(data) : $scope.dRenderer.setMap(null);
 
             },
 
@@ -556,7 +587,7 @@ angular.module('controllers',[])
 
                 });
 
-                $rootScope.activeSpot = spot._id; // Todo: spot page (by id in URL)
+                $rootScope.activeSpot = spot;
 
                 $timeout(function(){
 

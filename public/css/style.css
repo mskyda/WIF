@@ -277,7 +277,7 @@ a.cta{
 }
 .spot-info .mode-holder{padding: 10px 10px 0;}
 .spot-info .rate-mode{padding: 10px 15px;}
-.spot-info .mode-holder > .wrapper{padding: 10px 0;}
+.spot-info .mode-holder .wrapper{padding: 10px 0;}
 .spot-info{width: 500px;}
 .star-rate{padding: 0 0 5px;}
 .star-rate ul,
