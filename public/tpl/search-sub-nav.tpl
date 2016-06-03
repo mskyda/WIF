@@ -5,8 +5,10 @@
 	<div class="wrapper" ng-if="center != null && spots.length > 0">
 		<h2>Top {{limit}} closest spots:</h2>
 		<nav>
-			<a ng-repeat="spot in spots | orderBy:orderProp | limitTo:limit" ng-click="goToSpot(spot)">{{spot.name}} ({{spot.distance}} km)</a>
+			<a ng-repeat="spot in spots | orderBy:orderProp | limitTo:limit" ng-click="goToSpot(spot)">
+				{{spot.distance}} km
+			</a>
 		</nav>
-		<a class="reset-location" ng-click="resetLocation()">Select another location</a>
+		<a class="reset-location" ng-click="resetLocation()">Change location</a>
 	</div>
 </section>

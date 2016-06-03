@@ -78,13 +78,17 @@ span.errorMsg{color: #cd0000;}
 	width: 85px;
 	height: 60px;
 	background: url('../img/logo.png') 0 0 no-repeat;
-	margin: -15px 20px 0 30px;
+	margin: -15px 0 0 20px;
 	float: left;
+}
+#header .header-holder{
+	width: calc(100% - 125px);
+	float: right;
 }
 #header .slogan{
 	float: left;
-	margin: 5px 0 0;
-	font: 18px/32px 'Indie Flower', cursive;
+	margin: 0;
+	font: 16px/34px 'Indie Flower', cursive;
 }
 #header .tabs{
 	float: right;
@@ -92,16 +96,7 @@ span.errorMsg{color: #cd0000;}
 }
 #header .tabs a{
 	float: left;
-	padding: 0 20px;
-}
-@media (max-width: 1170px) {
-	#header .tabs {
-		float: left;
-	}
-	#header .slogan{
-		line-height: 28px;
-		margin-top: -10px;
-	}
+	padding: 0 20px 0 0;
 }
 a.cta{
 	text-transform: uppercase;
@@ -130,6 +125,10 @@ a.cta{
 	margin: 0;
 	font: 20px/42px Raleway, Helvetica, sans-serif;
 }
+.sub-nav a span{
+	float: none;
+	margin: 0;
+}
 .sub-nav .cta{float: right;}
 .sub-nav span,
 .sub-nav label{margin: 0 0 0 10px;}
@@ -142,7 +141,7 @@ a.cta{
 	padding: 0 10px;
 }
 .sub-nav h2{margin: 0 0 0 30px;}
-.sub-nav a{padding:0 20px;}
+.sub-nav a{padding:0 10px;}
 .sub-nav .wizard-control,
 .sub-nav .reset-location{float:right;}
 .sub-nav input[type="checkbox"]{margin: 15px 10px;}
@@ -155,17 +154,18 @@ a.cta{
 	line-height: 40px;
 	margin: 0 0 0 10px;
 	width: 38%;
-	min-width: 380px;
+	min-width: 370px;
 	border: 1px solid #ccc;
 }
 .sub-nav input[type="email"],
 .sub-nav input[type="password"]{
 	min-width: 150px;
-	width: 15%;
+	width: 22%;
 }
 .sub-nav textarea{
 	font: 14px/20px Raleway, Helvetica, sans-serif;
 	resize: none;
+	min-width: 320px;
 }
 .map-holder{height: calc(100% - 44px);}
 #map{
@@ -179,7 +179,10 @@ a.cta{
 	display: block;
 }
 #map .star-rate{padding: 5px 0 0;}
-.location-controls{padding: 100px 0 0;}
+.location-controls{
+	position: relative;
+	top: 10%;
+}
 .location-controls > li{
 	float: left;
 	width: 44%;
@@ -214,16 +217,18 @@ a.cta{
 .location-controls .geocoding{background: #ffe700;}
 .geocoding-results{
 	font: 20px/24px Raleway, Helvetica, sans-serif;
-	margin: -10px 0 30px;
+	margin: -10px 0 20px;
 }
 .geocoding-results li{padding: 10px 0;}
 .popup-container,
 .popup-overlay{
-	position: fixed;
+	position: absolute;
 	left: 0;
 	top: 0;
 	height: 100%;
 	width: 100%;
+	min-width: 768px;
+	min-height: 480px;
 	display: table;
 }
 .popup-overlay{
@@ -248,6 +253,7 @@ a.cta{
 	text-align: center;
 	background: #eee;
 	padding: 10px;
+	margin: 10px;
 	max-width: 500px;
 	border-radius: 10px;
 	font: 16px/20px Raleway, Helvetica, sans-serif;
@@ -343,7 +349,7 @@ a.cta{
 	text-align: left;
 }
 #about-section{
-	padding: 50px;
+	padding: 2%;
 	overflow: hidden;
 	font: 18px/30px Raleway, Helvetica, sans-serif;
 	margin: 0 0 20px;
@@ -371,3 +377,20 @@ a.cta{
 	width: 100px;
 }
 #about-section dd{margin: 0;}
+
+@media (max-width: 1000px) {
+
+	.desktop-only{display: none;}
+	#header .tabs {
+		float: none;
+		clear: both;
+	}
+	#header .tabs a:first-child{padding-left: 0;}
+	#header .slogan{
+		line-height: 28px;
+		margin-top: -10px;
+	}
+	.location-controls h2,
+	.location-controls input{font-size: 24px;}
+	#about-section{font: 14px/20px Raleway, Helvetica, sans-serif;}
+}

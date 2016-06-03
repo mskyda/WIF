@@ -90,7 +90,7 @@ var spotsApi = {
 		spot.save(function (err) {
 			if (!err) {
 				console.log('Success: spot created');
-				return this.getTotal(res, {spot: spot})
+				return res.send({ status: 'OK', spot:spot});
 			} else {
 				if(err.name == 'ValidationError') {
 					res.statusCode = 400;
@@ -123,13 +123,13 @@ var spotsApi = {
 
 	},
 
-	getTotal: function(res, data){
+	getTotal: function(res){
 
 		api.SpotModel.count({}, function(err, total) {
 
 			if (!err) {
 				console.log('Success: total ammount returned');
-				return res.send(_.extend({status: 'OK', total: total}, data || {}));
+				return res.send({status: 'OK', total: total});
 			} else {
 				res.statusCode = 500;
 				console.log('Error: Internal error(%d): %s',res.statusCode,err.message);
@@ -178,7 +178,6 @@ var spotsApi = {
 				console.log('Error: ', res.statusCode, err.message);
 				return res.send({ error: 'Server error' });
 			}
-
 		});
 
 	}

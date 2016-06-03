@@ -99,7 +99,7 @@ angular.module('controllers',[])
 
                     $scope.spot.$save(function(resp){
 
-                        $scope.$parent.total = resp.total;
+                        $scope.$parent.total++;
 
                         $state.go('search');
 
@@ -182,10 +182,6 @@ angular.module('controllers',[])
                     } else if($scope.userID){
 
                         $scope.onLoginSuccess()
-
-                    } else {
-
-                        $scope.haveUserID = true;
 
                     }
 
@@ -459,7 +455,7 @@ angular.module('controllers',[])
 
                 if($scope.spot){ // manage spot page
 
-                    $scope.spot.owner ? $scope.onPutNewSpot(false, $scope.spot.coords) : $scope.putUserMarker();
+                    $rootScope.activeSpot && $rootScope.activeSpot.owner ? $scope.onPutNewSpot(false, $scope.spot.coords) : $scope.putUserMarker();
 
                     google.maps.event.addListener($scope.map, 'dblclick', $scope.onPutNewSpot);
 
