@@ -43,9 +43,9 @@ angular.module('controllers',[])
 
             $rootScope.total = resp.total;
 
-            $rootScope.activeSpot = '5751a9f64063f71490822c6b';
+            /*$rootScope.activeSpot = '5751a9f64063f71490822c6b';
 
-            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
+            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
 
         });
 
@@ -97,7 +97,7 @@ angular.module('controllers',[])
 
                 } else {
 
-                    $scope.spot.$save(function(){
+                    Spot.save($scope.spot, function(){
 
                         $rootScope.total++;
 

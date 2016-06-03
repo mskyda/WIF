@@ -129,7 +129,10 @@ a.cta{
 	float: none;
 	margin: 0;
 }
-.sub-nav .cta{float: right;}
+.sub-nav .cta{
+	float: right;
+	margin: 0 10px 0 0;
+}
 .sub-nav span,
 .sub-nav label{margin: 0 0 0 10px;}
 .sub-nav h2 a{
