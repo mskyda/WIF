@@ -5,15 +5,24 @@ html,
 body{
 	margin: 0;
 	height: 100%;
-	min-height: 600px;
-	min-width: 1000px;
-	font: 12px/16px Arial, Helvetica, sans-serif;
+	min-height: 480px;
+	min-width: 768px;
+	font: 12px/16px Raleway, Helvetica, sans-serif;
 	color: #333;
 	background: #eee;
 }
 a{
 	color: #315373;
 	text-decoration: none;
+	text-shadow: 0 0 5px #bbb;
+}
+@font-face {
+	font-family: 'Indie Flower';
+	src: url('../fonts/IndieFlower.ttf');
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('../fonts/Raleway.ttf');
 }
 a.active,
 a:hover{color: #87a2bc;}
@@ -47,7 +56,9 @@ a[ng-click]{
 	display: none !important;
 }
 span.errorMsg{color: #cd0000;}
+
 /*end CSS-reset*/
+
 #app{height: 100%;}
 #main{
 	border-top: 2px solid #fff;
@@ -72,12 +83,12 @@ span.errorMsg{color: #cd0000;}
 }
 #header .slogan{
 	float: left;
-	margin: 0;
-	font: 20px/32px Arial, Helvetica, sans-serif;
+	margin: 5px 0 0;
+	font: 18px/32px 'Indie Flower', cursive;
 }
 #header .tabs{
 	float: right;
-	font: 20px/32px Arial, Helvetica, sans-serif;
+	font: 20px/32px Raleway, Helvetica, sans-serif;
 }
 #header .tabs a{
 	float: left;
@@ -117,7 +128,7 @@ a.cta{
 .sub-nav a{
 	float: left;
 	margin: 0;
-	font: 20px/42px Arial, Helvetica, sans-serif;
+	font: 20px/42px Raleway, Helvetica, sans-serif;
 }
 .sub-nav .cta{float: right;}
 .sub-nav span,
@@ -153,7 +164,7 @@ a.cta{
 	width: 15%;
 }
 .sub-nav textarea{
-	font: 14px/20px Arial, Helvetica, sans-serif;
+	font: 14px/20px Raleway, Helvetica, sans-serif;
 	resize: none;
 }
 .map-holder{height: calc(100% - 44px);}
@@ -162,7 +173,7 @@ a.cta{
 	width: 100%;
 }
 #map .open-spot{
-	font: 20px/24px Arial, Helvetica, sans-serif;
+	font: 20px/24px Raleway, Helvetica, sans-serif;
 	text-align: center;
 	max-width: 200px;
 	display: block;
@@ -184,12 +195,13 @@ a.cta{
 	display: block;
 	text-align: center;
 	width: 100%;
-	font: 30px/40px Arial, Helvetica, sans-serif;
+	font: 30px/40px Raleway, Helvetica, sans-serif;
 }
-.location-controls input.required{border-color: #cd0000;}
+.location-controls input.required{
+	border-color: #cd0000;}
 .location-controls .go-link{
 	color: #fff;
-	font: 40px/100px Arial, Helvetica, sans-serif;
+	font: 40px/100px Raleway, Helvetica, sans-serif;
 	height: 100px;
 	width: 100px;
 	display: block;
@@ -198,10 +210,10 @@ a.cta{
 	box-shadow: 0 0 10px #000;
 	text-shadow: 0 0 3px #000;
 }
-.location-controls .geolocation{background: #ffe700;}
-.location-controls .geocoding{background: #4caf50;}
+.location-controls .geolocation{background: #54d058;}
+.location-controls .geocoding{background: #ffe700;}
 .geocoding-results{
-	font: 20px/24px Arial, Helvetica, sans-serif;
+	font: 20px/24px Raleway, Helvetica, sans-serif;
 	margin: -10px 0 30px;
 }
 .geocoding-results li{padding: 10px 0;}
@@ -238,24 +250,24 @@ a.cta{
 	padding: 10px;
 	max-width: 500px;
 	border-radius: 10px;
-	font: 16px/20px Arial, Helvetica, sans-serif;
+	font: 16px/20px Raleway, Helvetica, sans-serif;
 }
 .popup .close-popup{
 	float: right;
-	font: 12px/12px Arial, Helvetica, sans-serif;
+	font: 12px/12px Raleway, Helvetica, sans-serif;
 }
 .popup h2{
-	font: 26px/30px Arial, Helvetica, sans-serif;
+	font: 26px/30px Raleway, Helvetica, sans-serif;
 	margin: 0 0 5px;
 }
 .popup h3{
-	font: 20px/24px Arial, Helvetica, sans-serif;
+	font: 20px/24px Raleway, Helvetica, sans-serif;
 	margin: 0 0 10px;
 }
 .popup p{margin: 0 0 10px;}
 .popup .section{
 	padding: 10px 0 0;
-	border-top: 2px solid #ccc;
+	border-top: 2px solid #fff;
 }
 .spot-info .mode-holder{padding: 10px 10px 0;}
 .spot-info .rate-mode{padding: 10px 15px;}
@@ -274,7 +286,6 @@ a.cta{
 	padding: 5px 0;
 	margin: 0 auto;
 	border-radius: 20px;
-	text-shadow: 0 0 5px #ccc;
 }
 .star-rate .star {
 	padding: 1px;
@@ -296,7 +307,7 @@ a.cta{
 .spot-info textarea{
 	width: 305px;
 	padding: 0 5px;
-	font: 16px/23px Arial, Helvetica, sans-serif;
+	font: 16px/23px Raleway, Helvetica, sans-serif;
 	resize: none;
 	float: left;
 	height: 60px;
@@ -312,12 +323,12 @@ a.cta{
 }
 .spot-info .direction-select{
 	background: none;
-	font: 18px/30px Arial, Helvetica, sans-serif;
+	font: 18px/30px Raleway, Helvetica, sans-serif;
 	height: 30px;
-	border: 1px solid #333;
+	border: 2px solid #ccc;
 	color: #315373;
 	outline: none;
-	text-shadow: 0 0 5px #ccc;
+	text-shadow: 0 0 5px #aaa;
 	margin: 0 0 10px;
 }
 .spot-info #recaptcha div{margin: 0 auto;}
@@ -327,19 +338,36 @@ a.cta{
 	padding: 0 15px;
 }
 .reviews-list > li{
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #fff;
 	padding: 10px 0 0;
 	text-align: left;
 }
 #about-section{
 	padding: 50px;
 	overflow: hidden;
-	font: 18px/30px Arial, Helvetica, sans-serif;
+	font: 18px/30px Raleway, Helvetica, sans-serif;
 	margin: 0 0 20px;
 }
 #about-section img.me{
 	float: left;
 	width: 20%;
-	margin: 0 50px 0 0;
 	border-radius: 50px;
+	box-shadow: 0 0 10px #000;
+	margin: 10px;
 }
+#about-section article.content{
+	width: 75%;
+	float: right;
+}
+#about-section dl{
+	border-top: 2px solid #fff;
+	margin: 0;
+	padding: 10px 0 0;
+	line-height: 40px;
+}
+#about-section dt{
+	float: left;
+	margin: 0;
+	width: 100px;
+}
+#about-section dd{margin: 0;}

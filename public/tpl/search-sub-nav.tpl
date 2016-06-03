@@ -1,6 +1,6 @@
 <section class="sub-nav">
 	<div class="wrapper" ng-if="center == null">
-		<h2><strong>Search spot:</strong> use one of the buttons below</h2>
+		<h2><strong>Search spots :</strong> use one of the buttons below</h2>
 	</div>
 	<div class="wrapper" ng-if="center != null && spots.length > 0">
 		<h2>Top {{limit}} closest spots:</h2>
@@ -9,4 +9,4 @@
 		</nav>
 		<a class="reset-location" ng-click="resetLocation()">Select another location</a>
 	</div>
-</div>
+</section>

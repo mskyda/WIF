@@ -1,5 +1,5 @@
 <div ng-controller="LoginController">
-	<h2><strong>Add spot:</strong> enter your email <a ng-click="onPopupEmail()">(why?)</a></h2>
+	<h2><strong>Add spot :</strong> enter your email <a ng-click="onPopupEmail()">(why?)</a></h2>
 	<input ng-model="userEmail" placeholder="email" type="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" autocomplete="off" />
 	<label for="have-id">I have user ID:</label>
 	<input id="have-id" ng-model="haveUserID" type="checkbox" />
