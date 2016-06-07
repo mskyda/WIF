@@ -451,23 +451,45 @@ angular.module('controllers',[])
 
             renderMap: function(position){
 
-                $rootScope.center = $rootScope.center || {
-                    lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
-                    lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
-                };
+                var zoom = 13; // Todo: "radius" control
 
-                $timeout(function(){
+                $scope.map = $scope.map || new google.maps.Map(document.querySelector('#map'), {
+                    center: new google.maps.LatLng(0, 0),
+                    zoom: 2,
+                    disableDoubleClickZoom: true,
+                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                });
 
-                    $scope.map = new google.maps.Map(document.querySelector('#map'), {
-                        center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
-                        zoom: 13,
-                        disableDoubleClickZoom: true,
-                        mapTypeId: google.maps.MapTypeId.SATELLITE
+                if(position || $rootScope.center){
+
+                    $rootScope.center = $rootScope.center || {
+                        lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
+                        lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
+                    };
+
+                    $scope.map.setCenter(new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng));
+
+                    $scope.smoothZoom($scope.map.getZoom(), zoom);
+
+                }
+
+            },
+
+            smoothZoom: function(currentZoom, targetZoom){
+
+                if (currentZoom < targetZoom) {
+
+                    var zoom = google.maps.event.addListener($scope.map, 'zoom_changed', function(){
+
+                        google.maps.event.removeListener(zoom);
+
+                        $scope.smoothZoom(currentZoom + 1, targetZoom);
+
                     });
 
-                    $scope.onMapRendered($scope.map);
+                    setTimeout(function(){$scope.map.setZoom(currentZoom)}, 100);
 
-                });
+                } else $scope.onMapRendered();
 
             },
 
@@ -561,7 +583,7 @@ angular.module('controllers',[])
 
             getDistance: function(p1, p2){
 
-                var R = 6371, // earth’s radius in kilometres
+                var R = 6371, // earth’s radius
                     φ1 = p1.lat * Math.PI / 180,
                     φ2 = p2.lat * Math.PI / 180,
                     Δφ = (p2.lat - p1.lat) * Math.PI / 180,
@@ -615,6 +637,6 @@ angular.module('controllers',[])
 
         });
 
-        if($rootScope.center) $scope.renderMap($rootScope.center);
+        $scope.renderMap($rootScope.center);
 
     });

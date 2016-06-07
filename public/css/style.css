@@ -26,17 +26,6 @@ a{
 }
 a.active,
 a:hover{color: #87a2bc;}
-input{color: #333;}
-::-webkit-input-placeholder {color: #333;}
-:-moz-placeholder {
-	color:    #333;
-	opacity:  1;
-}
-::-moz-placeholder {
-	color:    #333;
-	opacity:  1;
-}
-:-ms-input-placeholder{color: #333;}
 ul{
 	margin: 0;
 	padding: 0;
@@ -174,10 +163,9 @@ a.cta{
 	resize: none;
 	min-width: 320px;
 }
-.map-holder{height: calc(100% - 44px);}
-#map{
-	height: 100%;
-	width: 100%;
+.map-holder{
+	height: calc(100% - 44px);
+	position: relative;
 }
 #map .open-spot{
 	font: 20px/24px Raleway, Helvetica, sans-serif;
@@ -186,9 +174,9 @@ a.cta{
 	display: block;
 }
 #map .star-rate{padding: 5px 0 0;}
-.location-controls{
-	position: relative;
-	top: 10%;
+.location-controls a{
+	text-shadow: 0 0 10px #fff;
+	color: #fff;
 }
 .location-controls > li{
 	float: left;
@@ -198,24 +186,36 @@ a.cta{
 }
 .location-controls h2,
 .location-controls input{
-	border: 1px solid #eee;
-	background: #eee;
+	color: #fff;
+	background: none;
 	padding: 0;
 	margin: 0 0 30px;
 	display: block;
 	text-align: center;
 	width: 100%;
 	font: 30px/40px Raleway, Helvetica, sans-serif;
+	text-shadow: 0 0 10px #fff;
+	border: 2px solid transparent;
 }
+.location-controls input::-webkit-input-placeholder {color: #fff;}
+.location-controls input:-moz-placeholder {
+	color:    #fff;
+	opacity:  1;
+}
+.location-controls input::-moz-placeholder {
+	color:    #fff;
+	opacity:  1;
+}
+.location-controls input:-ms-input-placeholder{color: #fff;}
 .location-controls .go-link{
 	color: #fff;
 	font: 40px/100px Raleway, Helvetica, sans-serif;
 	height: 100px;
 	width: 100px;
 	display: block;
-	margin: 0 auto 10px;
+	margin: 0 auto 70px;
 	border-radius: 50px;
-	box-shadow: 0 0 10px #000;
+	box-shadow: 0 0 50px #fff;
 	text-shadow: 0 0 3px #000;
 }
 .location-controls .geolocation{background: #54d058;}
@@ -225,8 +225,9 @@ a.cta{
 	margin: -10px 0 20px;
 }
 .geocoding-results li{padding: 10px 0;}
+#map,
 .popup-container,
-.popup-overlay{
+.overlay{
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -236,11 +237,11 @@ a.cta{
 	min-height: 480px;
 	display: table;
 }
-.popup-overlay{
-	background: rgba(0, 0, 0, 0.5);
+.overlay{
+	background: rgba(0, 0, 0, 0.3);
 	z-index: 2;
 }
-.popup-holder{
+.holder{
 	display: table-cell;
 	vertical-align: middle;
 	position: relative;
