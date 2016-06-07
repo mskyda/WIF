@@ -15,14 +15,14 @@
 			</div>
 		</div>
 		<div ng-if="step == 2 && spot.coords != null">
-			<div ng-if="spot.coords != null" class="wrapper">
+			<form ng-if="spot.coords != null" class="wrapper">
 				<h2><strong>{{title}} spot :</strong> enter the spot-name</h2>
 				<input ng-model="spot.name" placeholder="minimum 6 chars" type="text" autocomplete="off" />
 				<a class="wizard-control" ng-if="spot.name.length > 5" ng-click="wizardGo(1)"><span class="desktop-only">Next </span>&gt;</a>
 				<a class="wizard-control" ng-click="wizardGo(-1)">&lt; <span class="desktop-only">Back</span></a>
-			</div>
+				<input type="submit" style="display: none;" />
+			</form>
 		</div>
-
 		<div ng-if="step == 3 && spot.coords != null">
 			<div ng-if="spot.coords != null" class="wrapper">
 				<h2><strong>{{title}} spot :</strong> describe the spot</h2>

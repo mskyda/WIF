@@ -43,7 +43,7 @@ angular.module('controllers',[])
 
             $rootScope.total = resp.total;
 
-            /*$rootScope.activeSpot = '5751a9f64063f71490822c6b';
+            /*$rootScope.activeSpot = '57566a5e639fab110032cbe6';
 
             $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
 
@@ -142,6 +142,10 @@ angular.module('controllers',[])
             },
 
             onSendCredentials: function() {
+
+                console.log(123);
+
+                if($scope.userID.length < 60) return;
 
                 if(!$scope.captchaPassed){
 

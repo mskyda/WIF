@@ -6,10 +6,10 @@
 				<a ng-click="getCurrentPosition()" class="geolocation go-link">Go!</a>
 			</li>
 			<li>
-				<div ng-if="geoResults == null">
+				<form ng-if="geoResults == null" ng-submit="inputAddress(address)">
 					<input ng-class="address == '' ? 'required' : ''" ng-model="address" type="text" class="address" placeholder="Or click here and type address" autocomplete="off" />
-					<a ng-click="inputAddress(address)" class="geocoding go-link">Go!</a>
-				</div>
+					<input type="submit" class="geocoding go-link" value="Go!" />
+				</form>
 				<div ng-if="geoResults.length != null">
 					<div ng-if="geoResults.length > 0">
 						<h2>Search results:</h2>

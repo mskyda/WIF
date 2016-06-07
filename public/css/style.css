@@ -44,6 +44,7 @@ a[ng-click]{
 .hide{
 	display: none !important;
 }
+span.errorMsg{color: #cd0000;}
 input.required{border-color: #cd0000 !important;}
 /*end CSS-reset*/
 
@@ -86,7 +87,7 @@ input.required{border-color: #cd0000 !important;}
 	float: left;
 	padding: 0 20px 0 0;
 }
-a.cta{
+.cta{
 	text-transform: uppercase;
 	color: #fff;
 	background: -webkit-linear-gradient(#aad6ff, #315373);
@@ -97,6 +98,7 @@ a.cta{
 	border-radius: 20px;
 	margin: 0 10px;
 	text-shadow: 0 0 5px #333;
+	border: none;
 }
 .sub-nav{
 	height: 42px;
@@ -217,6 +219,7 @@ a.cta{
 	border-radius: 50px;
 	box-shadow: 0 0 50px #fff;
 	text-shadow: 0 0 3px #000;
+	outline: none;
 }
 .location-controls .geolocation{background: #54d058;}
 .location-controls .geocoding{background: #ffe700;}
@@ -224,7 +227,7 @@ a.cta{
 	font: 20px/24px Raleway, Helvetica, sans-serif;
 	margin: -10px 0 20px;
 }
-.geocoding-results li{padding: 10px 0;}
+.geocoding-results li{padding: 10px 0 0;}
 #map,
 .popup-container,
 .overlay{
@@ -332,6 +335,8 @@ a.cta{
 	display: block;
 	margin: 10px auto;
 	box-shadow: 0 0 10px #333;
+	border: none;
+	float: none;
 }
 .spot-info .direction-select{
 	background: none;
