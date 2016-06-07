@@ -55,8 +55,7 @@ a[ng-click]{
 .hide{
 	display: none !important;
 }
-span.errorMsg{color: #cd0000;}
-
+input.required{border-color: #cd0000 !important;}
 /*end CSS-reset*/
 
 #app{height: 100%;}
@@ -118,12 +117,11 @@ a.cta{
 .sub-nav nav,
 .sub-nav li,
 .sub-nav input,
-.sub-nav label,
 .sub-nav span,
 .sub-nav a{
 	float: left;
 	margin: 0;
-	font: 20px/42px Raleway, Helvetica, sans-serif;
+	font: 18px/42px Raleway, Helvetica, sans-serif;
 }
 .sub-nav a span{
 	float: none;
@@ -143,11 +141,17 @@ a.cta{
 	font-size: 16px;
 	padding: 0 10px;
 }
-.sub-nav h2{margin: 0 0 0 30px;}
+.sub-nav h2{margin: 0 0 0 20px;}
 .sub-nav a{padding:0 10px;}
 .sub-nav .wizard-control,
 .sub-nav .reset-location{float:right;}
-.sub-nav input[type="checkbox"]{margin: 15px 10px;}
+.sub-nav .checkbox-holder{float: left;}
+.sub-nav .checkbox-holder input[type="checkbox"]{
+	margin: 0 auto;
+	float: none;
+	display: block;
+}
+.sub-nav .checkbox-holder label{font: 12px/22px Raleway, Helvetica, sans-serif;}
 .sub-nav input[type="email"],
 .sub-nav input[type="password"],
 .sub-nav input[type="text"],
@@ -163,7 +167,7 @@ a.cta{
 .sub-nav input[type="email"],
 .sub-nav input[type="password"]{
 	min-width: 150px;
-	width: 22%;
+	width: 20%;
 }
 .sub-nav textarea{
 	font: 14px/20px Raleway, Helvetica, sans-serif;
@@ -203,8 +207,6 @@ a.cta{
 	width: 100%;
 	font: 30px/40px Raleway, Helvetica, sans-serif;
 }
-.location-controls input.required{
-	border-color: #cd0000;}
 .location-controls .go-link{
 	color: #fff;
 	font: 40px/100px Raleway, Helvetica, sans-serif;
@@ -396,4 +398,5 @@ a.cta{
 	.location-controls h2,
 	.location-controls input{font-size: 24px;}
 	#about-section{font: 14px/20px Raleway, Helvetica, sans-serif;}
+	.sub-nav span.errorMsg{display: none;}
 }
