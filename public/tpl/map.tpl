@@ -6,8 +6,8 @@
 		</li>
 		<li>
 			<div ng-if="geoResults == null">
-				<input type="text" class="address" placeholder="Or click here and type address" autocomplete="off" />
-				<a ng-click="inputAddress()" class="geocoding go-link">Go!</a>
+				<input ng-class="address == '' ? 'required' : ''" ng-model="address" type="text" class="address" placeholder="Or click here and type address" autocomplete="off" />
+				<a ng-click="inputAddress(address)" class="geocoding go-link">Go!</a>
 			</div>
 			<div ng-if="geoResults.length != null">
 				<div ng-if="geoResults.length > 0">

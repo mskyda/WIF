@@ -424,22 +424,22 @@ angular.module('controllers',[])
 
             },
 
-            inputAddress: function(){
+            inputAddress: function(address){
 
-                var input = document.querySelector('.location-controls .address');
+                $scope.address = address || '';
 
-                if (input.value){
+                if(address){
 
                     $http({
                         method: 'GET',
-                        url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input.value + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0'
+                        url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0'
                     }).success(function (resp){
 
                         $scope.geoResults = resp.results;
 
                     });
 
-                } else input.className += ' required';
+                }
 
             },
 
