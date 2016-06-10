@@ -418,39 +418,6 @@ angular.module('controllers',[])
 
         angular.extend($scope, {
 
-            getCurrentPosition: function(){
-
-                navigator.geolocation.getCurrentPosition(function(c){
-                    $scope.$apply($scope.renderMap(c));
-                });
-
-            },
-
-            inputAddress: function(address){
-
-                $scope.address = address || '';
-
-                if(address){
-
-                    $http({
-                        method: 'GET',
-                        url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0'
-                    }).success(function (resp){
-
-                        $scope.geoResults = resp.results;
-
-                    });
-
-                }
-
-            },
-
-            resetSearch: function(){
-
-                $scope.geoResults = null;
-
-            },
-
             renderDirection: function(data){
 
                 $scope.dRenderer = $scope.dRenderer || new google.maps.DirectionsRenderer({
@@ -464,31 +431,25 @@ angular.module('controllers',[])
 
             renderMap: function(position){
 
-                $scope.map = new google.maps.Map(document.querySelector('#map'), {
-                    center: new google.maps.LatLng(0, 0),
-                    zoom: 2,
-                    disableDoubleClickZoom: true,
-                    mapTypeId: google.maps.MapTypeId.SATELLITE
-                });
-
-                if($rootScope.center || position) $scope.centerMap(position);
-
-            },
-
-            centerMap: function(position){
+                $rootScope.center = $rootScope.center || {
+                    lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
+                    lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
+                };
 
                 var zoom = 13; // Todo: "radius" control
 
-                $rootScope.center = $rootScope.center || {
-                        lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
-                        lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
-                    };
+                $timeout(function(){
 
-                $scope.map.setZoom(zoom);
+                    $scope.map = new google.maps.Map(document.querySelector('#map'), {
+                        center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
+                        zoom: zoom,
+                        disableDoubleClickZoom: true,
+                        mapTypeId: google.maps.MapTypeId.SATELLITE
+                    });
 
-                $scope.map.panTo(new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng));
+                    $scope.onMapRendered();
 
-                $scope.onMapRendered();
+                });
 
             },
 
@@ -625,6 +586,51 @@ angular.module('controllers',[])
 
         });
 
-        $scope.renderMap($rootScope.center);
+        if($rootScope.center) $scope.renderMap($rootScope.center);
+
+    })
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    .controller('MapControlsController', function($scope, $rootScope, $http, $timeout, $compile, Spot){
+
+        angular.extend($scope, {
+
+            getCurrentPosition: function(){
+
+                navigator.geolocation.getCurrentPosition(function(c){
+
+                    $scope.$apply($scope.$parent.renderMap(c));
+                    
+                });
+
+            },
+
+            inputAddress: function(address){
+
+                $scope.address = address || '';
+
+                if(address){
+
+                    $http({
+                        method: 'GET',
+                        url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + 'AIzaSyDW3irgXC2Ogys9XTVV8oaJ6lXbpNTTap0'
+                    }).success(function (resp){
+
+                        $scope.geoResults = resp.results;
+
+                    });
+
+                }
+
+            },
+
+            resetSearch: function(){
+
+                $scope.geoResults = null;
+
+            }
+
+        });
 
     });
