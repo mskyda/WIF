@@ -143,8 +143,6 @@ angular.module('controllers',[])
 
             onSendCredentials: function() {
 
-                console.log(123);
-
                 if($scope.userID.length < 60) return;
 
                 if(!$scope.captchaPassed){
@@ -453,58 +451,44 @@ angular.module('controllers',[])
 
             },
 
+            renderDirection: function(data){
+
+                $scope.dRenderer = $scope.dRenderer || new google.maps.DirectionsRenderer({
+                        suppressMarkers: true,
+                        map: $scope.map
+                    });
+
+                data ? $scope.dRenderer.setDirections(data) : $scope.dRenderer.setMap(null);
+
+            },
+
             renderMap: function(position){
 
-                var zoom = 13; // Todo: "radius" control
-
-                $scope.map = $scope.map || new google.maps.Map(document.querySelector('#map'), {
+                $scope.map = new google.maps.Map(document.querySelector('#map'), {
                     center: new google.maps.LatLng(0, 0),
                     zoom: 2,
                     disableDoubleClickZoom: true,
                     mapTypeId: google.maps.MapTypeId.SATELLITE
                 });
 
-                if(position || $rootScope.center){
+                if($rootScope.center || position) $scope.centerMap(position);
 
-                    $rootScope.center = $rootScope.center || {
+            },
+
+            centerMap: function(position){
+
+                var zoom = 13; // Todo: "radius" control
+
+                $rootScope.center = $rootScope.center || {
                         lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
                         lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
                     };
 
-                    $scope.map.setCenter(new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng));
+                $scope.map.setZoom(zoom);
 
-                    $scope.smoothZoom($scope.map.getZoom(), zoom);
+                $scope.map.panTo(new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng));
 
-                }
-
-            },
-
-            smoothZoom: function(currentZoom, targetZoom){
-
-                if (currentZoom < targetZoom) {
-
-                    var zoom = google.maps.event.addListener($scope.map, 'zoom_changed', function(){
-
-                        google.maps.event.removeListener(zoom);
-
-                        $scope.smoothZoom(currentZoom + 1, targetZoom);
-
-                    });
-
-                    setTimeout(function(){$scope.map.setZoom(currentZoom)}, 100);
-
-                } else $scope.onMapRendered();
-
-            },
-
-            renderDirection: function(data){
-
-                $scope.dRenderer = $scope.dRenderer || new google.maps.DirectionsRenderer({
-                    suppressMarkers: true,
-                    map: $scope.map
-                });
-
-                data ? $scope.dRenderer.setDirections(data) : $scope.dRenderer.setMap(null);
+                $scope.onMapRendered();
 
             },
 
