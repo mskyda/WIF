@@ -414,7 +414,7 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('MapController', function($scope, $rootScope, $http, $timeout, $compile, Spot){
+    .controller('MapController', function($scope, $rootScope, $timeout, $compile, Spot){
 
         angular.extend($scope, {
 
@@ -592,7 +592,7 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('MapControlsController', function($scope, $rootScope, $http, $timeout, $compile, Spot){
+    .controller('MapControlsController', function($scope, $http){
 
         angular.extend($scope, {
 
@@ -601,7 +601,7 @@ angular.module('controllers',[])
                 navigator.geolocation.getCurrentPosition(function(c){
 
                     $scope.$apply($scope.$parent.renderMap(c));
-                    
+
                 });
 
             },
@@ -632,5 +632,46 @@ angular.module('controllers',[])
             }
 
         });
+
+    })
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    .controller('GalleryController', function($scope){
+
+        angular.extend($scope, {
+
+            index : 0,
+
+            slides: [
+                'Jablonec, Czech republic',
+                'Honolulu, USA',
+                'Doha, Quatar',
+                'Southern Bug, Ukraine',
+                'Brodnica, Poland',
+                'Woods canyon, USA',
+                'Concordia, Argentina',
+                'Galveston bay, USA',
+                'Halls harbour, Canada',
+                'Zurich lake, Switzerland',
+                'Lagoa de Óbidos, Portigar',
+                'Long island, USA',
+                'Salada Grande lagoon, Argentina',
+                'Vistula river, Poland'
+            ],
+
+            changeSlide: function(){
+
+                $scope.$apply(function(){
+
+                    $scope.index === $scope.slides.length - 1 ? $scope.index = 0 : $scope.index++;
+
+                });
+
+            }
+
+        });
+
+        setInterval($scope.changeSlide, 10000);
 
     });

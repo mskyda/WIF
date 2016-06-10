@@ -177,14 +177,16 @@ input.required{border-color: #cd0000 !important;}
 }
 #map .star-rate{padding: 5px 0 0;}
 .location-controls a{
-	text-shadow: 0 0 10px #fff;
+	text-shadow: 0 0 10px #333;
 	color: #fff;
 }
-.location-controls > li{
+.location-controls > ul > li{
 	float: left;
 	width: 44%;
 	padding: 0 3%;
 	text-align: center;
+	position: relative;
+	z-index: 2;
 }
 .location-controls h2,
 .location-controls input{
@@ -196,7 +198,7 @@ input.required{border-color: #cd0000 !important;}
 	text-align: center;
 	width: 100%;
 	font: 30px/40px Raleway, Helvetica, sans-serif;
-	text-shadow: 0 0 10px #fff;
+	text-shadow: 0 0 10px #000;
 	border: 2px solid transparent;
 }
 .location-controls input::-webkit-input-placeholder {color: #fff;}
@@ -217,7 +219,7 @@ input.required{border-color: #cd0000 !important;}
 	display: block;
 	margin: 0 auto 70px;
 	border-radius: 50px;
-	box-shadow: 0 0 50px #fff;
+	box-shadow: 0 0 50px #000;
 	text-shadow: 0 0 3px #000;
 	outline: none;
 }
@@ -228,9 +230,7 @@ input.required{border-color: #cd0000 !important;}
 	margin: -10px 0 20px;
 }
 .geocoding-results li{padding: 10px 0 0;}
-#map,
-.popup-container,
-.overlay{
+.container{
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -389,6 +389,37 @@ input.required{border-color: #cd0000 !important;}
 }
 #about-section dd{margin: 0;}
 
+#gallery li{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 100% auto;
+	-webkit-transition: opacity 1s ease-in;
+	-moz-transition: opacity 1s ease-in;
+	-ms-transition: opacity 1s ease-in;
+	-o-transition: opacity 1s ease-in;
+	transition: opacity 1s ease-in;
+	opacity: 0;
+}
+#gallery li.active{
+	opacity: 1;
+}
+#gallery .title{
+	margin: 0;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	right: 20px;
+	text-align: right;
+	font: 20px/30px Raleway, Helvetica, sans-serif;
+	color: #fff;
+	text-shadow: 0 0 10px #000;
+}
+
 @media (max-width: 1000px) {
 
 	.desktop-only{display: none;}
@@ -405,4 +436,5 @@ input.required{border-color: #cd0000 !important;}
 	.location-controls input{font-size: 24px;}
 	#about-section{font: 14px/20px Raleway, Helvetica, sans-serif;}
 	.sub-nav span.errorMsg{display: none;}
+	#gallery li {background-position: top center;}
 }
