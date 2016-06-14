@@ -645,30 +645,34 @@ angular.module('controllers',[])
 
     .controller('GalleryController', function($scope){
 
+        var slides = [
+            'Jablonec, Czech republic',
+            'Honolulu, USA',
+            'Doha, Quatar',
+            'Southern Bug, Ukraine',
+            'Brodnica, Poland',
+            'Woods canyon, USA',
+            'Concordia, Argentina',
+            'Galveston bay, USA',
+            'Halls harbour, Canada',
+            'Zurich lake, Switzerland',
+            'Lagoa de Óbidos, Portigar',
+            'Long island, USA',
+            'Salada Grande lagoon, Argentina',
+            'Vistula river, Poland'
+        ];
+
         angular.extend($scope, {
 
             index : 0,
 
-            slides: [
-                'Jablonec, Czech republic',
-                'Honolulu, USA',
-                'Doha, Quatar',
-                'Southern Bug, Ukraine',
-                'Brodnica, Poland',
-                'Woods canyon, USA',
-                'Concordia, Argentina',
-                'Galveston bay, USA',
-                'Halls harbour, Canada',
-                'Zurich lake, Switzerland',
-                'Lagoa de Óbidos, Portigar',
-                'Long island, USA',
-                'Salada Grande lagoon, Argentina',
-                'Vistula river, Poland'
-            ],
+            slides: slides.slice(0, 2),
 
             changeSlide: function(){
 
                 $scope.$apply(function(){
+
+                    if($scope.slides.length < slides.length) $scope.slides.push(slides[$scope.slides.length]);
 
                     $scope.index === $scope.slides.length - 1 ? $scope.index = 0 : $scope.index++;
 
