@@ -21,7 +21,7 @@
 		"body-parser": ">=1.13.x",
 	  	"underscore": ">=1.8.x",
 	  	"emailjs": ">=1.0.x",
-	  	"bcrypt": ">=0.8.x"
+	  	"crypto": ">=0.0.x"
 	},
 	"scripts": {
 	  "postinstall": "bower install --force"

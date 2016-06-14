@@ -1,6 +1,6 @@
-var mongoose    = require('mongoose');
+var mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URL);
+mongoose.connect('mongodb://mskyda:' + process.env.WIF_SECRET + '@ds023373.mlab.com:23373/whereisfish');
 
 var db = mongoose.connection;
 
@@ -31,3 +31,4 @@ Spot.path('owner').validate(function (str) {
 }, 'invalid owner id');
 
 exports.SpotModel = mongoose.model('Spot', Spot);
+

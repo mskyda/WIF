@@ -133,6 +133,12 @@ angular.module('controllers',[])
 
                 $scope.$watchCollection('[userEmail, userID]', function() {$scope.unauthorized = null});
 
+                $scope.$watch('haveUserID', function(haveUserID) {
+
+                    if(!haveUserID) $scope.userID = '';
+
+                });
+
             },
 
             onPopupEmail: function(){ // todo: put html into template
@@ -143,7 +149,7 @@ angular.module('controllers',[])
 
             onSendCredentials: function() {
 
-                if($scope.userID.length < 60) return;
+                if($scope.haveUserID && $scope.userID.length < 32) return;
 
                 if(!$scope.captchaPassed){
 
@@ -672,6 +678,6 @@ angular.module('controllers',[])
 
         });
 
-        setInterval($scope.changeSlide, 10000);
+        setInterval($scope.changeSlide, 5000);
 
     });

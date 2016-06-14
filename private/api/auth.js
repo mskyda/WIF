@@ -1,6 +1,6 @@
-var api       = require('../routes'),
-	_         = require('underscore'),
-	bcrypt    = require('bcrypt');
+var api    = require('../routes'),
+	_      = require('underscore'),
+	crypto = require('crypto');
 
 var authtApi = {
 
@@ -28,28 +28,26 @@ var authtApi = {
 
 		} else if(req.body.userID){
 
-			bcrypt.compare(req.body.userEmail, req.body.userID, function(err, result) {
+			var decipher = crypto.createDecipher('aes-128-cbc', process.env.WIF_SECRET), decrypted;
 
-				if(result){
-					console.log('Success: login for "' + req.body.userEmail + '"');
-					return res.send({msg: 'ID is correct'});
-				} else {
-					console.log('Error: login for "' + req.body.userEmail + '"');
-					res.statusCode = 401;
-					return res.send({msg: 'ID is wrong'});
-				}
+			try {decrypted = decipher.update(req.body.userID, 'hex', 'utf-8') +  decipher.final('utf-8');} catch (e){}
 
-			});
+			if(decrypted && decrypted === req.body.userEmail.slice(0, 15)){
+				console.log('Success: login for "' + req.body.userEmail + '"');
+				return res.send({msg: 'ID is correct'});
+			} else {
+				console.log('Error: login for "' + req.body.userEmail + '"');
+				res.statusCode = 401;
+				return res.send({msg: 'ID is wrong'});
+			}
 
 		} else {
 
-			bcrypt.hash(req.body.userEmail, 10, function(err, hash) {
+			var cipher = crypto.createCipher("aes-128-cbc", process.env.WIF_SECRET);
 
-				api.SendEmail(req.body.userEmail, hash);
+			api.SendEmail(req.body.userEmail, cipher.update(req.body.userEmail.slice(0, 15), 'utf8', 'hex') + cipher.final('hex'));
 
-				return res.send({msg: 'email sent'});
-
-			});
+			return res.send({msg: 'email sent'});
 
 		}
 
@@ -60,3 +58,4 @@ var authtApi = {
 _.bindAll(authtApi, 'init');
 
 exports.Auth = authtApi;
+
