@@ -7,7 +7,7 @@ body{
 	height: 100%;
 	min-height: 480px;
 	min-width: 768px;
-	font: 12px/16px Raleway, Helvetica, sans-serif;
+	font: 14px/16px Raleway, Helvetica, sans-serif;
 	color: #333;
 	background: #eee;
 }
@@ -44,8 +44,8 @@ a[ng-click]{
 .hide{
 	display: none !important;
 }
-span.errorMsg{color: #cd0000;}
-input.required{border-color: #cd0000 !important;}
+span.errorMsg{color: #cd3306;}
+input.required{background: #fcd0c5;}
 /*end CSS-reset*/
 
 #app{height: 100%;}
@@ -190,43 +190,45 @@ input.required{border-color: #cd0000 !important;}
 	position: relative;
 	z-index: 2;
 }
-.location-controls h2,
-.location-controls input{
+.location-controls h2{
 	color: #fff;
-	background: none;
-	padding: 0;
 	margin: 0 0 30px;
-	display: block;
 	text-align: center;
 	width: 100%;
-	font: 30px/40px Raleway, Helvetica, sans-serif;
-	text-shadow: 0 0 10px #000;
-	border: 2px solid transparent;
+	font: 36px/40px Raleway, Helvetica, sans-serif;
+	text-shadow: -1px -1px 5px #000;
 }
-.location-controls input::-webkit-input-placeholder {color: #fff;}
-.location-controls input:-moz-placeholder {
-	color:    #fff;
-	opacity:  1;
-}
-.location-controls input::-moz-placeholder {
-	color:    #fff;
-	opacity:  1;
-}
-.location-controls input:-ms-input-placeholder{color: #fff;}
 .location-controls .go-link{
 	color: #fff;
-	font: 40px/100px Raleway, Helvetica, sans-serif;
-	height: 100px;
+	font: 40px/50px Raleway, Helvetica, sans-serif;
 	width: 100px;
-	display: block;
-	margin: 0 auto 70px;
-	border-radius: 50px;
-	box-shadow: 0 0 50px #000;
-	text-shadow: 0 0 3px #000;
+	display: inline-block;
+	border-radius: 15px;
+	text-shadow: 0 0 5px #000;
+	border: 2px solid #ccc;
+	background: -webkit-linear-gradient(#315373, #aad6ff);
+	background: -o-linear-gradient(#315373, #aad6ff);
+	background: -moz-linear-gradient(#315373, #aad6ff);
+	background: linear-gradient(#315373, #aad6ff);
+}
+.location-controls input{
+	font: 40px/50px Raleway, Helvetica, sans-serif;
+	display: inline-block;
+	font-size: 20px;
+	vertical-align: top;
+	border: 2px solid #ccc;
+	padding: 0 0 0 5px;
+	border-radius: 15px 0 0 15px;
+	width: 50%;
 	outline: none;
 }
-.location-controls .geolocation{background: #54d058;}
-.location-controls .geocoding{background: #ffe700;}
+.location-controls input.go-link{
+	border-left: 0;
+	border-radius: 0 15px 15px 0;
+	height: 54px;
+	margin: 0 0 0 -5px;
+	padding: 0;
+}
 .geocoding-results{
 	font: 20px/24px Raleway, Helvetica, sans-serif;
 	margin: -10px 0 20px;
@@ -419,7 +421,7 @@ input.required{border-color: #cd0000 !important;}
 	text-align: right;
 	font: 20px/30px Raleway, Helvetica, sans-serif;
 	color: #fff;
-	text-shadow: 0 0 10px #000;
+	text-shadow: 1px 1px 5px #000;
 }
 
 @media (max-width: 1000px) {
@@ -434,8 +436,7 @@ input.required{border-color: #cd0000 !important;}
 		line-height: 28px;
 		margin-top: -10px;
 	}
-	.location-controls h2,
-	.location-controls input{font-size: 24px;}
+	.location-controls h2{font-size: 28px;}
 	#about-section{font: 14px/20px Raleway, Helvetica, sans-serif;}
 	.sub-nav span.errorMsg{display: none;}
 	#gallery li {background-position: top center;}

@@ -1,16 +1,17 @@
 <div class="container overlay" ng-controller="MapControlsController">
 	<ng-include ng-if="map == null" src="'tpl/gallery.tpl'"></ng-include>
-	<div class="container">
+	<div class="container overlay">
 		<div class="location-controls holder">
 			<ul class="wrapper">
 				<li>
 					<h2>Let us know your location</h2>
-					<a ng-click="getCurrentPosition()" class="geolocation go-link">Go!</a>
+					<a ng-click="getCurrentPosition()" class="geolocation go-link">Go</a>
 				</li>
 				<li>
-					<form ng-if="geoResults == null" ng-submit="inputAddress(address)">
-						<input ng-class="address == '' ? 'required' : ''" ng-model="address" type="text" class="address" placeholder="Or click here and type address" autocomplete="off" />
-						<input type="submit" class="geocoding go-link" value="Go!" />
+					<h2 ng-if="geoResults == null">Or input an address</h2>
+					<form class="wrapper" ng-if="geoResults == null" ng-submit="inputAddress(address)">
+						<input ng-class="address == '' ? 'required' : ''" ng-model="address" type="text" class="address" autocomplete="off" />
+						<input type="submit" class="geocoding go-link" value="Go" />
 					</form>
 					<div ng-if="geoResults.length != null">
 						<div ng-if="geoResults.length > 0">
