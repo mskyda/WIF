@@ -77,8 +77,6 @@ angular.module('controllers',[])
 
         angular.extend($scope, {
 
-            step: 0,
-
             title: isEdit ? 'Edit' : 'Add',
 
             spot: $rootScope.activeSpot,
@@ -87,13 +85,13 @@ angular.module('controllers',[])
 
                 if(Math.abs(val) !== 1) return;
 
-                $scope.step += val;
-
-                $rootScope.$broadcast('map:update', {step: $scope.step});
+                $scope.spot.step += val;
 
             },
 
             manageSpot: function(){
+
+                delete $scope.spot.step;
 
                 if(isEdit){
 
@@ -123,13 +121,11 @@ angular.module('controllers',[])
 
                 $state.go('search');
 
-                $rootScope.$broadcast('map:update');
-
             }
 
         });
 
-        if(isEdit) $scope.wizardGo(1);
+        $scope.spot.step = isEdit ? 1 : 0;
 
     })
 
@@ -437,7 +433,7 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('MapController', function($scope, $rootScope, $timeout, $compile, Spot){
+    .controller('MapController', function($scope, $rootScope, $timeout, $compile, $state, Spot){
 
         angular.extend($scope, {
 
@@ -478,37 +474,47 @@ angular.module('controllers',[])
                         mapTypeId: google.maps.MapTypeId.SATELLITE
                     });
 
+                    $scope.putUserMarker();
+
                     $scope.updateMap();
 
-                    google.maps.event.addListener($scope.map, 'dblclick', $scope.onPutPositionMarker);
+                    google.maps.event.addListener($scope.map, 'dblclick', $scope.putPositionMarker);
 
                 });
 
             },
 
-            updateMap: function(e, updates){
+            putUserMarker: function(){
 
-                if(updates) angular.extend($scope, updates);
+                new google.maps.Marker({
+                    position: $rootScope.center,
+                    map: $scope.map,
+                    icon: './img/user.png'
+                });
 
-                $scope.cleanMap();
+            },
+
+            updateMap: function(e, state){
+
+                if(state) $scope.state = state.name;
+
+                if(!$scope.map || $scope.state === 'about') return;
+
+                $scope.closeInfoWindows();
+
+                $rootScope.$broadcast('map:direction', false);
 
                 if(!$rootScope.spots) Spot.query($rootScope.center).$promise.then($scope.onSpotsLoaded);
 
+                if($scope.positionMarker) $scope.positionMarker.setMap(null);
+
             },
 
-            onPutPositionMarker: function(e){
+            putPositionMarker: function(e){
 
-                if(!$scope.step || $scope.step !== 1) return;
+                if(!$rootScope.activeSpot || !$rootScope.activeSpot.step || $rootScope.activeSpot.step !== 1) return;
 
                 var coords = {lat: e.latLng.lat(), lng: e.latLng.lng()};
-
-                $scope.putPositionMarker(coords);
-
-                $scope.$apply(function(){$rootScope.activeSpot.coords = coords});
-
-            },
-
-            putPositionMarker: function(coords){
 
                 if($scope.positionMarker) $scope.positionMarker.setMap(null);
 
@@ -516,6 +522,8 @@ angular.module('controllers',[])
                     position: coords,
                     map: $scope.map
                 });
+
+                $scope.$apply(function(){$rootScope.activeSpot.coords = coords});
 
             },
 
@@ -529,31 +537,7 @@ angular.module('controllers',[])
 
                 $rootScope.spots = spots;
 
-                $scope.putUserMarker();
-
                 $scope.putSpotMarkers();
-
-            },
-
-            cleanMap: function(){
-
-                $scope.closeInfoWindows();
-
-                if($scope.userMarker) $scope.userMarker.setMap(null);
-
-                if($scope.positionMarker) $scope.positionMarker.setMap(null);
-
-                $rootScope.$broadcast('map:direction', false);
-
-            },
-
-            putUserMarker: function(){
-
-                $scope.userMarker = new google.maps.Marker({
-                    position: $rootScope.center,
-                    map: $scope.map,
-                    icon: './img/user.png'
-                });
 
             },
 
@@ -588,6 +572,8 @@ angular.module('controllers',[])
             },
 
             openInfoWindow: function(spot){
+
+                if($scope.state !== 'search') return;
 
                 var html = '<a class="open-spot" ng-click="openSpot()">' + spot.name + '<ng-include src="\'tpl/star-rate.tpl\'"></ng-include></a>';
 
@@ -631,7 +617,9 @@ angular.module('controllers',[])
 
         $scope.$on('map:direction', $scope.renderDirection);
 
-        $scope.$on('map:update', $scope.updateMap);
+        $rootScope.$on('$stateChangeStart', $scope.updateMap);
+
+        $timeout(function(){$scope.state = $state.current.name});
 
     })
 
