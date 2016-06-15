@@ -87,7 +87,8 @@ input.required{border-color: #cd0000 !important;}
 	float: left;
 	padding: 0 20px 0 0;
 }
-.cta{
+.cta,
+.cta:hover{
 	text-transform: uppercase;
 	color: #fff;
 	background: -webkit-linear-gradient(#aad6ff, #315373);
@@ -120,6 +121,7 @@ input.required{border-color: #cd0000 !important;}
 }
 .sub-nav .cta{
 	float: right;
+	font-weight: bold;
 	margin: 0 10px 0 0;
 }
 .sub-nav span,

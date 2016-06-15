@@ -4,11 +4,11 @@ angular.module('wif',['ui.router','ngResource', 'ngCookies', 'controllers','serv
 		.state('search',{
 			url:'/search',
 			templateUrl:'tpl/search.tpl',
-			controller:'SearchPageController'
+			controller:'SearchSpotsController'
 		}).state('manage',{
 		   url:'/manage',
 		   templateUrl:'tpl/manage.tpl',
-		   controller:'ManagePageController'
+		   controller:'ManageSpotsController'
 		}).state('about',{
 			url:'/about',
 			templateUrl:'tpl/about.tpl'

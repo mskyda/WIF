@@ -10,19 +10,12 @@
 
 <div id="app" ng-controller="AppController" ng-show="total != null" ng-cloak>
 
-    <header id="header" class="wrapper">
-        <h1 class="logo">Where is fish</h1>
-        <div class="header-holder">
-            <h2 class="slogan">From fisher to fisher. There are {{total}} fishing spots for you</h2>
-            <nav class="tabs">
-                <a ui-sref="search" ui-sref-active="active">Search spots</a>
-                <a ui-sref="manage" ui-sref-active="active">Manage spots</a>
-                <a ui-sref="about" ui-sref-active="active">About</a>
-            </nav>
-        </div>
-    </header>
+    <ng-include src="'tpl/header.tpl'"></ng-include>
 
-    <div id="main" ui-view></div>
+    <div id="main">
+        <ui-view></ui-view>
+        <ng-include src="'tpl/map.tpl'"></ng-include>
+    </div>
 
     <ng-include src="'tpl/popup.tpl'"></ng-include>
 

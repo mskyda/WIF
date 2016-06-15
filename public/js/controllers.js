@@ -53,7 +53,7 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('SearchPageController', function($scope){
+    .controller('SearchSpotsController', function($scope){
 
         angular.extend($scope, {
             orderProp: 'distance',
@@ -69,17 +69,19 @@ angular.module('controllers',[])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('ManagePageController', function($scope, $state, $rootScope, Spot){
+    .controller('ManageSpotsController', function($scope, $state, $rootScope, Spot){
 
-        var isEditMode = $rootScope.activeSpot && $rootScope.activeSpot.owner;
+        $rootScope.activeSpot = $rootScope.activeSpot || new Spot();
+
+        var isEdit = !!$rootScope.activeSpot.owner;
 
         angular.extend($scope, {
 
-            step: isEditMode ? 1 : 0,
+            step: 0,
 
-            title: isEditMode ? 'Edit' : 'Add',
+            title: isEdit ? 'Edit' : 'Add',
 
-            spot: isEditMode ? $rootScope.activeSpot : new Spot(),
+            spot: $rootScope.activeSpot,
 
             wizardGo: function(val){
 
@@ -87,13 +89,15 @@ angular.module('controllers',[])
 
                 $scope.step += val;
 
+                $rootScope.$broadcast('map:update', {step: $scope.step});
+
             },
 
             manageSpot: function(){
 
-                if(isEditMode){
+                if(isEdit){
 
-                    Spot.update({id: $scope.spot._id}, $scope.spot).$promise.then(function(){$state.go('search')});
+                    Spot.update({id: $scope.spot._id}, $scope.spot).$promise.then($scope.onManageComplete);
 
                 } else {
 
@@ -101,15 +105,31 @@ angular.module('controllers',[])
 
                         $rootScope.total++;
 
-                        $state.go('search');
+                        $scope.onManageComplete();
 
                     });
 
                 }
 
+            },
+
+            onManageComplete: function(){
+
+                angular.forEach($rootScope.spots, function(spot){spot.marker.setMap(null)});
+
+                $rootScope.spots = false;
+
+                $rootScope.activeSpot = false;
+
+                $state.go('search');
+
+                $rootScope.$broadcast('map:update');
+
             }
 
         });
+
+        if(isEdit) $scope.wizardGo(1);
 
     })
 
@@ -301,10 +321,7 @@ angular.module('controllers',[])
 
                     $scope.$emit('toggle:popup');
 
-                    angular.extend($rootScope, {
-                        activeSpot : angular.extend($scope.spot, {owner : owner}),
-                        center : $scope.spot.coords
-                    });
+                    $rootScope.activeSpot = angular.extend($scope.spot, {owner : owner});
 
                     $state.go('manage');
 
@@ -424,73 +441,81 @@ angular.module('controllers',[])
 
         angular.extend($scope, {
 
-            renderDirection: function(data){
+            renderDirection: function(e, data){
 
-                $scope.dRenderer = $scope.dRenderer || new google.maps.DirectionsRenderer({
+                if(data){
+
+                    $scope.dRenderer = new google.maps.DirectionsRenderer({
                         suppressMarkers: true,
                         map: $scope.map
                     });
 
-                data ? $scope.dRenderer.setDirections(data) : $scope.dRenderer.setMap(null);
+                    $scope.dRenderer.setDirections(data);
 
-            },
+                } else if ($scope.dRenderer) {
 
-            renderMap: function(position){
-
-                $rootScope.center = $rootScope.center || {
-                    lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
-                    lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
-                };
-
-                var zoom = 13; // Todo: "radius" control
-
-                $timeout(function(){
-
-                    $scope.map = new google.maps.Map(document.querySelector('#map'), {
-                        center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
-                        zoom: zoom,
-                        disableDoubleClickZoom: true,
-                        mapTypeId: google.maps.MapTypeId.SATELLITE
-                    });
-
-                    $scope.onMapRendered();
-
-                });
-
-            },
-
-            onMapRendered: function(){
-
-                if($scope.spot){ // manage spot page
-
-                    $rootScope.activeSpot && $rootScope.activeSpot.owner ? $scope.onPutNewSpot(false, $scope.spot.coords) : $scope.putUserMarker();
-
-                    google.maps.event.addListener($scope.map, 'dblclick', $scope.onPutNewSpot);
-
-                } else { // search spot page
-
-                    // todo: think, maybe we don't need to load spots on every 'search-map' render
-
-                    Spot.query($rootScope.center).$promise.then($scope.onSpotsLoaded);
+                    $scope.dRenderer.setMap(null);
 
                 }
 
             },
 
-            onPutNewSpot: function(e, coords){
+            renderMap: function(position){
 
-                if($scope.step !== 1) return;
+                $rootScope.spots = false;
 
-                coords = coords || {lat: e.latLng.lat(), lng: e.latLng.lng()};
+                $rootScope.center = {
+                    lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
+                    lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
+                };
 
-                if($scope.marker) $scope.marker.setMap(null);
+                $timeout(function(){
 
-                $scope.marker = new google.maps.Marker({
+                    $scope.map = new google.maps.Map(document.querySelector('#map'), {
+                        center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
+                        zoom: 13, // Todo: "radius" control
+                        disableDoubleClickZoom: true,
+                        mapTypeId: google.maps.MapTypeId.SATELLITE
+                    });
+
+                    $scope.updateMap();
+
+                    google.maps.event.addListener($scope.map, 'dblclick', $scope.onPutPositionMarker);
+
+                });
+
+            },
+
+            updateMap: function(e, updates){
+
+                if(updates) angular.extend($scope, updates);
+
+                $scope.cleanMap();
+
+                if(!$rootScope.spots) Spot.query($rootScope.center).$promise.then($scope.onSpotsLoaded);
+
+            },
+
+            onPutPositionMarker: function(e){
+
+                if(!$scope.step || $scope.step !== 1) return;
+
+                var coords = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+
+                $scope.putPositionMarker(coords);
+
+                $scope.$apply(function(){$rootScope.activeSpot.coords = coords});
+
+            },
+
+            putPositionMarker: function(coords){
+
+                if($scope.positionMarker) $scope.positionMarker.setMap(null);
+
+                $scope.positionMarker = new google.maps.Marker({
                     position: coords,
                     map: $scope.map
                 });
-
-                $scope.$apply(function(){$scope.spot.coords = coords});
 
             },
 
@@ -510,9 +535,21 @@ angular.module('controllers',[])
 
             },
 
+            cleanMap: function(){
+
+                $scope.closeInfoWindows();
+
+                if($scope.userMarker) $scope.userMarker.setMap(null);
+
+                if($scope.positionMarker) $scope.positionMarker.setMap(null);
+
+                $rootScope.$broadcast('map:direction', false);
+
+            },
+
             putUserMarker: function(){
 
-                new google.maps.Marker({
+                $scope.userMarker = new google.maps.Marker({
                     position: $rootScope.center,
                     map: $scope.map,
                     icon: './img/user.png'
@@ -558,11 +595,7 @@ angular.module('controllers',[])
                     content: $compile(html)($scope)[0]
                 });
 
-                angular.forEach($rootScope.spots, function(spot){
-
-                    if(spot.infoWindow) spot.infoWindow.close();
-
-                });
+                $scope.closeInfoWindows();
 
                 $rootScope.activeSpot = spot;
 
@@ -578,6 +611,16 @@ angular.module('controllers',[])
 
             },
 
+            closeInfoWindows: function(){
+
+                angular.forEach($rootScope.spots, function(spot){
+
+                    if(spot.infoWindow) spot.infoWindow.close();
+
+                });
+
+            },
+
             openSpot: function(){
 
                 $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
@@ -586,13 +629,9 @@ angular.module('controllers',[])
 
         });
 
-        $scope.$on('map:direction', function(ev, data){
+        $scope.$on('map:direction', $scope.renderDirection);
 
-            $scope.renderDirection(data);
-
-        });
-
-        if($rootScope.center) $scope.renderMap($rootScope.center);
+        $scope.$on('map:update', $scope.updateMap);
 
     })
 
