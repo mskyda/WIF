@@ -1,5 +1,5 @@
 var email = require('emailjs').server.connect({
-	user     :     'bot.wif@yandex.com',
+	user     :     'info@whereis.fish',
 	password :      process.env.WIF_SECRET,
 	host     :     'smtp.yandex.com',
 	ssl      :      true
@@ -11,7 +11,7 @@ exports.SendEmail = function(address, msg){
 
 	email.send({
 		text:    emailMsgEn,
-		from:    'Where is fish <bot.wif@yandex.com>',
+		from:    'info@whereis.fish',
 		to:      address,
 		subject: 'Your User ID at "Where is fish"',
 		attachment: [{data: emailMsgEn, alternative:true}]
