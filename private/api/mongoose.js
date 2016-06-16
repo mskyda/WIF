@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://mskyda:' + process.env.WIF_SECRET + '@ds023373.mlab.com:23373/whereisfish');
+mongoose.connect('mongodb://localhost/wif');
 
 var db = mongoose.connection;
 
