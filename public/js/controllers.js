@@ -683,7 +683,7 @@ angular.module('controllers',[])
             'Galveston bay, USA',
             'Halls harbour, Canada',
             'Zurich lake, Switzerland',
-            'Lagoa de Óbidos, Portigar',
+            'Lagoa de Óbidos, Portugal',
             'Long island, USA',
             'Salada Grande lagoon, Argentina',
             'Vistula river, Poland'

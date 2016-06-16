@@ -392,7 +392,6 @@ input.required{background: #fcd0c5;}
 	width: 100px;
 }
 #about-section dd{margin: 0;}
-
 #gallery li{
 	position: absolute;
 	left: 0;
@@ -424,8 +423,9 @@ input.required{background: #fcd0c5;}
 	text-shadow: 1px 1px 5px #000;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1500px) {#gallery li{background-size: 150% auto;}}
 
+@media (max-width: 1000px) {
 	.desktop-only{display: none;}
 	#header .tabs {
 		float: none;
@@ -439,5 +439,5 @@ input.required{background: #fcd0c5;}
 	.location-controls h2{font-size: 28px;}
 	#about-section{font: 14px/20px Raleway, Helvetica, sans-serif;}
 	.sub-nav span.errorMsg{display: none;}
-	#gallery li {background-position: top center;}
+	#gallery li{background-size: 200% auto;}
 }
