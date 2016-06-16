@@ -24,7 +24,7 @@
 	  	"crypto": ">=0.0.x"
 	},
 	"scripts": {
-	  "postinstall": "bower install --force"
+	  "postinstall": "sudo bower install --allow-root"
 	},
 	"devDependencies": {},
 	"bundleDependencies": [],
