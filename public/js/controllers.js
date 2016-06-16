@@ -264,6 +264,14 @@ angular.module('controllers',[])
 
                 });
 
+                if($rootScope.activeSpot.infoWindow){
+
+                    $rootScope.activeSpot.infoWindow.close();
+
+                    $rootScope.activeSpot.infoWindow = false;
+
+                }
+
                 $scope.marker = $rootScope.activeSpot.marker;
 
                 $rootScope.activeSpot = resp.spot;
@@ -398,6 +406,7 @@ angular.module('controllers',[])
 
         angular.extend($scope, {
 
+
             rate: function(rating){
 
                 $scope.rating = rating;
@@ -420,6 +429,12 @@ angular.module('controllers',[])
                     $scope.spot.comments = resp.spot.comments;
 
                     $scope.spot.rating = resp.spot.rating;
+
+                    angular.forEach($rootScope.spots, function(spot){
+
+                        if(spot._id === $scope.spot._id) spot.rating = $scope.spot.rating;
+
+                    });
 
                     $scope.toggleMode();
 
