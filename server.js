@@ -2,16 +2,16 @@ var express         = require('express'),
 	api             = require('./private/routes'),
 	bodyParser      = require('body-parser'),
 	fs              = require('fs'),
+	http            = require('http'),
 	https           = require('https'),
 	credentials     = {
 		key: fs.readFileSync('ssl.key', 'utf8'),
 		cert: fs.readFileSync('ssl.crt', 'utf8'),
-		ca: [
-			fs.readFileSync('ssl_intermediate.crt', 'utf8')
-		]
+		ca: [fs.readFileSync('ssl_intermediate.crt', 'utf8')]
 	},
 	app             = express(),
-	server          = https.createServer(credentials, app);
+	httpServer      = http.createServer(app);
+	httpsServer     = https.createServer(credentials, app);
 
 // Todo: config.js
 
@@ -38,8 +38,12 @@ app.use(function(err, req, res){ // error
 	res.send({ error: err.message });
 });
 
-var port = process.env.PORT || 1337;
+var portHTTP = process.env.PORT_HTTP || 8080,
+	portHTTPS = process.env.PORT_HTTPS || 8443;
 
-server.listen(port, function(){
-	console.log('Success: server listening on port ' + port);
+httpServer.listen(portHTTP, function(){
+	console.log('Success: HTTP listening on port ' + portHTTP);
+});
+httpsServer.listen(portHTTPS, function(){
+	console.log('Success: HTTPS listening on port ' + portHTTPS);
 });
