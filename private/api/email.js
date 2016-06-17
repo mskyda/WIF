@@ -11,7 +11,7 @@ exports.SendEmail = function(address, msg){
 
 	email.send({
 		text:    emailMsgEn,
-		from:    'admin@whereis.fish',
+		from:    'Where is fish <admin@whereis.fish>',
 		to:      address,
 		subject: 'Your User ID at "Where is fish"',
 		attachment: [{data: emailMsgEn, alternative:true}]

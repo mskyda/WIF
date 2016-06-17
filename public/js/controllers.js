@@ -688,8 +688,8 @@ angular.module('controllers',[])
     .controller('GalleryController', function($scope){
 
         var slides = [
-            'Jablonec, Czech republic',
-            'Honolulu, USA',
+            'Long island, USA',
+            'Lagoa de Óbidos, Portugal',
             'Doha, Quatar',
             'Salada Grande lagoon, Argentina',
             'Brodnica, Poland',
@@ -698,8 +698,8 @@ angular.module('controllers',[])
             'Galveston bay, USA',
             'Halls harbour, Canada',
             'Zurich lake, Switzerland',
-            'Lagoa de Óbidos, Portugal',
-            'Long island, USA',
+            'Honolulu, USA',
+            'Jablonec, Czech republic',
             'Vistula river, Poland'
         ];
 
