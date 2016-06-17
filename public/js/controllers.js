@@ -691,7 +691,7 @@ angular.module('controllers',[])
             'Jablonec, Czech republic',
             'Honolulu, USA',
             'Doha, Quatar',
-            'Southern Bug, Ukraine',
+            'Salada Grande lagoon, Argentina',
             'Brodnica, Poland',
             'Woods canyon, USA',
             'Concordia, Argentina',
@@ -700,7 +700,6 @@ angular.module('controllers',[])
             'Zurich lake, Switzerland',
             'Lagoa de Óbidos, Portugal',
             'Long island, USA',
-            'Salada Grande lagoon, Argentina',
             'Vistula river, Poland'
         ];
 
