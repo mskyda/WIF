@@ -1,8 +1,11 @@
 {
 	"name": "wif",
 	"version": "1.0.0",
-	"description": "NodeJS application",
+	"description": "MEAN-stack application",
 	"keywords": [
+	    "MongoDB",
+	    "Express",
+	    "Angular",
 		"Node.js",
 		"application"
 	],
@@ -11,7 +14,7 @@
 		"email": "mihail.skida@gmail.com"
 	},
 	"engines": {
-		"node": ">=4x.x",
+		"node": ">=4.x.x",
 		"npm": ">=2.x.x"
 	},
 	"dependencies": {
@@ -25,7 +28,7 @@
 	  	"express-force-ssl" : ">=0.3.x"
 	},
 	"scripts": {
-	  "postinstall": "sudo bower install --allow-root"
+	  "postinstall": "bower install --allow-root"
 	},
 	"devDependencies": {},
 	"bundleDependencies": [],
