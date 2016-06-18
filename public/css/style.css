@@ -220,6 +220,7 @@ input.required{background: #fcd0c5;}
 	padding: 0 0 0 10px;
 	border-radius: 15px 0 0 15px;
 	width: 50%;
+	height: 50px;
 	outline: none;
 }
 .location-controls input.go-link{

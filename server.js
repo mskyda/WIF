@@ -6,9 +6,9 @@ var express         = require('express'),
 	https           = require('https'),
 	forceSSL        = require('express-force-ssl'),
 	credentials     = {
-		key: fs.readFileSync('ssl.key', 'utf8'),
-		cert: fs.readFileSync('ssl.crt', 'utf8'),
-		ca: [fs.readFileSync('ssl_intermediate.crt', 'utf8')]
+		key:  fs.readFileSync('./private/ssl/key.key', 'utf8'),
+		cert: fs.readFileSync('./private/ssl/crt.crt', 'utf8'),
+		ca:  [fs.readFileSync('./private/ssl/crt_int.crt', 'utf8')]
 	},
 	app             = express(),
 	httpServer      = http.createServer(app);
