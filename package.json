@@ -15,13 +15,14 @@
 		"npm": ">=2.x.x"
 	},
 	"dependencies": {
-		"bower": ">=1.7.x",
-		"express": ">=4.13.x",
-		"mongoose": ">=4.0.x",
-		"body-parser": ">=1.13.x",
-	  	"underscore": ">=1.8.x",
-	  	"emailjs": ">=1.0.x",
-	  	"crypto": ">=0.0.x"
+		"bower"             : ">=1.7.x",
+		"express"           : ">=4.13.x",
+		"mongoose"          : ">=4.0.x",
+		"body-parser"       : ">=1.13.x",
+	  	"underscore"        : ">=1.8.x",
+	  	"emailjs"           : ">=1.0.x",
+	  	"crypto"            : ">=0.0.x",
+	  	"express-force-ssl" : ">=0.3.x"
 	},
 	"scripts": {
 	  "postinstall": "sudo bower install --allow-root"
