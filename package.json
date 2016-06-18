@@ -1,5 +1,5 @@
 {
-	"name": "Where is fish",
+	"name": "where_is_fish",
 	"version": "1.0.0",
 	"description": "MEAN-stack application",
 	"keywords": [
@@ -28,7 +28,7 @@
 	  	"express-force-ssl" : ">=0.3.x"
 	},
 	"scripts": {
-	  "postinstall": "bower install --allow-root"
+	  "postinstall": "sudo bower install --allow-root"
 	},
 	"devDependencies": {},
 	"bundleDependencies": [],
