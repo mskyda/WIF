@@ -18,8 +18,8 @@ var express         = require('express'),
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('./public'));
 app.use(forceSSL);
+app.use(express.static('./public'));
 
 app.get('/api/spots', api.Spots.get);
 app.get('/api/spots/:id', api.Spots.get);
