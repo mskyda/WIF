@@ -185,7 +185,7 @@ input.required{background: #fcd0c5;}
 .location-controls > ul > li{
 	float: left;
 	width: 44%;
-	padding: 0 3%;
+	padding: 5px 3%;
 	text-align: center;
 	position: relative;
 	z-index: 2;
@@ -198,40 +198,39 @@ input.required{background: #fcd0c5;}
 	font: 36px/40px Raleway, Helvetica, sans-serif;
 	text-shadow: -1px -1px 5px #000;
 }
-.location-controls .go-link{
+.location-controls .go-link,
+.location-controls input{
 	color: #fff;
 	font: 40px/50px Raleway, Helvetica, sans-serif;
 	width: 100px;
 	display: inline-block;
-	border-radius: 15px;
-	text-shadow: 0 0 5px #000;
-	border: 2px solid #ccc;
-	background: -webkit-linear-gradient(#315373, #aad6ff);
-	background: -o-linear-gradient(#315373, #aad6ff);
-	background: -moz-linear-gradient(#315373, #aad6ff);
-	background: linear-gradient(#315373, #aad6ff);
-}
-.location-controls input{
-	font: 40px/50px Raleway, Helvetica, sans-serif;
-	display: inline-block;
-	font-size: 20px;
 	vertical-align: top;
-	border: 2px solid #ccc;
-	padding: 0 0 0 10px;
-	border-radius: 15px 0 0 15px;
-	width: 50%;
-	height: 50px;
+	text-shadow: -1px -1px 5px #000;
+	box-shadow: 0 0 5px #000;
+	border-radius: 15px;
+	border: 5px solid #fff;
+	background: none;
 	outline: none;
 }
+.location-controls input[type="text"]{
+	font-size: 30px;
+	width: 55%;
+	padding: 0 110px 0 10px;
+	margin: 0;
+}
 .location-controls input.go-link{
-	border-left: 0;
-	border-radius: 0 15px 15px 0;
-	height: 54px;
-	margin: 0 0 0 -5px;
-	padding: 0;
+	box-shadow: none;
+	border-radius: 0;
+	border-width: 0 0 0 5px;
+	padding: 5px 0;
+	height: 60px;
+	width: 100px;
+	margin: 0 0 0 -105px;
+	cursor: pointer;
 }
 .geocoding-results{
-	font: 20px/24px Raleway, Helvetica, sans-serif;
+	text-shadow: -1px -1px 5px #000;
+	font: 22px/24px Raleway, Helvetica, sans-serif;
 	margin: -10px 0 20px;
 }
 .geocoding-results li{padding: 10px 0 0;}

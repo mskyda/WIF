@@ -9,7 +9,7 @@
 				</li>
 				<li>
 					<h2 ng-if="geoResults == null">Or input an address</h2>
-					<form class="wrapper" ng-if="geoResults == null" ng-submit="inputAddress(address)">
+					<form ng-if="geoResults == null" ng-submit="inputAddress(address)">
 						<input ng-class="address == '' ? 'required' : ''" ng-model="address" type="text" class="address" autocomplete="off" />
 						<input type="submit" class="geocoding go-link" value="Go" />
 					</form>
