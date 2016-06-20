@@ -9,7 +9,7 @@ As beginner in fishing, I would like to have a website, where I can find informa
 As web-developer, I decided to create such a website, using new for me technologies (self-made MEAN-stack + Google maps). 
 
 ##### Stack of technologies being used:
-- MongoDb
+- MongoDB
 - Express
 - Angular v.1.x
 - Node.js
@@ -28,3 +28,5 @@ As web-developer, I decided to create such a website, using new for me technolog
 - Decouple of Angular-Controllers
 - Backend config-file
 - ...
+
+Feel free to contact me with a question or feedback: mihail.skida@gmail.com

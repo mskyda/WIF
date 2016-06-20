@@ -13,7 +13,7 @@
 			<dl class="wrapper">
 				<dt>Me:</dt>
 				<dd>
-					<a href="mailto:mihail.skida@gmail.com">mihail.skida@gmail.com</a>,
+					<a href="mailto:mihail.skida@gmail.com">Email</a>,
 					<a href="https://www.linkedin.com/in/mihail-skida-b6872775">LinkedIn</a>
 				</dd>
 				<dt>Project:</dt>
