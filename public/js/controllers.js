@@ -117,8 +117,6 @@ angular.module('controllers',[])
 
                 $rootScope.spots = false;
 
-                $rootScope.activeSpot = false;
-
                 $state.go('search');
 
             }
@@ -272,10 +270,6 @@ angular.module('controllers',[])
 
                 }
 
-                $scope.marker = $rootScope.activeSpot.marker;
-
-                $rootScope.activeSpot = resp.spot;
-
                 $rootScope.center ? $scope.getDirections() : $scope.directions = false;
 
             },
@@ -346,7 +340,7 @@ angular.module('controllers',[])
 
                     Spot.delete({id: $scope.spot._id}).$promise.then(function(){
 
-                        if($scope.marker) $scope.marker.setMap(null);
+                        if($rootScope.activeSpot.marker) $rootScope.activeSpot.marker.setMap(null);
 
                         $scope.$emit('toggle:popup');
 
@@ -511,10 +505,6 @@ angular.module('controllers',[])
 
             updateMap: function(e, state){
 
-                if(state) $scope.state = state.name;
-
-                if(!$scope.map || $scope.state === 'about') return;
-
                 $scope.closeInfoWindows();
 
                 $rootScope.$broadcast('map:direction', false);
@@ -632,7 +622,17 @@ angular.module('controllers',[])
 
         $scope.$on('map:direction', $scope.renderDirection);
 
-        $rootScope.$on('$stateChangeStart', $scope.updateMap);
+        $rootScope.$on('$stateChangeStart', function(e, state){
+
+            if(state) $scope.state = state.name;
+
+            if(!$scope.map || $scope.state === 'about') return;
+
+            if($scope.state === 'search') $rootScope.activeSpot = false;
+
+            $scope.updateMap();
+
+        });
 
         $timeout(function(){$scope.state = $state.current.name});
 
