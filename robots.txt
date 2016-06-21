@@ -1,4 +1,7 @@
 User-agent: *
 
-Disallow: /
-Allow: /public/
+Disallow: /private/
+Disallow: /node_modules/
+Disallow: /public/js/3p/
+
+Allow: /
