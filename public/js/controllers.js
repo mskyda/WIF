@@ -453,6 +453,8 @@ angular.module('controllers',[])
 
             renderDirection: function(e, data){
 
+                if($scope.dRenderer) $scope.dRenderer.setMap(null);
+
                 if(data){
 
                     $scope.dRenderer = new google.maps.DirectionsRenderer({
@@ -461,10 +463,6 @@ angular.module('controllers',[])
                     });
 
                     $scope.dRenderer.setDirections(data);
-
-                } else if ($scope.dRenderer) {
-
-                    $scope.dRenderer.setMap(null);
 
                 }
 
