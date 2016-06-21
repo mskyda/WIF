@@ -3,10 +3,11 @@ Where is Fish
 
 https://whereis.fish
 
-Current version: **1.0.0**
+Current version: **1.0.1**
 
-As beginner in fishing, I would like to have a website, where I can find information about the best fishing places near me.
-As web-developer, I decided to create such a website, using new for me technologies (self-made MEAN-stack + Google maps). 
+As a beginner in fishing, I would like to have a website, where I can find information about the best fishing places near me.
+
+As a web-developer, I decided to create such a website, using new for me technologies (self-made MEAN-stack + Google maps).
 
 ##### Stack of technologies being used:
 - MongoDB
@@ -20,7 +21,7 @@ As web-developer, I decided to create such a website, using new for me technolog
 ##### Roadmap:
 - Spots filters (distance and rating)
 - Spot-url (shared link to Spot)
-- Localisation (de_DE, ru_RU, pl_PL)
+- Localisation (EN, DE, RU, PL, ...)
 - Page speed insights optimisation
 - Minify source for production
 - Photos upload

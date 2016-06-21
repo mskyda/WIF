@@ -5,14 +5,24 @@ var spotsApi = {
 
 	delete: function(req, res){
 
-		api.SpotModel.findById(req.params.id, function (err, spot) {
+		var params = req.params.id ? req.params.id.split('+') : [],
+			spotId = params[0] || '',
+			usedId = params[1] || '';
+
+		api.SpotModel.findById(spotId, function (err, spot) {
 
 			if(!spot) {
 				res.statusCode = 404;
 				return res.send({ error: 'Not found' });
 			}
 
-			return spot.remove(function (err) {
+			if(spot.owner !== usedId){
+				console.log('Error: login for ID "' + usedId + '"');
+				res.statusCode = 401;
+				return res.send({msg: 'ID is wrong'});
+			}
+
+			spot.remove(function (err) {
 				if (!err) {
 					console.log('Success: spot deleted');
 					return res.send({ status: 'OK' });
@@ -50,7 +60,11 @@ var spotsApi = {
 
 			} else {
 
-				// Todo: check userID
+				if(spot.owner !== req.body.owner){
+					console.log('Error: login for ID "' + req.body.owner + '"');
+					res.statusCode = 401;
+					return res.send({msg: 'ID is wrong'});
+				}
 
 				spot.name     = req.body.name;
 				spot.desc     = req.body.desc;
@@ -63,14 +77,13 @@ var spotsApi = {
 					console.log('Success: spot updated');
 					return res.send({ status: 'OK', spot:spot});
 				} else {
+					console.log('Error: ', res.statusCode, err.message);
 					if(err.name == 'ValidationError') {
 						res.statusCode = 400;
-						res.send({ error: 'Validation error' });
-					} else {
-						res.statusCode = 500;
-						res.send({ error: 'Server error' });
+						return res.send({ error: 'Validation error' });
 					}
-					console.log('Error: ', res.statusCode, err.message);
+					res.statusCode = 500;
+					return res.send({ error: 'Server error' });
 				}
 			});
 

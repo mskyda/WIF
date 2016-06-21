@@ -43,6 +43,8 @@ angular.module('controllers',[])
 
             $rootScope.total = resp.total;
 
+            // Todo: spot page (by id in URL)
+
             /*$rootScope.activeSpot = '57566a5e639fab110032cbe6';
 
             $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
@@ -115,7 +117,7 @@ angular.module('controllers',[])
 
                 angular.forEach($rootScope.spots, function(spot){spot.marker.setMap(null)});
 
-                $rootScope.spots = false;
+                $rootScope.spots = [];
 
                 $state.go('search');
 
@@ -315,11 +317,13 @@ angular.module('controllers',[])
 
             manageExistingSpot: function(owner){
 
+                $scope.spot.owner = owner;
+
                 if($scope.mode === 'edit'){
 
                     $scope.$emit('toggle:popup');
 
-                    $rootScope.activeSpot = angular.extend($scope.spot, {owner : owner});
+                    $rootScope.activeSpot = $scope.spot;
 
                     $state.go('manage');
 
@@ -334,13 +338,16 @@ angular.module('controllers',[])
                     $scope.removeDialog = false;
 
                     $scope.toggleMode();
-                    $scope.toggleMode();
 
                 } else {
 
-                    Spot.delete({id: $scope.spot._id}).$promise.then(function(){
+                    Spot.delete({id: $scope.spot._id + '+' + $scope.spot.owner}).$promise.then(function(){
 
                         if($rootScope.activeSpot.marker) $rootScope.activeSpot.marker.setMap(null);
+
+                        var index = $rootScope.spots.indexOf($rootScope.activeSpot);
+
+                        if (index > -1) $rootScope.spots.splice(index, 1);
 
                         $scope.$emit('toggle:popup');
 
@@ -355,8 +362,6 @@ angular.module('controllers',[])
             }
 
         });
-
-        // Todo: spot page (by id in URL)
 
         Spot.get({id: $rootScope.activeSpot._id ||  $rootScope.activeSpot}).$promise.then($scope.onSpotLoaded, function(){$scope.notFound = true;});
 
@@ -483,17 +488,17 @@ angular.module('controllers',[])
                         mapTypeId: google.maps.MapTypeId.SATELLITE
                     });
 
-                    $scope.putUserMarker();
+                    $scope.renderUserMarker();
 
                     $scope.updateMap();
 
-                    google.maps.event.addListener($scope.map, 'dblclick', $scope.putPositionMarker);
+                    google.maps.event.addListener($scope.map, 'dblclick', $scope.renderPositionMarker);
 
                 });
 
             },
 
-            putUserMarker: function(){
+            renderUserMarker: function(){
 
                 new google.maps.Marker({
                     position: $rootScope.center,
@@ -503,19 +508,31 @@ angular.module('controllers',[])
 
             },
 
-            updateMap: function(e, state){
+            updateMap: function(){
 
                 $scope.closeInfoWindows();
 
                 $rootScope.$broadcast('map:direction', false);
 
-                if(!$rootScope.spots) Spot.query($rootScope.center).$promise.then($scope.onSpotsLoaded);
+                if($scope.state === 'search'){
+
+                    if(!$rootScope.spots.length){
+
+                        Spot.query($rootScope.center).$promise.then($scope.onSpotsLoaded);
+
+                    } else {
+
+                        $scope.renderSpotMarkers();
+
+                    }
+
+                }
 
                 if($scope.positionMarker) $scope.positionMarker.setMap(null);
 
             },
 
-            putPositionMarker: function(e){
+            renderPositionMarker: function(e){
 
                 if(!$rootScope.activeSpot || !$rootScope.activeSpot.step || $rootScope.activeSpot.step !== 1) return;
 
@@ -542,11 +559,11 @@ angular.module('controllers',[])
 
                 $rootScope.spots = spots;
 
-                $scope.putSpotMarkers();
+                $scope.renderSpotMarkers();
 
             },
 
-            putSpotMarkers: function(){
+            renderSpotMarkers: function(){
 
                 angular.forEach($rootScope.spots, function(spot){
 
@@ -558,6 +575,19 @@ angular.module('controllers',[])
 
                     spot.marker.addListener('click', function(){$scope.openInfoWindow(spot)});
 
+                });
+
+            },
+
+            removeSpotMarkers: function(){
+
+                angular.forEach($rootScope.spots, function(spot){
+
+                    if(!$rootScope.activeSpot || !$rootScope.activeSpot.owner || spot._id !== $rootScope.activeSpot._id){
+
+                        spot.marker.setMap(null);
+
+                    }
                 });
 
             },
@@ -626,11 +656,15 @@ angular.module('controllers',[])
 
             if(state) $scope.state = state.name;
 
-            if(!$scope.map || $scope.state === 'about') return;
+            if($scope.map && $scope.state !== 'about'){
 
-            if($scope.state === 'search') $rootScope.activeSpot = false;
+                if($scope.state === 'search') $rootScope.activeSpot = false;
 
-            $scope.updateMap();
+                $scope.removeSpotMarkers();
+
+                $scope.updateMap();
+
+            }
 
         });
 

@@ -1,16 +1,17 @@
 {
 	"name": "where_is_fish",
-	"version": "1.0.0",
-	"description": "MEAN-stack application",
+	"version": "1.0.1",
+	"description": "web-application for fishers",
 	"keywords": [
 	    "MongoDB",
 	    "Express",
 	    "Angular",
 		"Node.js",
-		"application"
+		"GoogleMaps",
+		"web-application"
 	],
 	"author": {
-		"name": "Misha Skida",
+		"name": "Misha Skyda",
 		"email": "mihail.skida@gmail.com"
 	},
 	"engines": {

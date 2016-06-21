@@ -6,10 +6,10 @@
 		<img class="me" src="img/me.jpg" />
 		<article class="content">
 			<p>Hello, my name is Misha.</p>
-			<p>As beginner in fishing, I would like to have a website, where I can find information about the best fishing places near me.</p>
-			<p>As web-developer, I decided to create such a website, helping fishers around the world to share their knowledges and answer the question "where is the fish?" easily.</p>
-			<p>The project is free: no ads, no payments, no "premiums". Enjoy!</p>
-			<p>And feel free to contact me with a question or feedback!</p>
+			<p>As a beginner in fishing, I would like to have a website, where I can find an information about the best fishing places near me.</p>
+			<p>As a web-developer, I decided to create such a website, helping fishers to share their knowledge and answer the question "where is the fish?" easily.</p>
+			<p>Feel free to contact me with a question or feedback!</p>
+			<p>The project is released under the <a href="https://tldrlegal.com/license/mit-license">MIT license</a>.</p>
 			<dl class="wrapper">
 				<dt>Me:</dt>
 				<dd>

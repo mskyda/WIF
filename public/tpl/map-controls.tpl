@@ -1,13 +1,15 @@
 <div class="container overlay" ng-controller="MapControlsController">
 	<ng-include ng-if="map == null" src="'tpl/gallery.tpl'"></ng-include>
 	<div class="container overlay">
-		<div class="location-controls holder">
-			<ul class="wrapper">
-				<li>
+		<ul class="location-controls container">
+			<li>
+				<div class="holder">
 					<h2>Let us know your location</h2>
 					<a ng-click="getCurrentPosition()" class="geolocation go-link">Go</a>
-				</li>
-				<li>
+				</div>
+			</li>
+			<li>
+				<div class="holder">
 					<h2 ng-if="geoResults == null">Or input an address</h2>
 					<form ng-if="geoResults == null" ng-submit="inputAddress(address)">
 						<input ng-class="address == '' ? 'required' : ''" ng-model="address" type="text" class="address" autocomplete="off" />
@@ -25,8 +27,8 @@
 						<h2 ng-if="geoResults.length == 0">Nothing found. Check address.</h2>
 						<a ng-click="resetSearch()">Search once again</a>
 					</div>
-				</li>
-			</ul>
-		</div>
+				</div>
+			</li>
+		</ul>
 	</div>
 </div>
