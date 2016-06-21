@@ -38,16 +38,16 @@ app.put('/api/spots/:id', api.Spots.put);
 app.delete('/api/spots/:id', api.Spots.delete);
 app.post('/api/auth', api.Auth.init);
 
-app.use(function(err, req, res){ // error
-	res.status(err.status || 500);
-	console.log('Error: ', res.statusCode ,err.message);
-	res.send({ error: err.message });
+app.use(function(req, res) { // 404
+	res.status(404);
+	console.log('Error: Not found URL ', req.url);
+	res.send('<h1>404: Page not Found</h1>');
 });
 
-app.get('*', function(req, res){ // 404
-	res.status(404);
-	console.log('Error: Not found URL ',req.url);
-	res.send({ error: 'Not found' });
+app.use(function(error, req, res) { // error
+	res.status(err.status || 500);
+	console.log('Error: ', res.statusCode, err.message);
+	res.send('<h1>' + err.status + ': Internal Server Error</h1>');
 });
 
 var portHTTP = process.env.PORT_HTTP || 8080,
