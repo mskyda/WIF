@@ -250,6 +250,10 @@ angular.module('controllers',[])
 
             onSpotLoaded: function(resp){
 
+                resp.spot.coords.lat = resp.spot.coords.lat.toFixed(4);
+
+                resp.spot.coords.lng = resp.spot.coords.lng.toFixed(4);
+
                 angular.extend($scope, {spot: resp.spot});
 
                 $scope.$watch('spot.rating', function(rating){
@@ -538,7 +542,7 @@ angular.module('controllers',[])
 
                 if(!$rootScope.activeSpot || !$rootScope.activeSpot.step || $rootScope.activeSpot.step !== 1) return;
 
-                var coords = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+                var coords = {lat: e.latLng.lat().toFixed(4), lng: e.latLng.lng().toFixed(4)};
 
                 if($scope.positionMarker) $scope.positionMarker.setMap(null);
 

@@ -9,7 +9,7 @@
 				<a class="reset-location" ng-click="resetLocation()">Change location</a>
 			</div>
 			<div ng-if="spot.coords != null">
-				<span class="title">Lat.: {{spot.coords.lat}}; Lng.: {{spot.coords.lng}}</span>
+				<span class="title">Latitude: {{spot.coords.lat}}; Longitude: {{spot.coords.lng}}</span>
 				<a class="wizard-control" ng-click="wizardGo(1)"><span class="desktop-only">Next </span>&gt;</a>
 			</div>
 		</div>

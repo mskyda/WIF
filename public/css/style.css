@@ -278,9 +278,9 @@ input.required{background: #fcd0c5;}
 	background: #eee;
 	padding: 10px;
 	margin: 10px;
-	max-width: 500px;
+	max-width: 700px;
 	border-radius: 10px;
-	font: 16px/20px Raleway, Helvetica, sans-serif;
+	font: 16px/24px Raleway, Helvetica, sans-serif;
 }
 .popup .close-popup{
 	float: right;
@@ -295,6 +295,7 @@ input.required{background: #fcd0c5;}
 	margin: 0 0 10px;
 }
 .popup p{margin: 0 0 10px;}
+.popup p .quote{font: 18px/20px 'Indie Flower', cursive;}
 .popup .section{
 	padding: 10px 0 0;
 	border-top: 2px solid #fff;
@@ -302,7 +303,7 @@ input.required{background: #fcd0c5;}
 .spot-info .mode-holder{padding: 10px 10px 0;}
 .spot-info .rate-mode{padding: 10px 15px;}
 .spot-info .mode-holder .wrapper{padding: 10px 0;}
-.spot-info{width: 500px;}
+.spot-info{width: 700px;}
 .star-rate{padding: 0 0 5px;}
 .star-rate ul,
 .star-rate li{display: inline-block;}
@@ -327,15 +328,16 @@ input.required{background: #fcd0c5;}
 .star-rate .star.filled {color: #315373;}
 .star-rate span.star.filled {color: #fd0;}
 .rate-mode .star-rate{float: left;}
+.spot-info .navigation dt,
 .mode-holder span.label{
 	float: left;
-	width: 150px;
+	width: 200px;
 	line-height: 25px;
 	text-align: left;
 }
 .spot-info input[type="password"],
 .spot-info textarea{
-	width: 305px;
+	width: 68%;
 	padding: 0 5px;
 	font: 16px/23px Raleway, Helvetica, sans-serif;
 	resize: none;
@@ -345,20 +347,31 @@ input.required{background: #fcd0c5;}
 }
 .spot-info input[type="password"]{height: auto;}
 .spot-info .cta{
-	font: bold 16px/23px Raleway, Helvetica, sans-serif;
+	font: bold 16px/30px Raleway, Helvetica, sans-serif;
 	width: 90%;
 	margin: 10px auto;
 	box-shadow: 0 0 10px #333;
+	display: block;
 }
-.spot-info .direction-select{
-	background: none;
+.spot-info .navigation{
+	text-align: left;
+	padding: 10px 15px 0;
+}
+.spot-info .navigation dl{margin: 0;}
+.spot-info .navigation dd,
+.spot-info .navigation dt{
+	margin: 0 0 10px;
 	font: 18px/30px Raleway, Helvetica, sans-serif;
+}
+.spot-info .navigation select{
+	background: none;
 	height: 30px;
+	width: 70%;
 	border: 2px solid #ccc;
 	color: #315373;
 	outline: none;
 	text-shadow: 0 0 5px #aaa;
-	margin: 0 0 10px;
+	font: 18px/30px Raleway, Helvetica, sans-serif;
 }
 .spot-info #recaptcha div{margin: 0 auto;}
 .reviews-list{

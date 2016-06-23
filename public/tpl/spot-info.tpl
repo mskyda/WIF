@@ -2,15 +2,19 @@
 	<h2 ng-if="notFound">Sorry, Spot with this ID is not found</h2>
 	<h2>{{spot.name}}</h2>
 	<ng-include src="'tpl/star-rate.tpl'"></ng-include>
-	<p>"{{spot.desc}}"</p>
-	<div class="section" ng-show="directions.length">
-		<h3>Get direction:</h3>
-		<div class="wrapper">
-			<select class="direction-select" ng-model="transportType">
-				<option value="" disabled selected>Transport type</option>
-				<option ng-repeat="direction in directions" ng-disabled="!direction.way" value="{{direction.index}}">{{direction.name}} {{direction.way}}</option>
-			</select>
-		</div>
+	<p><span class="quote">"</span>{{spot.desc}}<span class="quote">"</span></p>
+	<div class="section navigation" ng-show="directions.length">
+		<dl class="wrapper">
+			<dt>Coordinates:</dt>
+			<dd>{{spot.coords.lat}}, {{spot.coords.lng}}</dd>
+			<dt>Get direction:</dt>
+			<dd>
+				<select ng-model="transportType">
+					<option value="" disabled selected>Transport type</option>
+					<option ng-repeat="direction in directions" ng-disabled="!direction.way" value="{{direction.index}}">{{direction.name}} {{direction.way}}</option>
+				</select>
+			</dd>
+		</dl>
 	</div>
 	<div class="section">
 		<h3>Interested in?</h3>
