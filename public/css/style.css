@@ -116,22 +116,21 @@ input.required{background: #fcd0c5;}
 .sub-nav nav,
 .sub-nav li,
 .sub-nav input,
-.sub-nav span,
+.sub-nav span.title,
 .sub-nav a{
 	float: left;
 	margin: 0;
 	font: 18px/42px Raleway, Helvetica, sans-serif;
 }
-.sub-nav a span{
+.sub-nav .title a{
 	float: none;
-	margin: 0;
+	padding: 0;
 }
 .sub-nav .cta{
 	float: right;
 	font-weight: bold;
 	margin: 0 10px 0 0;
 }
-.sub-nav span,
 .sub-nav label{margin: 0 0 0 10px;}
 .sub-nav h2 a{
 	float: none;
