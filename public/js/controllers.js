@@ -149,11 +149,11 @@ angular.module('controllers',[])
 
                 $scope.$watchCollection('[userEmail, userID]', function() {$scope.unauthorized = null});
 
-                $scope.$watch('haveUserID', function(haveUserID) {
+                /*$scope.$watch('haveUserID', function(haveUserID) {
 
                     if(!haveUserID) $scope.userID = '';
 
-                });
+                });*/
 
             },
 
@@ -414,7 +414,11 @@ angular.module('controllers',[])
 
             onSubmitRating: function(){
 
-                $scope.$emit('open:captcha', $scope.submitRating);
+                if($scope.message.length >= 20){
+
+                    $scope.$emit('open:captcha', $scope.submitRating);
+
+                }
 
             },
 

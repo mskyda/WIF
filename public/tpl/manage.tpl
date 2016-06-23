@@ -18,7 +18,7 @@
 			<form ng-if="spot.coords != null" class="wrapper">
 				<h2><strong>{{title}} spot :</strong> enter the spot-name</h2>
 				<input ng-model="spot.name" placeholder="minimum 6 chars" type="text" autocomplete="off" />
-				<a class="wizard-control" ng-if="spot.name.length > 5" ng-click="wizardGo(1)"><span class="desktop-only">Next </span>&gt;</a>
+				<a class="wizard-control" ng-class="spot.name.length > 5 ? '' : 'disabled'" ng-click="spot.name.length > 5 ? wizardGo(1) : false"><span class="desktop-only">Next </span>&gt;</a>
 				<a class="wizard-control" ng-click="wizardGo(-1)">&lt; <span class="desktop-only">Back</span></a>
 				<input type="submit" style="display: none;" />
 			</form>
@@ -27,7 +27,7 @@
 			<div ng-if="spot.coords != null" class="wrapper">
 				<h2><strong>{{title}} spot :</strong> describe the spot</h2>
 				<textarea ng-model="spot.desc" placeholder="minimum 20 chars"></textarea>
-				<a class="cta" ng-if="spot.desc.length > 20" ng-click="manageSpot()">{{title}}</a>
+				<a class="cta" ng-class="spot.desc.length > 20 ? '' : 'disabled'" ng-click="spot.desc.length > 20 ? manageSpot() : false">{{title}}</a>
 				<a class="wizard-control" ng-click="wizardGo(-1)">&lt; <span class="desktop-only">Back</span></a>
 			</div>
 		</div>

@@ -104,6 +104,10 @@ input.required{background: #fcd0c5;}
 	text-shadow: 0 0 5px #333;
 	border: none;
 }
+.cta.disabled{
+	background: #aaa;
+	cursor: not-allowed;
+}
 .sub-nav{
 	height: 42px;
 	border-bottom: 5px solid #fff;
@@ -142,6 +146,10 @@ input.required{background: #fcd0c5;}
 .sub-nav .wizard-control,
 .sub-nav .reset-location{float:right;}
 .sub-nav .checkbox-holder{float: left;}
+.sub-nav .wizard-control.disabled{
+	color: #aaa;
+	cursor: not-allowed;
+}
 .sub-nav .checkbox-holder input[type="checkbox"]{
 	margin: 0 auto;
 	float: none;
@@ -326,7 +334,7 @@ input.required{background: #fcd0c5;}
 	line-height: 25px;
 	text-align: left;
 }
-.spot-info input,
+.spot-info input[type="password"],
 .spot-info textarea{
 	width: 305px;
 	padding: 0 5px;
@@ -336,15 +344,12 @@ input.required{background: #fcd0c5;}
 	height: 60px;
 	border: 1px solid #ccc;
 }
-.spot-info input{height: auto;}
+.spot-info input[type="password"]{height: auto;}
 .spot-info .cta{
-	line-height: 32px;
+	font: bold 16px/23px Raleway, Helvetica, sans-serif;
 	width: 90%;
-	display: block;
 	margin: 10px auto;
 	box-shadow: 0 0 10px #333;
-	border: none;
-	float: none;
 }
 .spot-info .direction-select{
 	background: none;
