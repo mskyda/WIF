@@ -1,8 +1,8 @@
-angular.module('controllers',[])
+angular.module('controllers', ['ngCookies'])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('AppController', function($scope, $sce, $rootScope, $timeout, Spot){
+    .controller('AppController', function($scope, $sce, $rootScope, $timeout, $translate, Spot){
 
         angular.extend($scope, {
 
@@ -42,6 +42,8 @@ angular.module('controllers',[])
         Spot.get().$promise.then(function(resp){
 
             $rootScope.total = resp.total;
+
+            $translate.use('DE');
 
             // Todo: spot page (by id in URL)
 

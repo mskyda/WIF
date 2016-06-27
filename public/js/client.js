@@ -1,21 +1,7 @@
-angular.module('wif',['ui.router','ngResource', 'ngCookies', 'controllers','services']).config(function($stateProvider){
+angular.module('app', ['router', 'controllers', 'services', 'translations']).run(function($state){
 
-	$stateProvider
-		.state('search',{
-			url:'/search',
-			templateUrl:'tpl/search.tpl',
-			controller:'SearchSpotsController'
-		}).state('manage',{
-		   url:'/manage',
-		   templateUrl:'tpl/manage.tpl',
-		   controller:'ManageSpotsController'
-		}).state('about',{
-			url:'/about',
-			templateUrl:'tpl/about.tpl'
-		});
-
-}).run(function($state){
 	$state.go('search');
+
 });
 
-angular.bootstrap(document.documentElement, ['wif']);
+angular.bootstrap(document.documentElement, ['app']);
