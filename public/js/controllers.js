@@ -485,15 +485,15 @@ angular.module('controllers',[])
                 $rootScope.spots = false;
 
                 $rootScope.center = {
-                    lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(4),
-                    lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(4)
+                    lat: position.coords ? position.coords.latitude : position.lat,
+                    lng: position.coords ? position.coords.longitude : position.lng
                 };
 
                 $timeout(function(){
 
                     $scope.map = new google.maps.Map(document.querySelector('#map'), {
                         center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
-                        zoom: 13, // Todo: "radius" control
+                        zoom: 14, // Todo: "radius" control
                         disableDoubleClickZoom: true,
                         mapTypeId: google.maps.MapTypeId.SATELLITE
                     });
@@ -579,8 +579,8 @@ angular.module('controllers',[])
 
                     spot.marker = new google.maps.Marker({
                         position: {
-                            lat: +spot.coords.lat.toFixed(4),
-                            lng: +spot.coords.lng.toFixed(4)
+                            lat: +spot.coords.lat,
+                            lng: +spot.coords.lng
                         },
                         map: $scope.map,
                         icon: './img/favicon.ico'
