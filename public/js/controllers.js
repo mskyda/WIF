@@ -579,7 +579,7 @@ angular.module('controllers',[])
 
                     spot.marker = new google.maps.Marker({
                         position: {
-                            lat: +spot.coords.lng.toFixed(4),
+                            lat: +spot.coords.lat.toFixed(4),
                             lng: +spot.coords.lng.toFixed(4)
                         },
                         map: $scope.map,
