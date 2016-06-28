@@ -254,9 +254,9 @@ angular.module('controllers',[])
 
             onSpotLoaded: function(resp){
 
-                resp.spot.coords.lat = +resp.spot.coords.lat.toFixed(4);
+                resp.spot.coords.lat = +(+resp.spot.coords.lat).toFixed(4);
 
-                resp.spot.coords.lng = +resp.spot.coords.lng.toFixed(4);
+                resp.spot.coords.lng = +(+resp.spot.coords.lng).toFixed(4);
 
                 angular.extend($scope, {spot: resp.spot});
 
