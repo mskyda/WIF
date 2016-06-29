@@ -35,15 +35,9 @@ angular.module('controllers', ['ngCookies'])
 
         });
 
-        $scope.$on('open:captcha', $scope.openCaptcha);
-
-        $scope.$on('toggle:popup', $scope.togglePopup);
-
         Spot.get().$promise.then(function(resp){
 
             $rootScope.total = resp.total;
-
-            /*$translate.use('ru');*/
 
             // Todo: spot page (by id in URL)
 
@@ -52,6 +46,14 @@ angular.module('controllers', ['ngCookies'])
             $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
 
         });
+
+        $scope.$on('open:captcha', $scope.openCaptcha);
+
+        $scope.$on('toggle:popup', $scope.togglePopup);
+
+        $scope.siteLang = $translate.use();
+
+        $scope.$watch('siteLang', function() { $translate.use($scope.siteLang); });
 
     })
 
