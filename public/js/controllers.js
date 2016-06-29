@@ -209,6 +209,10 @@ angular.module('controllers', ['ngCookies'])
 
                         $scope.onLoginSuccess()
 
+                    } else {
+
+                        $scope.haveUserID = true;
+
                     }
 
                 }, function(){
@@ -252,9 +256,9 @@ angular.module('controllers', ['ngCookies'])
 
             onSpotLoaded: function(resp){
 
-                resp.spot.coords.lat = resp.spot.coords.lat.toFixed(4);
+                resp.spot.coords.lat = +(+resp.spot.coords.lat).toFixed(4);
 
-                resp.spot.coords.lng = resp.spot.coords.lng.toFixed(4);
+                resp.spot.coords.lng = +(+resp.spot.coords.lng).toFixed(4);
 
                 angular.extend($scope, {spot: resp.spot});
 
@@ -483,15 +487,15 @@ angular.module('controllers', ['ngCookies'])
                 $rootScope.spots = false;
 
                 $rootScope.center = {
-                    lat: +(position.coords ? position.coords.latitude : position.lat).toFixed(6),
-                    lng: +(position.coords ? position.coords.longitude : position.lng).toFixed(6)
+                    lat: position.coords ? position.coords.latitude : position.lat,
+                    lng: position.coords ? position.coords.longitude : position.lng
                 };
 
                 $timeout(function(){
 
                     $scope.map = new google.maps.Map(document.querySelector('#map'), {
                         center: new google.maps.LatLng($rootScope.center.lat, $rootScope.center.lng),
-                        zoom: 13, // Todo: "radius" control
+                        zoom: 14, // Todo: "radius" control
                         disableDoubleClickZoom: true,
                         mapTypeId: google.maps.MapTypeId.SATELLITE
                     });
@@ -544,7 +548,7 @@ angular.module('controllers', ['ngCookies'])
 
                 if(!$rootScope.activeSpot || !$rootScope.activeSpot.step || $rootScope.activeSpot.step !== 1) return;
 
-                var coords = {lat: e.latLng.lat().toFixed(4), lng: e.latLng.lng().toFixed(4)};
+                var coords = {lat: +e.latLng.lat().toFixed(4), lng: +e.latLng.lng().toFixed(4)};
 
                 if($scope.positionMarker) $scope.positionMarker.setMap(null);
 
@@ -576,7 +580,10 @@ angular.module('controllers', ['ngCookies'])
                 angular.forEach($rootScope.spots, function(spot){
 
                     spot.marker = new google.maps.Marker({
-                        position: spot.coords,
+                        position: {
+                            lat: +spot.coords.lat,
+                            lng: +spot.coords.lng
+                        },
                         map: $scope.map,
                         icon: './img/favicon.ico'
                     });
