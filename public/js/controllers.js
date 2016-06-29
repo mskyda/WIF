@@ -43,7 +43,7 @@ angular.module('controllers', ['ngCookies'])
 
             $rootScope.total = resp.total;
 
-            $translate.use('DE');
+            /*$translate.use('ru');*/
 
             // Todo: spot page (by id in URL)
 
@@ -736,33 +736,19 @@ angular.module('controllers', ['ngCookies'])
 
     .controller('GalleryController', function($scope){
 
-        var slides = [
-            'Long island, USA',
-            'Lagoa de Óbidos, Portugal',
-            'Doha, Quatar',
-            'Salada Grande lagoon, Argentina',
-            'Brodnica, Poland',
-            'Woods canyon, USA',
-            'Concordia, Argentina',
-            'Galveston bay, USA',
-            'Halls harbour, Canada',
-            'Zurich lake, Switzerland',
-            'Honolulu, USA',
-            'Jablonec, Czech republic',
-            'Vistula river, Poland'
-        ];
-
         angular.extend($scope, {
+
+            slidesLength: 13,
 
             index : 0,
 
-            slides: slides.slice(0, 2),
+            slides: ['slide1', 'slide2'],
 
             changeSlide: function(){
 
                 $scope.$apply(function(){
 
-                    if($scope.slides.length < slides.length) $scope.slides.push(slides[$scope.slides.length]);
+                    if($scope.slides.length < $scope.slidesLength) $scope.slides.push('slide' + ($scope.slides.length + 1));
 
                     $scope.index === $scope.slides.length - 1 ? $scope.index = 0 : $scope.index++;
 

@@ -15,14 +15,14 @@ var authtApi = {
 					return res.send({ error: 'Not found' });
 				}
 
-				if(spot.owner !== req.body.userID){
-					console.log('Error: login for ID "' + req.body.userID + '"');
-					res.statusCode = 401;
-					return res.send({msg: 'ID is wrong'});
+				if(spot.owner === req.body.userID){
+					console.log('Success: login for ID "' + req.body.userID + '"');
+					return res.send({msg: 'ID is correct'});
 				}
 
-				console.log('Success: login for ID "' + req.body.userID + '"');
-				return res.send({msg: 'ID is correct'});
+				console.log('Error: login for ID "' + req.body.userID + '"');
+				res.statusCode = 401;
+				return res.send({msg: 'ID is wrong'});
 
 			});
 
@@ -32,14 +32,14 @@ var authtApi = {
 
 			try {decrypted = decipher.update(req.body.userID, 'hex', 'utf-8') +  decipher.final('utf-8');} catch (e){}
 
-			if(decrypted && decrypted !== req.body.userEmail.slice(0, 15)){
-				console.log('Error: login for "' + req.body.userEmail + '"');
-				res.statusCode = 401;
-				return res.send({msg: 'ID is wrong'});
+			if(decrypted && decrypted === req.body.userEmail.slice(0, 15)){
+				console.log('Success: login for "' + req.body.userEmail + '"');
+				return res.send({msg: 'ID is correct'});
 			}
 
-			console.log('Success: login for "' + req.body.userEmail + '"');
-			return res.send({msg: 'ID is correct'});
+			console.log('Error: login for "' + req.body.userEmail + '"');
+			res.statusCode = 401;
+			return res.send({msg: 'ID is wrong'});
 
 		} else {
 

@@ -409,6 +409,7 @@ input.required{background: #fcd0c5;}
 	margin: 0;
 	padding: 10px 0 0;
 	line-height: 40px;
+	text-transform: capitalize;
 }
 #about-section dt{
 	float: left;

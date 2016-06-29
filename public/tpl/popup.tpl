@@ -4,7 +4,7 @@
 		<div class="popup-frame">
 			<div class="popup">
 				<div class="wrapper">
-					<a ng-click="togglePopup()" class="close-popup">Close</a>
+					<a ng-click="togglePopup()" class="close-popup" translate="buttonClose"></a>
 				</div>
 				<ng-bind-html ng-bind-html="popupHTML"></ng-bind-html>
 				<ng-include ng-if="popupTPL != null" src="popupTPL"></ng-include>
