@@ -2,23 +2,31 @@ angular.module('controllers', ['ngCookies'])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('AppController', function($scope, $sce, $rootScope, $timeout, $translate, Spot){
+    .controller('AppController', function($scope, $sce, $rootScope, $timeout, $translate, $cookies, Spot){
 
         angular.extend($scope, {
 
-            siteLang: $translate.use(),
+            siteLang: $cookies.get('wif.siteLang') || $translate.use(),
 
-            resetLocation: function(){
-
-                $rootScope.center = null;
-
-            },
+            resetLocation: function(){ $rootScope.center = null; },
 
             togglePopup: function(e, data){
 
                 $scope.popupTPL = data && data.tpl ? data.tpl : null;
 
                 $scope.popupHTML = data && data.html ? $sce.trustAsHtml(data.html) : null;
+
+            },
+
+            changeLang: function(){
+
+                if($scope.siteLang !== $translate.use()){
+
+                    $cookies.put('wif.siteLang', $scope.siteLang);
+
+                    $translate.use($scope.siteLang);
+
+                }
 
             },
 
@@ -41,7 +49,7 @@ angular.module('controllers', ['ngCookies'])
 
         $scope.$on('toggle:popup', $scope.togglePopup);
 
-        $scope.$watch('siteLang', function() { $translate.use($scope.siteLang); });
+        $scope.$watch('siteLang', $scope.changeLang);
 
         Spot.get().$promise.then(function(resp){ $rootScope.total = resp.total; });
 

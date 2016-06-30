@@ -12,7 +12,7 @@ require.config({
 		'uiRouter'     : {deps: ['angular']},
 		'ngResource'   : {deps: ['angular']},
 		'ngCookies'    : {deps: ['angular']},
-		'translations' : {deps: ['translate']},
+		'translations' : {deps: ['translate', 'ngCookies']},
 		'router'       : {deps: ['uiRouter']},
 		'services'     : {deps: ['ngResource']},
 		'controllers'  : {deps: ['ngCookies']},

@@ -6,7 +6,7 @@
 		</div>
 		<span ng-if="unauthorized == true" class="errorMsg" translate="wrongUserID"></span>
 		<div ng-if="captchaPassed != true" id="recaptcha"></div>
-		<input ng-class="userID.length < 32 ? 'disabled' : ''" type="submit" class="cta" value="{{ 'send' | translate }}" />
+		<input ng-class="userID.length < 32 ? 'disabled' : ''" type="submit" class="cta" value="{{ 'buttonSend' | translate }}" />
 	</form>
 	<div ng-if="removeDialog == true">
 		<h3 translate="deleteConfirmation"></h3>

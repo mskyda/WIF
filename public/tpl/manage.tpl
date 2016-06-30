@@ -29,7 +29,7 @@
 		<div ng-if="spot.step == 3">
 			<span class="title" translate="wizardTip4"></span>
 			<textarea ng-model="spot.desc" placeholder="{{ 'minimum' | translate }} 20 {{ 'chars' | translate }}"></textarea>
-			<a class="cta" ng-class="spot.desc.length > 20 ? '' : 'disabled'" ng-click="spot.desc.length > 20 ? manageSpot() : false">{{ ('button' + title) | translate }}</a>
+			<a class="cta" ng-class="spot.desc.length > 20 ? '' : 'disabled'" ng-click="spot.desc.length > 20 ? manageSpot() : false">{{ 'buttonDone' | translate }}</a>
 			<a class="wizard-control" ng-click="wizardGo(-1)">
 				&lt; <span class="desktop-only" translate="back"></span>
 			</a>

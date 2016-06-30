@@ -1,4 +1,4 @@
-angular.module('translations', ['pascalprecht.translate']).config(function ($translateProvider) {
+angular.module('translations', ['pascalprecht.translate']).config(function($translateProvider){
 
 	$translateProvider.translations('en', {
 		siteName: 'Where is fish',
@@ -14,10 +14,10 @@ angular.module('translations', ['pascalprecht.translate']).config(function ($tra
 		titleGeolocation: 'Detect your location',
 		titleGeocoding: 'Or input an address',
 		buttonClose: 'Close',
-		buttonAdd: 'Add Spot',
-		buttonEdit: 'Edit Spot',
+		buttonDone: 'Done',
 		buttonNo: 'No',
 		buttonYes: 'Yes',
+		buttonSend: 'Send',
 		searchResults: 'Search results:',
 		nothingFound: 'Nothing found. Check an address.',
 		repeatSearch: 'Search once again',
@@ -79,7 +79,6 @@ angular.module('translations', ['pascalprecht.translate']).config(function ($tra
 		deleteConfirmation: 'Delete this spot? Sure?',
 		addRate: 'Add a rate:',
 		addComment: 'Add a comment:',
-		send: 'Send',
 		firstReview: 'Nobody reviewed this place. Be the first one!'
 	});
 
@@ -97,10 +96,10 @@ angular.module('translations', ['pascalprecht.translate']).config(function ($tra
 		titleGeolocation: 'Используйте местоположение',
 		titleGeocoding: 'Или введите адрес',
 		buttonClose: 'Закрыть',
-		buttonAdd: 'Добавить',
-		buttonEdit: 'Готово',
+		buttonDone: 'Готово',
 		buttonNo: 'Нет',
 		buttonYes: 'Да',
+		buttonSend: 'Отправить',
 		searchResults: 'Результаты поиска:',
 		nothingFound: 'Ничего не найдено. Проверьте адрес.',
 		repeatSearch: 'Искать еще раз',
@@ -162,7 +161,6 @@ angular.module('translations', ['pascalprecht.translate']).config(function ($tra
 		deleteConfirmation: 'Удалить это место? Уверены?',
 		addRate: 'Поставьте оценку:',
 		addComment: 'Добавьте комментарий:',
-		send: 'Отправить',
 		firstReview: 'Никто не оценивал это место. Будьте первым!'
 	});
 

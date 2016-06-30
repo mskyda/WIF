@@ -9,6 +9,6 @@
 			<textarea ng-model="$parent.message" placeholder="{{ 'minimum' | translate }} 20 {{ 'chars' | translate }}"></textarea>
 		</div>
 		<div id="recaptcha"></div>
-		<a ng-class="message.length >= 20 ? '' : 'disabled'" class="cta" ng-click="onSubmitRating()" translate="send"></a>
+		<a ng-class="message.length >= 20 ? '' : 'disabled'" class="cta" ng-click="onSubmitRating()" translate="buttonSend"></a>
 	</div>
 </div>
