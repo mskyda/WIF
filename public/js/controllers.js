@@ -6,6 +6,8 @@ angular.module('controllers', ['ngCookies'])
 
         angular.extend($scope, {
 
+            siteLang: $translate.use(),
+
             resetLocation: function(){
 
                 $rootScope.center = null;
@@ -35,31 +37,25 @@ angular.module('controllers', ['ngCookies'])
 
         });
 
-        Spot.get().$promise.then(function(resp){
-
-            $rootScope.total = resp.total;
-
-            // Todo: spot page (by id in URL)
-
-            /*$rootScope.activeSpot = '57566a5e639fab110032cbe6';
-
-            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
-
-        });
-
         $scope.$on('open:captcha', $scope.openCaptcha);
 
         $scope.$on('toggle:popup', $scope.togglePopup);
 
-        $scope.siteLang = $translate.use();
-
         $scope.$watch('siteLang', function() { $translate.use($scope.siteLang); });
+
+        Spot.get().$promise.then(function(resp){ $rootScope.total = resp.total; });
 
     })
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('SearchSpotsController', function($scope){
+    .controller('SearchSpotsController', function($scope, $rootScope){
+
+        // Todo: spot page (by id in URL)
+
+        /*$rootScope.activeSpot = '57566a5e639fab110032cbe6';
+
+        $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
 
         angular.extend($scope, {
             orderProp: 'distance',
@@ -151,17 +147,11 @@ angular.module('controllers', ['ngCookies'])
 
                 }
 
-                $scope.$watchCollection('[userEmail, userID]', function() {$scope.unauthorized = null});
-
-                /*$scope.$watch('haveUserID', function(haveUserID) {
-
-                    if(!haveUserID) $scope.userID = '';
-
-                });*/
+                $scope.$watchCollection('[userEmail, userID]', function() { $scope.unauthorized = null; });
 
             },
 
-            onPopupEmail: function(){ // todo: put html into template
+            onPopupEmail: function(){ // Todo: put html into template
 
                 $scope.$emit('toggle:popup', {tpl: 'tpl/email-info.tpl'});
 

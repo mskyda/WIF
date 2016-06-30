@@ -5,7 +5,7 @@
 			<li>
 				<div class="holder">
 					<h2 translate="titleGeolocation"></h2>
-					<a ng-click="getCurrentPosition()" class="geolocation go-link" translate="buttonGo"></a>
+					<a ng-click="getCurrentPosition()" class="geolocation go-link">OK</a>
 				</div>
 			</li>
 			<li>
@@ -13,7 +13,7 @@
 					<h2 ng-if="geoResults == null" translate="titleGeocoding"></h2>
 					<form ng-if="geoResults == null" ng-submit="inputAddress(address)">
 						<input ng-class="address == '' ? 'required' : ''" ng-model="address" type="text" class="address" autocomplete="off" />
-						<input type="submit" class="geocoding go-link" value="{{ 'buttonGo' | translate }}" />
+						<input type="submit" class="geocoding go-link" value="OK" />
 					</form>
 					<div ng-if="geoResults.length != null">
 						<div ng-if="geoResults.length > 0">

@@ -1,6 +1,6 @@
 <section class="sub-nav">
 	<div class="wrapper" ng-if="center == null">
-		<h2><strong translate="searchHeading"></strong> {{ 'searchTip' | translate }}</h2>
+		<h2><strong translate="searchHeading"></strong> {{ 'wizardTip1' | translate }}</h2>
 	</div>
 	<div class="wrapper" ng-if="center != null && spots.length > 0">
 		<h2>{{limit}} <span translate="searchClosest"></span></h2>

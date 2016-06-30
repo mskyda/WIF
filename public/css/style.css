@@ -18,10 +18,6 @@ select {
 	text-shadow: 0 0 5px #bbb;
 }
 @font-face {
-	font-family: 'Indie Flower';
-	src: url('../fonts/IndieFlower.ttf');
-}
-@font-face {
 	font-family: 'Raleway';
 	src: url('../fonts/Raleway.ttf');
 }
@@ -55,6 +51,7 @@ input.required{background: #fcd0c5;}
 	height: calc(100% - 80px);
 }
 #header{
+	position: relative;
 	height: 55px;
 	padding: 20px 0 0;
 	background: -webkit-linear-gradient(#fff, #aad6ff);
@@ -81,7 +78,7 @@ input.required{background: #fcd0c5;}
 #header .slogan{
 	float: left;
 	margin: 0;
-	font: 16px/34px 'Indie Flower', cursive;
+	font: 20px/32px Raleway, Helvetica, sans-serif;
 }
 #header .tabs,
 #header .language-select{
@@ -90,7 +87,7 @@ input.required{background: #fcd0c5;}
 }
 #header .language-select{
 	background: none;
-	margin: 0 20px 0 0;
+	margin: 0 10px 0 0;
 	height: 32px;
 	outline: none;
 	border: 1px solid #315373;
@@ -129,7 +126,7 @@ input.required{background: #fcd0c5;}
 .sub-nav a{
 	float: left;
 	margin: 0;
-	font: 18px/42px Raleway, Helvetica, sans-serif;
+	font: 16px/42px Raleway, Helvetica, sans-serif;
 }
 .sub-nav .title a{
 	float: none;
@@ -149,7 +146,7 @@ input.required{background: #fcd0c5;}
 	font-size: 16px;
 	padding: 0 10px;
 }
-.sub-nav h2{margin: 0 0 0 20px;}
+.sub-nav h2{margin: 0 0 0 15px;}
 .sub-nav a{padding:0 10px;}
 .sub-nav .wizard-control,
 .sub-nav .reset-location{float:right;}
@@ -216,13 +213,13 @@ input.required{background: #fcd0c5;}
 	margin: 0 0 30px;
 	text-align: center;
 	width: 100%;
-	font: 36px/40px Raleway, Helvetica, sans-serif;
+	font: 30px/40px Raleway, Helvetica, sans-serif;
 	text-shadow: -1px -1px 5px #000;
 }
 .location-controls .go-link,
 .location-controls input{
 	color: #fff;
-	font: 40px/50px Raleway, Helvetica, sans-serif;
+	font: 30px/50px Raleway, Helvetica, sans-serif;
 	width: 100px;
 	display: inline-block;
 	vertical-align: top;
@@ -234,7 +231,6 @@ input.required{background: #fcd0c5;}
 	outline: none;
 }
 .location-controls input[type="text"]{
-	font-size: 30px;
 	width: 55%;
 	padding: 0 110px 0 10px;
 	margin: 0;
@@ -416,7 +412,6 @@ input.required{background: #fcd0c5;}
 	margin: 0;
 	padding: 10px 0 0;
 	line-height: 40px;
-	text-transform: capitalize;
 }
 #about-section dt{
 	float: left;
@@ -463,12 +458,16 @@ input.required{background: #fcd0c5;}
 		float: none;
 		clear: both;
 	}
+	#header .language-select {
+		position: absolute;
+		right: 0;
+	}
 	#header .tabs a:first-child{padding-left: 0;}
 	#header .slogan{
 		line-height: 28px;
 		margin-top: -10px;
 	}
-	.location-controls h2{font-size: 28px;}
+	.location-controls h2{font-size: 22px;}
 	#about-section{font: 14px/20px Raleway, Helvetica, sans-serif;}
 	.sub-nav span.errorMsg{display: none;}
 	#gallery li{background-size: 200% auto;}
