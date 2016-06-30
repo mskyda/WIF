@@ -25,6 +25,7 @@
     "angular-resource": "~1.5.5",
     "angular-cookies": "~1.5.5",
     "angular-ui-router": ">=0.2.x",
-    "angular-translate": ">=2.11.x"
+    "angular-translate": ">=2.11.x",
+    "angular-translate-loader-static-files": ">=2.11.x"
   }
 }
