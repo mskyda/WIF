@@ -1,26 +1,43 @@
 var email = require('emailjs').server.connect({
-	user     :     'admin@whereis.fish',
-	password :      process.env.WIF_SECRET,
-	host     :     'smtp.yandex.com',
-	ssl      :      true
-});
+		user     :     'admin@whereis.fish',
+		password :      process.env.WIF_SECRET,
+		host     :     'smtp.yandex.com',
+		ssl      :      true
+	}),
+	fs = require('fs');
 
 exports.SendEmail = function(address, msg){
 
-	var emailMsgEn = 'Hello, <br><br> Your User ID is: <br><br> <strong>' + msg + '</strong> <br><br> Use it with combination of you email-address for managing your Spots. <br><br> Cheers :)';
+	fs.readFile('./public/i18n/en.json', 'utf8', function (err, data) {
 
-	email.send({
-		text:    emailMsgEn,
-		from:    'Where is fish <admin@whereis.fish>',
-		to:      address,
-		subject: 'Your User ID at "Where is fish"',
-		attachment: [{data: emailMsgEn, alternative:true}]
-	}, function(err, msg) {
 		if(err){
-			console.log('Error: Send email');
+
+			console.log('Error: Load i18n');
+
 		} else {
-			console.log('Success: Send email to "' + msg.header.to + '"');
+
+			var i18n = JSON.parse(data).emailContent,
+				template = i18n.greet + '<br><br>' + i18n.topic + '<br><br> <strong>' + msg + '</strong> <br><br>' + i18n.desc + '<br><br>' + i18n.bye;
+
+			email.send({
+				text:    template,
+				from:    i18n.title + ' <admin@whereis.fish>',
+				to:      address,
+				subject: 'Your User ID at "Where is fish"',
+				attachment: [{data: template, alternative:true}]
+			}, function(err, msg) {
+				if(err){
+					console.log('Error: Send email');
+				} else {
+					console.log('Success: Send email to "' + msg.header.to + '"');
+				}
+			});
+
 		}
+
+
+
+		console.log(JSON.parse(data).why);
 	});
 
 };

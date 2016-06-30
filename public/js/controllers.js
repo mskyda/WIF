@@ -157,6 +157,13 @@ angular.module('controllers', ['ngCookies'])
 
                 $scope.$watchCollection('[userEmail, userID]', function() { $scope.unauthorized = null; });
 
+                // Todo: do not send userID when checkbox is off, but do not clean userID field
+                $scope.$watch('haveUserID', function(haveUserID) {
+
+                    if(!haveUserID) $scope.userID = '';
+
+                 });
+
             },
 
             onPopupEmail: function(){ // Todo: put html into template
