@@ -170,13 +170,6 @@ angular.module('controllers', ['ngCookies'])
 
                 $scope.$watchCollection('[userEmail, userID]', function() { $scope.unauthorized = null; });
 
-                // Todo: do not send userID when checkbox is off, but do not clean userID field
-                $scope.$watch('haveUserID', function(haveUserID) {
-
-                    if(!haveUserID) $scope.userID = '';
-
-                 });
-
             },
 
             onPopupEmail: function(){ // Todo: put html into template
@@ -217,7 +210,7 @@ angular.module('controllers', ['ngCookies'])
                     data: {
                         lang      : $translate.use(),
                         userEmail : $scope.userEmail,
-                        userID    : $scope.userID,
+                        userID    : $scope.haveUserID !== false && $scope.userID,
                         spotID    : $scope.spot._id
                     }
                 }).then(function() {
@@ -226,7 +219,7 @@ angular.module('controllers', ['ngCookies'])
 
                         $scope.manageExistingSpot($scope.userID);
 
-                    } else if($scope.userID){
+                    } else if($scope.haveUserID !== false && $scope.userID){
 
                         $scope.onLoginSuccess()
 
