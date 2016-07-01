@@ -45,7 +45,7 @@ var authtApi = {
 
 			var cipher = crypto.createCipher("aes-128-cbc", process.env.WIF_SECRET);
 
-			api.SendEmail(req.body.userEmail, cipher.update(req.body.userEmail.slice(0, 15), 'utf8', 'hex') + cipher.final('hex'));
+			api.SendEmail(req.body.lang, cipher.update(req.body.userEmail.slice(0, 15), 'utf8', 'hex') + cipher.final('hex'), req.body.userEmail);
 
 			return res.send({msg: 'email sent'});
 

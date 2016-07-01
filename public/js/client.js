@@ -1,4 +1,4 @@
-angular.module('app', ['router', 'controllers', 'services', 'translations']).run(function($state){
+angular.module('app', ['router', 'translate', 'controllers', 'services']).run(function($state){
 
 	$state.go('search');
 

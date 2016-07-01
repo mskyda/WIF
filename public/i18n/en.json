@@ -79,10 +79,11 @@
   "addComment": "Add a comment:",
   "firstReview": "Nobody reviewed this place. Be the first one!",
   "emailContent": {
-    "title": "Where is fish",
+    "from": "Where is fish",
+    "subject": "your User ID at \"Where is fish\"",
     "greet": "Hello, ",
     "topic": " Your User ID is: ",
-    "desc": " Use it with combination of you email-address for managing your Spots. ",
-    "bye": " Cheers :)"
+    "desc": " Use it with combination of your email-address for managing your Spots. ",
+    "bye": " Have a good fishing!"
   }
 }

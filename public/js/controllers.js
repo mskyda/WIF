@@ -2,11 +2,9 @@ angular.module('controllers', ['ngCookies'])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('AppController', function($scope, $sce, $rootScope, $timeout, $translate, $cookies, Spot){
+    .controller('AppController', function($scope, $sce, $rootScope, $timeout, Spot){
 
         angular.extend($scope, {
-
-            siteLang: $cookies.get('wif.siteLang') || $translate.use(),
 
             resetLocation: function(){ $rootScope.center = null; },
 
@@ -15,18 +13,6 @@ angular.module('controllers', ['ngCookies'])
                 $scope.popupTPL = data && data.tpl ? data.tpl : null;
 
                 $scope.popupHTML = data && data.html ? $sce.trustAsHtml(data.html) : null;
-
-            },
-
-            changeLang: function(){
-
-                if($scope.siteLang !== $translate.use()){
-
-                    $cookies.put('wif.siteLang', $scope.siteLang);
-
-                    $translate.use($scope.siteLang);
-
-                }
 
             },
 
@@ -49,9 +35,36 @@ angular.module('controllers', ['ngCookies'])
 
         $scope.$on('toggle:popup', $scope.togglePopup);
 
-        $scope.$watch('siteLang', $scope.changeLang);
-
         Spot.get().$promise.then(function(resp){ $rootScope.total = resp.total; });
+
+    })
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    .controller('TranslateController', function($scope, $translate, $cookies){
+
+        var browserLang = (navigator.language || navigator.userLanguage).slice(0,2);
+
+        $scope.langs = {
+            'en' : 'English',
+            'ru' : 'Русский'/*,
+            'de' : 'Deutsch',
+            'pl' : 'Polski'*/
+        };
+
+        $scope.siteLang = $cookies.get('wif.siteLang') || ($scope.langs[browserLang] ? browserLang : 'en');
+
+        $scope.$watch('siteLang', function(){
+
+            if($scope.siteLang !== $translate.use()){
+
+                $cookies.put('wif.siteLang', $scope.siteLang);
+
+                $translate.use($scope.siteLang);
+
+            }
+
+        });
 
     })
 
@@ -139,7 +152,7 @@ angular.module('controllers', ['ngCookies'])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('LoginController', function($scope, $http, $timeout, $cookies){
+    .controller('LoginController', function($scope, $http, $timeout, $cookies, $translate){
 
         angular.extend($scope, {
 
@@ -202,9 +215,10 @@ angular.module('controllers', ['ngCookies'])
                     method: 'POST',
                     url: '/api/auth',
                     data: {
-                        userEmail: $scope.userEmail,
-                        userID: $scope.userID,
-                        spotID: $scope.spot._id
+                        lang      : $translate.use(),
+                        userEmail : $scope.userEmail,
+                        userID    : $scope.userID,
+                        spotID    : $scope.spot._id
                     }
                 }).then(function() {
 
