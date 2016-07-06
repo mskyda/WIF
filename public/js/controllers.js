@@ -47,8 +47,8 @@ angular.module('controllers', ['ngCookies'])
 
         $scope.langs = {
             'en' : 'English',
-            'ru' : 'Русский'/*,
-            'de' : 'Deutsch',
+            'ru' : 'Русский',
+            'de' : 'Deutsch'/*,
             'pl' : 'Polski'*/
         };
 

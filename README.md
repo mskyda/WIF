@@ -3,7 +3,7 @@ Where is Fish
 
 https://whereis.fish
 
-Current version: **1.0.3**
+Current version: **1.0.4**
 
 As a beginner in fishing, I would like to have a website, where I can find information about the best fishing places near me.
 
@@ -21,7 +21,7 @@ As a web-developer, I decided to create such a website, using new for me technol
 ##### Roadmap:
 - Spots filters (distance and rating)
 - Spot-url (shared link to Spot)
-- Localisation (EN, DE, RU, PL, ...)
+- ~~Localisation (EN, DE, RU)~~
 - Page speed insights optimisation
 - Minify source for production
 - Photos upload
