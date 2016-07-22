@@ -70,13 +70,17 @@ angular.module('controllers', ['ngCookies'])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('SearchSpotsController', function($scope, $rootScope){
+    .controller('SearchSpotsController', function($scope, $rootScope, $stateParams){
 
-        // Todo: spot page (by id in URL)
+        // Todo: spot page (by id in URL) - https://localhost:8443/#/search/576bfb040362af944f66a007
 
-        /*$rootScope.activeSpot = '57566a5e639fab110032cbe6';
+        if($stateParams.spotID){
 
-        $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});*/
+            $rootScope.activeSpot = $stateParams.spotID;
+
+            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
+
+        }
 
         angular.extend($scope, {
             orderProp: 'distance',
@@ -258,7 +262,7 @@ angular.module('controllers', ['ngCookies'])
     /////////////////////////////////////////////////////////////////////////////
 
 
-    .controller('SpotInfoController', function($scope, $rootScope, $state, Spot){
+    .controller('SpotInfoController', function($scope, $rootScope, Spot){
 
         angular.extend($scope, {
 
@@ -274,7 +278,10 @@ angular.module('controllers', ['ngCookies'])
 
                 resp.spot.coords.lng = +(+resp.spot.coords.lng).toFixed(4);
 
-                angular.extend($scope, {spot: resp.spot});
+                angular.extend($scope, {
+                    spot: resp.spot,
+                    spotFound: true
+                });
 
                 $scope.$watch('spot.rating', function(rating){
 
@@ -387,7 +394,7 @@ angular.module('controllers', ['ngCookies'])
 
         });
 
-        Spot.get({id: $rootScope.activeSpot._id ||  $rootScope.activeSpot}).$promise.then($scope.onSpotLoaded, function(){$scope.notFound = true;});
+        Spot.get({id: $rootScope.activeSpot._id ||  $rootScope.activeSpot}).$promise.then($scope.onSpotLoaded, function(){$scope.spotFound = false;});
 
     })
 

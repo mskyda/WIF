@@ -2,7 +2,7 @@ angular.module('router', ['ui.router']).config(function ($stateProvider) {
 
 	$stateProvider
 		.state('search',{
-			url:'/search',
+			url:'/search/:spotID',
 			templateUrl:'tpl/search.tpl',
 			controller:'SearchSpotsController'
 		}).state('manage',{
