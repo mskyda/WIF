@@ -262,7 +262,7 @@ angular.module('controllers', ['ngCookies'])
     /////////////////////////////////////////////////////////////////////////////
 
 
-    .controller('SpotInfoController', function($scope, $rootScope, Spot){
+    .controller('SpotInfoController', function($scope, $rootScope, $state, Spot){
 
         angular.extend($scope, {
 
