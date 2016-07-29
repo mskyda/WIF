@@ -2,7 +2,7 @@ angular.module('controllers', ['ngCookies'])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('AppController', function($scope, $sce, $rootScope, $timeout, Spot){
+    .controller('AppController', function($scope, $sce, $rootScope, $timeout, $location, $state, Spot){
 
         angular.extend($scope, {
 
@@ -13,6 +13,18 @@ angular.module('controllers', ['ngCookies'])
                 $scope.popupTPL = data && data.tpl ? data.tpl : null;
 
                 $scope.popupHTML = data && data.html ? $sce.trustAsHtml(data.html) : null;
+
+                if(!$scope.popupHTML && !$scope.popupTPL) $scope.onPopupClose(data && data.goTo);
+
+            },
+
+            onPopupClose: function(goTo){
+
+                if(goTo || $state.params.spotID){
+
+                    $location.url((goTo || $state.current.name) + '/');
+
+                }
 
             },
 
@@ -72,15 +84,9 @@ angular.module('controllers', ['ngCookies'])
 
     .controller('SearchSpotsController', function($scope, $rootScope, $stateParams){
 
-        // Todo: spot page (by id in URL) - https://localhost:8443/#/search/576bfb040362af944f66a007
+		$rootScope.activeSpot = $stateParams.spotID || false;
 
-        if($stateParams.spotID){
-
-            $rootScope.activeSpot = $stateParams.spotID;
-
-            $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
-
-        }
+		$scope.$emit('toggle:popup', $rootScope.activeSpot ? {tpl: 'tpl/spot-info.tpl'} : false);
 
         angular.extend($scope, {
             orderProp: 'distance',
@@ -326,7 +332,7 @@ angular.module('controllers', ['ngCookies'])
                         provideRouteAlternatives: false
                     }, function(resp) {
 
-                        if(resp.status === 'OK'){
+                        if(resp && resp.status === 'OK'){
 
                             angular.extend(obj, {
                                 data: resp,
@@ -352,11 +358,9 @@ angular.module('controllers', ['ngCookies'])
 
                 if($scope.mode === 'edit'){
 
-                    $scope.$emit('toggle:popup');
-
                     $rootScope.activeSpot = $scope.spot;
 
-                    $state.go('manage');
+                    $scope.$emit('toggle:popup', {goTo: 'manage'});
 
                 } else $scope.removeDialog = true;
 
@@ -482,7 +486,7 @@ angular.module('controllers', ['ngCookies'])
 
     /////////////////////////////////////////////////////////////////////////////
 
-    .controller('MapController', function($scope, $rootScope, $timeout, $compile, $state, Spot){
+    .controller('MapController', function($scope, $rootScope, $timeout, $compile, $state, $location, Spot){
 
         angular.extend($scope, {
 
@@ -680,7 +684,7 @@ angular.module('controllers', ['ngCookies'])
 
             openSpot: function(){
 
-                $scope.$emit('toggle:popup', {tpl: 'tpl/spot-info.tpl'});
+                $location.url($state.current.name + '/' + $rootScope.activeSpot._id);
 
             }
 

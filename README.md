@@ -20,7 +20,7 @@ As a web-developer, I decided to create such a website, using new for me technol
 
 ##### Roadmap:
 - Spots filters (distance and rating)
-- Spot-url (shared link to Spot)
+- ~~Spot-url (shared link to Spot)~~
 - ~~Localisation (EN, DE, RU)~~
 - Page speed insights optimisation
 - Minify source for production

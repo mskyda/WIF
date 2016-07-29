@@ -5,12 +5,12 @@
 		<p><a>{{spotLink}}</a></p>
 		<ng-include src="'tpl/star-rate.tpl'"></ng-include>
 		<p><span class="quote">"</span>{{spot.desc}}<span class="quote">"</span></p>
-		<div class="section navigation" ng-show="directions.length">
+		<div class="section navigation">
 			<dl class="wrapper">
 				<dt translate="coordinates"></dt>
-				<dd>{{spot.coords.lat}}, {{spot.coords.lng}}</dd>
-				<dt translate="getDirection"></dt>
-				<dd>
+				<dd>{{spot.coords.lat}}; {{spot.coords.lng}}</dd>
+				<dt ng-show="directions.length" translate="getDirection"></dt>
+				<dd ng-show="directions.length">
 					<select ng-model="transportType">
 						<option value="" disabled selected translate="transportType"></option>
 						<option ng-repeat="direction in directions" ng-disabled="!direction.way" value="{{direction.index}}">{{direction.name}} {{direction.way}}</option>
