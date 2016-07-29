@@ -11,9 +11,9 @@
 				<dd>{{spot.coords.lat}}; {{spot.coords.lng}}</dd>
 				<dt ng-show="directions.length" translate="getDirection"></dt>
 				<dd ng-show="directions.length">
-					<select ng-model="transportType">
+					<select ng-model="$parent.transportType">
 						<option value="" disabled selected translate="transportType"></option>
-						<option ng-repeat="direction in directions" ng-disabled="!direction.way" value="{{direction.index}}">{{direction.name}} {{direction.way}}</option>
+						<option ng-repeat="direction in directions" ng-disabled="!direction.way" value="{{direction.index}}">{{direction.mode | translate}} {{direction.way}}</option>
 					</select>
 				</dd>
 			</dl>

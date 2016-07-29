@@ -317,10 +317,10 @@ angular.module('controllers', ['ngCookies'])
 
                 var dServive = new google.maps.DirectionsService,
                     dTypes = [
-                        {mode: 'DRIVING', name: 'Car'},
-                        {mode: 'WALKING', name: 'Walk'},
-                        {mode: 'BICYCLING', name: 'Bicycle'},
-                        {mode: 'TRANSIT', name: 'Public transport'}
+                        {mode: 'DRIVING'},
+                        {mode: 'WALKING'},
+                        {mode: 'BICYCLING'},
+                        {mode: 'TRANSIT'}
                     ], counter = 0;
 
                 angular.forEach(dTypes, function(obj, index){
@@ -693,6 +693,8 @@ angular.module('controllers', ['ngCookies'])
         $scope.$on('map:direction', $scope.renderDirection);
 
         $rootScope.$on('$stateChangeStart', function(e, state){
+
+			if($state.current.name === state.name) { return; } // change of query params without main-state change
 
             if(state) $scope.state = state.name;
 
