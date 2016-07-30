@@ -1,11 +1,11 @@
 {
 	"name": "where_is_fish",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "web-application for fishers",
 	"keywords": [
-	    "MongoDB",
-	    "Express",
-	    "Angular",
+		"MongoDB",
+		"Express",
+		"Angular",
 		"Node.js",
 		"GoogleMaps",
 		"web-application"
@@ -19,19 +19,26 @@
 		"npm": ">=2.x.x"
 	},
 	"dependencies": {
-		"bower"             : ">=1.7.x",
-		"express"           : ">=4.13.x",
-		"mongoose"          : ">=4.0.x",
-		"body-parser"       : ">=1.13.x",
-	  	"underscore"        : ">=1.8.x",
-	  	"emailjs"           : ">=1.0.x",
-	  	"crypto"            : ">=0.0.x",
-	  	"express-force-ssl" : ">=0.3.x"
+		"bower"            : ">=1.7.x",
+		"express"          : ">=4.13.x",
+		"mongoose"         : ">=4.0.x",
+		"body-parser"      : ">=1.13.x",
+		"underscore"       : ">=1.8.x",
+		"emailjs"          : ">=1.0.x",
+		"crypto"           : ">=0.0.x",
+		"express-force-ssl": ">=0.3.x"
 	},
 	"scripts": {
-	  "postinstall": "sudo bower install --allow-root"
+	"gulp": "gulp --gulpfile gulp.js --cwd . $1",
+	"postinstall": "sudo bower install --allow-root"
 	},
-	"devDependencies": {},
+	"devDependencies": {
+	"gulp"             : ">=3.9.x",
+	"gulp-load-plugins": ">=1.2.x",
+	"gulp-eslint"      : ">=3.0.x",
+	"run-sequence"     : ">=1.2.x",
+	"requirejs"        : ">=2.2.x"
+	},
 	"bundleDependencies": [],
 	"private": true,
 	"start": "node server.js"

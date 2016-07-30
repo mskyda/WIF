@@ -37,3 +37,4 @@ fabric.properties
 # Project-specific stuff:
 /node_modules/
 /public/js/3p
+npm-debug.log
