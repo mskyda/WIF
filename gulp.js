@@ -63,7 +63,7 @@
 
 			modules: [{
 				name: 'rconfig'
-				/* include: ['3p/require'] */
+				/* include: ['3p/requirejs/require'] */
 			}],
 
 			uglify2: {
@@ -89,7 +89,7 @@
 					warnings     : false  // warn about potentially dangerous optimizations/code
 				},
 				warnings: false,
-				mangle  : true // uglify (shorten) names of vars and params
+				mangle  : false // uglify (shorten) names of vars and params
 			}
 
 		}, function(){ cb(); });

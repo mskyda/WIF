@@ -1,7 +1,14 @@
-angular.module('app', [ 'router', 'translate', 'controllers', 'services' ]).run(function($state){
+define([
+	'ngTranslate',
+	'translateLoader'
+], function () {
 
-	$state.go('search');
+	angular.module('app', [ 'router', 'translate', 'controllers', 'services' ]).run(function ($state) {
+
+		$state.go('search');
+
+	});
+
+	angular.bootstrap(document.documentElement, ['app']);
 
 });
-
-angular.bootstrap(document.documentElement, ['app']);
