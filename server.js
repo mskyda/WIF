@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(forceSSL);
 app.use(wwwRedirect);
-app.use(express.static('./public'));
+app.use(express.static('./public/' + (process.env.WIF_MODE || 'dev')));
 
 app.get('/api/spots', api.Spots.get);
 app.get('/api/spots/:id', api.Spots.get);

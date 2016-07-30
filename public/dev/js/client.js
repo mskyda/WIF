@@ -1,5 +1,5 @@
 require.config({
-	baseUrl: '/dev/js',
+	baseUrl: 'js/',
 	paths  : {
 		'angular'        : '3p/angular/angular.min',
 		'ngResource'     : '3p/angular-resource/angular-resource.min',
