@@ -53,8 +53,7 @@
 				'translate'      : { deps: ['translateLoader']},
 				'router'         : { deps: ['uiRouter']},
 				'services'       : { deps: ['ngResource']},
-				'controllers'    : { deps: ['ngCookies']},
-				'client'         : { deps: [ 'router', 'controllers', 'services', 'translate' ]}
+				'controllers'    : { deps: ['ngCookies']}
 			},
 
 			removeCombined: true, // remove files which were nested
@@ -62,8 +61,8 @@
 			findNestedDependencies: true, // deep check for deps
 
 			modules: [{
-				name: 'rconfig'
-				/* include: ['3p/requirejs/require'] */
+				name   : 'client',
+				include: ['3p/requirejs/require']
 			}],
 
 			uglify2: {
