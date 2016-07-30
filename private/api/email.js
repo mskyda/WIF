@@ -1,8 +1,8 @@
 var email = require('emailjs').server.connect({
-		user     :     'admin@whereis.fish',
-		password :      process.env.WIF_SECRET,
-		host     :     'smtp.yandex.com',
-		ssl      :      true
+		user    : 'admin@whereis.fish',
+		password: process.env.WIF_SECRET,
+		host    : 'smtp.yandex.com',
+		ssl     : true
 	}),
 	fs = require('fs');
 
@@ -11,7 +11,7 @@ exports.SendEmail = function(lang, ID, address){
 	fs.readFile('./public/i18n/' + (lang || 'en') + '.json', 'utf8', function (err, data) {
 
 		if(err){
-
+			// eslint-disable-next-line no-console
 			console.log('Error: Load i18n');
 
 		} else {
@@ -20,19 +20,19 @@ exports.SendEmail = function(lang, ID, address){
 				template = i18n.greet + '<br><br>' + i18n.topic + '<br><br> <strong>' + ID + '</strong> <br><br>' + i18n.desc + '<br><br>' + i18n.bye;
 
 			email.send({
-				text:    template,
-				from:    i18n.from + ' <admin@whereis.fish>',
-				to:      address,
-				subject: i18n.subject,
-				attachment: [{data: template, alternative:true}]
+				text      : template,
+				from      : i18n.from + ' <admin@whereis.fish>',
+				to        : address,
+				subject   : i18n.subject,
+				attachment: [{ data: template, alternative: true }]
 			}, function(err, msg) {
 
 				if(err){
-
+					// eslint-disable-next-line no-console
 					console.log('Error: Send email');
 
 				} else {
-
+					// eslint-disable-next-line no-console
 					console.log('Success: Send email to "' + msg.header.to + '"');
 
 				}

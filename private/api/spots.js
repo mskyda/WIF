@@ -1,5 +1,5 @@
 var api = require('../routes'),
-	_   = require('underscore');
+	_ = require('underscore');
 
 var spotsApi = {
 
@@ -12,24 +12,41 @@ var spotsApi = {
 		api.SpotModel.findById(spotId, function (err, spot) {
 
 			if(!spot) {
+
 				res.statusCode = 404;
+
 				return res.send({ error: 'Not found' });
+
 			}
 
 			if(spot.owner !== usedId){
+
+				// eslint-disable-next-line no-console
 				console.log('Error: login for ID "' + usedId + '"');
+
 				res.statusCode = 401;
-				return res.send({msg: 'ID is wrong'});
+
+				return res.send({ msg: 'ID is wrong' });
+
 			}
 
 			spot.remove(function (err) {
 				if (!err) {
+
+					// eslint-disable-next-line no-console
 					console.log('Success: spot deleted');
+
 					return res.send({ status: 'OK' });
+
 				} else {
+
 					res.statusCode = 500;
+
+					// eslint-disable-next-line no-console
 					console.log('Error: ', res.statusCode, err.message);
+
 					return res.send({ error: 'Server error' });
+
 				}
 			});
 		});
@@ -41,8 +58,11 @@ var spotsApi = {
 		api.SpotModel.findById(req.params.id, function (err, spot) {
 
 			if(!spot) {
+
 				res.statusCode = 404;
+
 				return res.send({ error: 'Not found' });
+
 			}
 
 			if(req.body.comment){
@@ -53,37 +73,54 @@ var spotsApi = {
 
 				spot.rating = 0;
 
-				spot.comments.map(function(obj){spot.rating += obj.rating});
+				spot.comments.map(function(obj){ spot.rating += obj.rating; });
 
 				spot.rating /= spot.comments.length;
-
 
 			} else {
 
 				if(spot.owner !== req.body.owner){
+
+					// eslint-disable-next-line no-console
 					console.log('Error: login for ID "' + req.body.owner + '"');
+
 					res.statusCode = 401;
-					return res.send({msg: 'ID is wrong'});
+
+					return res.send({ msg: 'ID is wrong' });
+
 				}
 
-				spot.name     = req.body.name;
-				spot.desc     = req.body.desc;
-				spot.coords   = req.body.coords;
+				spot.name = req.body.name;
+				spot.desc = req.body.desc;
+				spot.coords = req.body.coords;
 
 			}
 
 			spot.save(function (err) {
 				if (!err) {
+
+					// eslint-disable-next-line no-console
 					console.log('Success: spot updated');
-					return res.send({ status: 'OK', spot:spot});
+
+					return res.send({ status: 'OK', spot: spot });
+
 				} else {
+
+					// eslint-disable-next-line no-console
 					console.log('Error: ', res.statusCode, err.message);
-					if(err.name == 'ValidationError') {
+
+					if(err.name === 'ValidationError') {
+
 						res.statusCode = 400;
+
 						return res.send({ error: 'Validation error' });
+
 					}
+
 					res.statusCode = 500;
+
 					return res.send({ error: 'Server error' });
+
 				}
 			});
 
@@ -94,24 +131,37 @@ var spotsApi = {
 	post: function(req, res){
 
 		var spot = new api.SpotModel({
-			name    : req.body.name,
-			desc    : req.body.desc,
-			coords  : req.body.coords,
-			owner   : req.body.owner
+			name  : req.body.name,
+			desc  : req.body.desc,
+			coords: req.body.coords,
+			owner : req.body.owner
 		});
 
 		spot.save(function (err) {
 			if (!err) {
+
+				// eslint-disable-next-line no-console
 				console.log('Success: spot created');
-				return res.send({ status: 'OK', spot:spot});
+
+				return res.send({ status: 'OK', spot: spot });
+
 			} else {
-				if(err.name == 'ValidationError') {
+
+				if(err.name === 'ValidationError') {
+
 					res.statusCode = 400;
+
 					res.send({ error: 'Validation error' });
+
 				} else {
+
 					res.statusCode = 500;
+
 					res.send({ error: 'Server error' });
+
 				}
+
+				// eslint-disable-next-line no-console
 				console.log('Error: ', res.statusCode, err.message);
 			}
 		}.call(this));
@@ -141,35 +191,56 @@ var spotsApi = {
 		api.SpotModel.count({}, function(err, total) {
 
 			if (!err) {
+
+				// eslint-disable-next-line no-console
 				console.log('Success: total ammount returned');
-				return res.send({status: 'OK', total: total});
+
+				return res.send({ status: 'OK', total: total });
+
 			} else {
+
 				res.statusCode = 500;
-				console.log('Error: Internal error(%d): %s',res.statusCode,err.message);
+
+				// eslint-disable-next-line no-console
+				console.log('Error: Internal error(%d): %s', res.statusCode, err.message);
+
 				return res.send({ error: 'Server error' });
+
 			}
 
-		})
+		});
 
 	},
 
 	getSpots: function(req, res){
 
 		if(!req.query.lat || !req.query.lng){
+
 			res.statusCode = 400;
-			return res.send({ error: 'Validation error: "lat" and "lng" are required'});
+
+			return res.send({ error: 'Validation error: "lat" and "lng" are required' });
+
 		}
 
 		// todo: filter results by coords
 
 		api.SpotModel.find({}, 'name coords rating', function (err, spots) {
 			if (!err) {
+
+				// eslint-disable-next-line no-console
 				console.log('Success: spots list returned');
+
 				return res.send(spots);
+
 			} else {
+
 				res.statusCode = 500;
+
+				// eslint-disable-next-line no-console
 				console.log('Error: ', res.statusCode, err.message);
+
 				return res.send({ error: 'Server error' });
+
 			}
 		});
 
@@ -180,16 +251,28 @@ var spotsApi = {
 		api.SpotModel.findById(req.params.id, '-owner', function (err, spot) {
 
 			if(!spot) {
+
 				res.statusCode = 404;
+
 				return res.send({ error: 'Not found' });
+
 			}
 			if (!err) {
+
+				// eslint-disable-next-line no-console
 				console.log('Success: spot info returned');
-				return res.send({ status: 'OK', spot: spot});
+
+				return res.send({ status: 'OK', spot: spot });
+
 			} else {
+
 				res.statusCode = 500;
+
+				// eslint-disable-next-line no-console
 				console.log('Error: ', res.statusCode, err.message);
+
 				return res.send({ error: 'Server error' });
+
 			}
 		});
 

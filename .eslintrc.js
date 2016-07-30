@@ -50,9 +50,10 @@ module.exports = {
 		'spaced-comment'           : ['error', 'always', { 'exceptions': ['*'] }] // enforce consistent spacing after the // or /* in a comment
 	},
 	globals: {
-		_              : false,
-		swfobject      : false,
-		productJSON    : false,
-		loadDataFoldout: false // False = Read-only
+		angular        : false,
+		grecaptcha     : false,
+		google         : false,
+		exports        : false,
+		process        : false
 	}
 };

@@ -6,19 +6,20 @@
 
 	gulp.task('default', function (cb) {
 
-		glp.runSequence('lint', /*'test', */'build', cb);
+		glp.runSequence('lint', /* 'test', */'build', cb);
 
 	});
 
 	gulp.task('build', function (cb) {
 
-		//glp.runSequence('js', cb);
+		glp.runSequence('js', cb);
 
 	});
 
 	gulp.task('lint', function () {
 		return gulp.src([
-			 'public/js/**/*.js',
+			'**/*.js',
+			'!node_modules/**/*.js',
 			'!public/js/3p/**/*.js'
 		])
 			.pipe(glp.eslint())
@@ -26,16 +27,18 @@
 			.pipe(glp.eslint.failAfterError());
 	});
 
-	/*gulp.task('js', function (cb) {
+	gulp.task('js', function (cb) {
 
-		glp.requirejs.optimize({
+		/* glp.requirejs.optimize({
 			//preserveLicenseComments: false,
 			appDir: staticPath + '/js',
 			dir: webPath + '/js',
 			mainConfigFile: staticPath + '/js/require-config.js',
 			baseUrl: '../js'
-		}, cb());
+		}, cb()); */
 
-	});*/
+		cb();
+
+	});
 
 }(require('gulp'), require('gulp-load-plugins')));
