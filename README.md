@@ -23,7 +23,7 @@ As a web-developer, I decided to create such a website, using new for me technol
 - ~~Spot-url (shared link to Spot)~~
 - ~~Localisation (EN, DE, RU)~~
 - Page speed insights optimisation
-- Minify source for production
+- ~~Minify source for production~~
 - Photos upload
 - Popup as Angular-Service
 - Decouple of Angular-Controllers
