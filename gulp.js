@@ -6,13 +6,13 @@
 
 	gulp.task('default', function (cb) {
 
-		glp.runSequence('lint', /* 'test', */'build', cb);
+		glp.runSequence('del', 'lint', /* 'test', */'build', cb);
 
 	});
 
-	gulp.task('build', function (cb) {
+	gulp.task('del', function(cb){
 
-		glp.runSequence('js', cb);
+		glp.del(['public/dist']).then(cb());
 
 	});
 
@@ -26,6 +26,22 @@
 			.pipe(glp.eslint())
 			.pipe(glp.eslint.format())
 			.pipe(glp.eslint.failAfterError());
+	});
+
+	gulp.task('build', function (cb) {
+
+		glp.runSequence('html', 'js', cb);
+
+	});
+
+	gulp.task('html', function(cb){
+
+		gulp.src('public/dev/index.html')
+			.pipe(glp.htmlReplace({ clientJS: '<script async src="js/client.js"></script>' }))
+			.pipe(gulp.dest('public/dist/'));
+
+		cb();
+
 	});
 
 	gulp.task('js', function (cb) {

@@ -1,6 +1,6 @@
 {
 	"name": "where_is_fish",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "web-application for fishers",
 	"keywords": [
 		"MongoDB",
@@ -33,11 +33,13 @@
 	"postinstall": "sudo bower install --allow-root"
 	},
 	"devDependencies": {
-	"gulp"             : ">=3.9.x",
-	"gulp-load-plugins": ">=1.2.x",
-	"gulp-eslint"      : ">=3.0.x",
-	"run-sequence"     : ">=1.2.x",
-	"requirejs"        : ">=2.2.x"
+	  "gulp"             : ">=3.9.x",
+	  "gulp-load-plugins": ">=1.2.x",
+	  "gulp-eslint"      : ">=3.0.x",
+	  "gulp-html-replace": ">=1.6.x",
+	  "del"              : ">=2.1.x",
+	  "run-sequence"     : ">=1.2.x",
+	  "requirejs"        : ">=2.2.x"
 	},
 	"bundleDependencies": [],
 	"private": true,
