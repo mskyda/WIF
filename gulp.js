@@ -30,7 +30,7 @@
 
 	gulp.task('build', function (cb) {
 
-		glp.runSequence('html', 'js', cb);
+		glp.runSequence('html', 'tpl', 'css', 'fonts', 'img', 'js', cb);
 
 	});
 
@@ -38,9 +38,53 @@
 
 		gulp.src('public/dev/index.html')
 			.pipe(glp.htmlReplace({ clientJS: '<script async src="js/client.js"></script>' }))
+			.pipe(glp.minifyHtml())
 			.pipe(gulp.dest('public/dist/'));
 
 		cb();
+
+	});
+
+	gulp.task('tpl', function(cb){
+
+		gulp.src([
+			'public/dev/tpl/*.tpl',
+			'public/dev/tpl/*/*.tpl'
+		])
+			.pipe(glp.minifyHtml())
+			.pipe(gulp.dest('public/dist/tpl/'));
+
+		cb();
+
+	});
+
+	gulp.task('css', function(cb){
+
+		gulp.src('public/dev/css/style.css')
+			.pipe(glp.cleanCss())
+			.pipe(gulp.dest('public/dist/css/'));
+
+		cb();
+
+	});
+
+	gulp.task('fonts', function(cb){
+
+		gulp.src('public/dev/fonts/**').pipe(gulp.dest('public/dist/fonts/'));
+
+		cb();
+
+	});
+
+	gulp.task('img', function(cb){
+
+		gulp.src('public/dev/img/**')
+			.pipe(glp.imagemin({
+				progressive: true,
+				svgoPlugins: [{ removeViewBox: false }],
+				use        : [glp.imageminPngquant()]
+			}).on('end', cb))
+			.pipe(gulp.dest('public/dist/img/'));
 
 	});
 

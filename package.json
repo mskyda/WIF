@@ -37,6 +37,10 @@
 	  "gulp-load-plugins": ">=1.2.x",
 	  "gulp-eslint"      : ">=3.0.x",
 	  "gulp-html-replace": ">=1.6.x",
+	  "gulp-clean-css"   : ">=2.0.x",
+	  "gulp-minify-html" : ">=1.0.x",
+	  "gulp-imagemin"    : ">=2.4.x",
+	  "imagemin-pngquant": ">=4.2.x",
 	  "del"              : ">=2.1.x",
 	  "run-sequence"     : ">=1.2.x",
 	  "requirejs"        : ">=2.2.x"
