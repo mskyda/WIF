@@ -38,5 +38,5 @@ fabric.properties
 /node_modules/
 /public/dev/js/3p/
 /public/dist/js/3p/
-/public/dist/
+#/public/dist/
 npm-debug.log
