@@ -105,15 +105,15 @@
 				'translateLoader': '3p/angular-translate-loader-static-files/angular-translate-loader-static-files.min'
 			},
 			shim: {
-				'ngTranslate'    : { deps: ['angular']},
-				'uiRouter'       : { deps: ['angular']},
-				'ngResource'     : { deps: ['angular']},
-				'ngCookies'      : { deps: ['angular']},
-				'translateLoader': { deps: ['ngTranslate']},
-				'translate'      : { deps: ['translateLoader']},
-				'router'         : { deps: ['uiRouter']},
-				'services'       : { deps: ['ngResource']},
-				'controllers'    : { deps: ['ngCookies']}
+				'ngTranslate'            : { deps: ['angular']},
+				'uiRouter'               : { deps: ['angular']},
+				'ngResource'             : { deps: ['angular']},
+				'ngCookies'              : { deps: ['angular']},
+				'translateLoader'        : { deps: ['ngTranslate']},
+				'translate'              : { deps: ['translateLoader']},
+				'router'                 : { deps: ['uiRouter']},
+				'services/services'      : { deps: ['ngResource']},
+				'controllers/controllers': { deps: ['ngCookies']}
 			},
 
 			removeCombined: true, // remove files which were nested
