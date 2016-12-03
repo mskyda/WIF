@@ -3,7 +3,7 @@ Where is Fish
 
 https://whereis.fish
 
-Current version: **1.0.7**
+Current version: **1.0.8**
 
 As a beginner in fishing, I would like to have a website, where I can find information about the best fishing places near me.
 

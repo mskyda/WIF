@@ -102,7 +102,7 @@ angular.module('controllers', ['ngCookies'])
 
 	// // // // // // // // // // // // 
 
-	.controller('ManageSpotsController', function($scope, $state, $rootScope, Spot){
+	.controller('ManageSpotsController', function($scope, $state, $rootScope, $cookies, Spot){
 
 		$rootScope.activeSpot = $rootScope.activeSpot || new Spot();
 
@@ -152,11 +152,33 @@ angular.module('controllers', ['ngCookies'])
 
 				$state.go('search');
 
+			},
+
+			showSupportPopup: function(){
+
+				if(!$cookies.get('wif.noSupportPopup')){
+
+					$scope.$emit('toggle:popup', { tpl: 'tpl/support-us.tpl' });
+
+					var expires = new Date();
+
+					expires.setDate(expires.getDate() + 1);
+
+					$cookies.put('wif.noSupportPopup', true, { expires: expires });
+
+				}
+
 			}
 
 		});
 
-		$scope.spot.step = isEdit ? 1 : 0;
+		if(!isEdit) {
+
+			$scope.spot.step = 0;
+
+			$scope.showSupportPopup();
+
+		} else { $scope.spot.step = 1; }
 
 	})
 
